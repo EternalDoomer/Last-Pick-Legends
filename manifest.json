@@ -1,0 +1,16 @@
+{
+  "short_name": "Last Pick",
+  "name": "Last Pick Legends",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#1a0b2e",
+  "theme_color": "#1a0b2e",
+  "display": "standalone",
+  "orientation": "portrait"
+}

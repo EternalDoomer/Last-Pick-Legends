@@ -1,0 +1,5755 @@
+[
+  {
+    "id": "ti1_navi_1",
+    "nickname": "ArtStyle",
+    "team": "NaVi",
+    "year": 2011,
+    "positions": [
+      1
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti1_navi_2",
+    "nickname": "Dendi",
+    "team": "NaVi",
+    "year": 2011,
+    "positions": [
+      2
+    ],
+    "rating": 97,
+    "price": 194
+  },
+  {
+    "id": "ti1_navi_3",
+    "nickname": "XBOCT",
+    "team": "NaVi",
+    "year": 2011,
+    "positions": [
+      3
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti1_navi_4",
+    "nickname": "Puppey",
+    "team": "NaVi",
+    "year": 2011,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti1_navi_5",
+    "nickname": "LighTofHeaveN",
+    "team": "NaVi",
+    "year": 2011,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti1_ehome_1",
+    "nickname": "820",
+    "team": "EHOME",
+    "year": 2011,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti1_ehome_2",
+    "nickname": "Dai",
+    "team": "EHOME",
+    "year": 2011,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti1_ehome_3",
+    "nickname": "PLT",
+    "team": "EHOME",
+    "year": 2011,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti1_ehome_4",
+    "nickname": "Crystal",
+    "team": "EHOME",
+    "year": 2011,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti1_ehome_5",
+    "nickname": "357",
+    "team": "EHOME",
+    "year": 2011,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti1_scythe_1",
+    "nickname": "hyhy",
+    "team": "Scythe",
+    "year": 2011,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti1_scythe_2",
+    "nickname": "Chawy",
+    "team": "Scythe",
+    "year": 2011,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti1_scythe_3",
+    "nickname": "ToFu",
+    "team": "Scythe",
+    "year": 2011,
+    "positions": [
+      3
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti1_scythe_4",
+    "nickname": "xy-",
+    "team": "Scythe",
+    "year": 2011,
+    "positions": [
+      4
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti1_scythe_5",
+    "nickname": "Roy",
+    "team": "Scythe",
+    "year": 2011,
+    "positions": [
+      5
+    ],
+    "rating": 77,
+    "price": 154
+  },
+  {
+    "id": "ti1_ig_1",
+    "nickname": "Zhou",
+    "team": "iG",
+    "year": 2011,
+    "positions": [
+      1
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti1_ig_2",
+    "nickname": "Ferrari_430",
+    "team": "iG",
+    "year": 2011,
+    "positions": [
+      2
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti1_ig_3",
+    "nickname": "xiao8",
+    "team": "iG",
+    "year": 2011,
+    "positions": [
+      3
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti1_ig_4",
+    "nickname": "Sansheng",
+    "team": "iG",
+    "year": 2011,
+    "positions": [
+      4
+    ],
+    "rating": 76,
+    "price": 152
+  },
+  {
+    "id": "ti1_ig_5",
+    "nickname": "DDC",
+    "team": "iG",
+    "year": 2011,
+    "positions": [
+      5
+    ],
+    "rating": 75,
+    "price": 150
+  },
+  {
+    "id": "ti1_mym_1",
+    "nickname": "Maelk",
+    "team": "MYM",
+    "year": 2011,
+    "positions": [
+      3,
+      4,
+      5
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti1_mym_2",
+    "nickname": "MiSeRy",
+    "team": "MYM",
+    "year": 2011,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti1_mym_3",
+    "nickname": "MaNia",
+    "team": "MYM",
+    "year": 2011,
+    "positions": [
+      2,
+      3
+    ],
+    "rating": 75,
+    "price": 150
+  },
+  {
+    "id": "ti1_mym_4",
+    "nickname": "PlaymatE",
+    "team": "MYM",
+    "year": 2011,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 74,
+    "price": 148
+  },
+  {
+    "id": "ti1_mym_5",
+    "nickname": "DeMoN",
+    "team": "MYM",
+    "year": 2011,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 77,
+    "price": 154
+  },
+  {
+    "id": "ti1_nirvana_1",
+    "nickname": "Pajkatt",
+    "team": "Nirvana",
+    "year": 2011,
+    "positions": [
+      1
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti1_nirvana_2",
+    "nickname": "ComeWithMe",
+    "team": "Nirvana",
+    "year": 2011,
+    "positions": [
+      2
+    ],
+    "rating": 77,
+    "price": 154
+  },
+  {
+    "id": "ti1_nirvana_3",
+    "nickname": "Lacoste",
+    "team": "Nirvana",
+    "year": 2011,
+    "positions": [
+      3
+    ],
+    "rating": 75,
+    "price": 150
+  },
+  {
+    "id": "ti1_nirvana_4",
+    "nickname": "1437",
+    "team": "Nirvana",
+    "year": 2011,
+    "positions": [
+      4
+    ],
+    "rating": 73,
+    "price": 146
+  },
+  {
+    "id": "ti1_nirvana_5",
+    "nickname": "Fear",
+    "team": "Nirvana",
+    "year": 2011,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti1_virus_1",
+    "nickname": "Net",
+    "team": "Virus",
+    "year": 2011,
+    "positions": [
+      1
+    ],
+    "rating": 75,
+    "price": 150
+  },
+  {
+    "id": "ti1_virus_2",
+    "nickname": "Meaw",
+    "team": "Virus",
+    "year": 2011,
+    "positions": [
+      2
+    ],
+    "rating": 72,
+    "price": 144
+  },
+  {
+    "id": "ti1_virus_3",
+    "nickname": "Lakelz",
+    "team": "Virus",
+    "year": 2011,
+    "positions": [
+      3
+    ],
+    "rating": 70,
+    "price": 140
+  },
+  {
+    "id": "ti1_virus_4",
+    "nickname": "Mania",
+    "team": "Virus",
+    "year": 2011,
+    "positions": [
+      4
+    ],
+    "rating": 71,
+    "price": 142
+  },
+  {
+    "id": "ti1_virus_5",
+    "nickname": "KwoM",
+    "team": "Virus",
+    "year": 2011,
+    "positions": [
+      5
+    ],
+    "rating": 70,
+    "price": 140
+  },
+  {
+    "id": "ti1_zenith_1",
+    "nickname": "Yamateh",
+    "team": "Zenith",
+    "year": 2011,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti1_zenith_2",
+    "nickname": "iceiceice",
+    "team": "Zenith",
+    "year": 2011,
+    "positions": [
+      2,
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti1_zenith_3",
+    "nickname": "xFreedom",
+    "team": "Zenith",
+    "year": 2011,
+    "positions": [
+      3,
+      4
+    ],
+    "rating": 75,
+    "price": 150
+  },
+  {
+    "id": "ti1_zenith_4",
+    "nickname": "xy-",
+    "team": "Zenith",
+    "year": 2011,
+    "positions": [
+      4
+    ],
+    "rating": 73,
+    "price": 146
+  },
+  {
+    "id": "ti1_zenith_5",
+    "nickname": "Dread",
+    "team": "Zenith",
+    "year": 2011,
+    "positions": [
+      5
+    ],
+    "rating": 72,
+    "price": 144
+  },
+  {
+    "id": "ti2_ig_1",
+    "nickname": "Zhou",
+    "team": "iG",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti2_ig_2",
+    "nickname": "Ferrari_430",
+    "team": "iG",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 96,
+    "price": 192
+  },
+  {
+    "id": "ti2_ig_3",
+    "nickname": "YYF",
+    "team": "iG",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti2_ig_4",
+    "nickname": "ChuaN",
+    "team": "iG",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti2_ig_5",
+    "nickname": "Faith",
+    "team": "iG",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti2_navi_1",
+    "nickname": "XBOCT",
+    "team": "NaVi",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti2_navi_2",
+    "nickname": "Dendi",
+    "team": "NaVi",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti2_navi_3",
+    "nickname": "ARS-ART",
+    "team": "NaVi",
+    "year": 2012,
+    "positions": [
+      3,
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti2_navi_4",
+    "nickname": "Puppey",
+    "team": "NaVi",
+    "year": 2012,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti2_navi_5",
+    "nickname": "LighTofHeaveN",
+    "team": "NaVi",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti2_lgd_1",
+    "nickname": "Sylar",
+    "team": "LGD",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti2_lgd_2",
+    "nickname": "Yao",
+    "team": "LGD",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti2_lgd_3",
+    "nickname": "xiao8",
+    "team": "LGD",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti2_lgd_4",
+    "nickname": "DD",
+    "team": "LGD",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti2_lgd_5",
+    "nickname": "ddc",
+    "team": "LGD",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti2_dk_1",
+    "nickname": "Burning",
+    "team": "DK",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti2_dk_2",
+    "nickname": "Super",
+    "team": "DK",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti2_dk_3",
+    "nickname": "ROTK",
+    "team": "DK",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti2_dk_4",
+    "nickname": "LongDD",
+    "team": "DK",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti2_dk_5",
+    "nickname": "Zippo",
+    "team": "DK",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti2_orange_1",
+    "nickname": "Mushi",
+    "team": "Orange",
+    "year": 2012,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti2_orange_2",
+    "nickname": "Yamateh",
+    "team": "Orange",
+    "year": 2012,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti2_orange_3",
+    "nickname": "Xtinct",
+    "team": "Orange",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti2_orange_4",
+    "nickname": "Net",
+    "team": "Orange",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti2_orange_5",
+    "nickname": "Winter",
+    "team": "Orange",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti2_tongfu_1",
+    "nickname": "Hao",
+    "team": "TongFu",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti2_tongfu_2",
+    "nickname": "Mu",
+    "team": "TongFu",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti2_tongfu_3",
+    "nickname": "KingJ",
+    "team": "TongFu",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti2_tongfu_4",
+    "nickname": "Awoke",
+    "team": "TongFu",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti2_tongfu_5",
+    "nickname": "Sansheng",
+    "team": "TongFu",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti2_ehome_1",
+    "nickname": "LaNm",
+    "team": "EHOME",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti2_ehome_2",
+    "nickname": "QQQ",
+    "team": "EHOME",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti2_ehome_3",
+    "nickname": "xiao8",
+    "team": "EHOME",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti2_ehome_4",
+    "nickname": "DDC",
+    "team": "EHOME",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti2_ehome_5",
+    "nickname": "357",
+    "team": "EHOME",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti2_empire_1",
+    "nickname": "Silent",
+    "team": "Empire",
+    "year": 2012,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti2_empire_2",
+    "nickname": "Scandal",
+    "team": "Empire",
+    "year": 2012,
+    "positions": [
+      2
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti2_empire_3",
+    "nickname": "Goblak",
+    "team": "Empire",
+    "year": 2012,
+    "positions": [
+      3
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti2_empire_4",
+    "nickname": "Resolut1on",
+    "team": "Empire",
+    "year": 2012,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti2_empire_5",
+    "nickname": "Funn1k",
+    "team": "Empire",
+    "year": 2012,
+    "positions": [
+      5
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti3_alliance_1",
+    "nickname": "Loda",
+    "team": "Alliance",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti3_alliance_2",
+    "nickname": "s4",
+    "team": "Alliance",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 96,
+    "price": 192
+  },
+  {
+    "id": "ti3_alliance_3",
+    "nickname": "AdmiralBulldog",
+    "team": "Alliance",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti3_alliance_4",
+    "nickname": "EGM",
+    "team": "Alliance",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti3_alliance_5",
+    "nickname": "Akke",
+    "team": "Alliance",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti3_navi_1",
+    "nickname": "XBOCT",
+    "team": "NaVi",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti3_navi_2",
+    "nickname": "Dendi",
+    "team": "NaVi",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti3_navi_3",
+    "nickname": "Funn1k",
+    "team": "NaVi",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti3_navi_4",
+    "nickname": "Puppey",
+    "team": "NaVi",
+    "year": 2013,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti3_navi_5",
+    "nickname": "KuroKy",
+    "team": "NaVi",
+    "year": 2013,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti3_orange_1",
+    "nickname": "Mushi",
+    "team": "Orange",
+    "year": 2013,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti3_orange_2",
+    "nickname": "Net",
+    "team": "Orange",
+    "year": 2013,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti3_orange_3",
+    "nickname": "Ohaiyo",
+    "team": "Orange",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti3_orange_4",
+    "nickname": "Xtinct",
+    "team": "Orange",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti3_orange_5",
+    "nickname": "kyxy",
+    "team": "Orange",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti3_tongfu_1",
+    "nickname": "Hao",
+    "team": "TongFu",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti3_tongfu_2",
+    "nickname": "Mu",
+    "team": "TongFu",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti3_tongfu_3",
+    "nickname": "KingJ",
+    "team": "TongFu",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti3_tongfu_4",
+    "nickname": "Banana",
+    "team": "TongFu",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti3_tongfu_5",
+    "nickname": "Sansheng",
+    "team": "TongFu",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti3_ig_1",
+    "nickname": "Zhou",
+    "team": "iG",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti3_ig_2",
+    "nickname": "Ferrari_430",
+    "team": "iG",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti3_ig_3",
+    "nickname": "YYF",
+    "team": "iG",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti3_ig_4",
+    "nickname": "ChuaN",
+    "team": "iG",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti3_ig_5",
+    "nickname": "Faith",
+    "team": "iG",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti3_dk_1",
+    "nickname": "Burning",
+    "team": "DK",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti3_dk_2",
+    "nickname": "Super",
+    "team": "DK",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti3_dk_3",
+    "nickname": "ROTK",
+    "team": "DK",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti3_dk_4",
+    "nickname": "QQQ",
+    "team": "DK",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti3_dk_5",
+    "nickname": "MMY",
+    "team": "DK",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti3_fnatic_1",
+    "nickname": "Era",
+    "team": "Fnatic",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti3_fnatic_2",
+    "nickname": "H4nn1",
+    "team": "Fnatic",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti3_fnatic_3",
+    "nickname": "Trixi",
+    "team": "Fnatic",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti3_fnatic_4",
+    "nickname": "N0tail",
+    "team": "Fnatic",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti3_fnatic_5",
+    "nickname": "Fly",
+    "team": "Fnatic",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti3_liquid_1",
+    "nickname": "TC",
+    "team": "Liquid",
+    "year": 2013,
+    "positions": [
+      1
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti3_liquid_2",
+    "nickname": "Korok",
+    "team": "Liquid",
+    "year": 2013,
+    "positions": [
+      2
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti3_liquid_3",
+    "nickname": "ixmike88",
+    "team": "Liquid",
+    "year": 2013,
+    "positions": [
+      3
+    ],
+    "rating": 76,
+    "price": 152
+  },
+  {
+    "id": "ti3_liquid_4",
+    "nickname": "FLUFFNSTUFF",
+    "team": "Liquid",
+    "year": 2013,
+    "positions": [
+      4
+    ],
+    "rating": 77,
+    "price": 154
+  },
+  {
+    "id": "ti3_liquid_5",
+    "nickname": "Bulba",
+    "team": "Liquid",
+    "year": 2013,
+    "positions": [
+      5
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti4_newbee_1",
+    "nickname": "Hao",
+    "team": "Newbee",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti4_newbee_2",
+    "nickname": "Mu",
+    "team": "Newbee",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti4_newbee_3",
+    "nickname": "xiao8",
+    "team": "Newbee",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti4_newbee_4",
+    "nickname": "Banana",
+    "team": "Newbee",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti4_newbee_5",
+    "nickname": "Sansheng",
+    "team": "Newbee",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti4_vg_1",
+    "nickname": "Sylar",
+    "team": "VG",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti4_vg_2",
+    "nickname": "Super",
+    "team": "VG",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti4_vg_3",
+    "nickname": "rOtk",
+    "team": "VG",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti4_vg_4",
+    "nickname": "fy",
+    "team": "VG",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti4_vg_5",
+    "nickname": "Fenrir",
+    "team": "VG",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti4_eg_1",
+    "nickname": "Mason",
+    "team": "EG",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti4_eg_2",
+    "nickname": "Arteezy",
+    "team": "EG",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti4_eg_3",
+    "nickname": "Universe",
+    "team": "EG",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti4_eg_4",
+    "nickname": "ppd",
+    "team": "EG",
+    "year": 2014,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti4_eg_5",
+    "nickname": "zai",
+    "team": "EG",
+    "year": 2014,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti4_ig_1",
+    "nickname": "Luo",
+    "team": "iG",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti4_ig_2",
+    "nickname": "Ferrari_430",
+    "team": "iG",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti4_ig_3",
+    "nickname": "YYF",
+    "team": "iG",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti4_ig_4",
+    "nickname": "ChuaN",
+    "team": "iG",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti4_ig_5",
+    "nickname": "Faith",
+    "team": "iG",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti4_lgd_1",
+    "nickname": "Rabbit",
+    "team": "LGD",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti4_lgd_2",
+    "nickname": "lin",
+    "team": "LGD",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti4_lgd_3",
+    "nickname": "Yao",
+    "team": "LGD",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti4_lgd_4",
+    "nickname": "DD",
+    "team": "LGD",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti4_lgd_5",
+    "nickname": "ddc",
+    "team": "LGD",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti4_cloud9_1",
+    "nickname": "EternalEnvy",
+    "team": "Cloud9",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti4_cloud9_2",
+    "nickname": "s4",
+    "team": "Cloud9",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti4_cloud9_3",
+    "nickname": "SingSing",
+    "team": "Cloud9",
+    "year": 2014,
+    "positions": [
+      2,
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti4_cloud9_4",
+    "nickname": "Aui_2000",
+    "team": "Cloud9",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti4_cloud9_5",
+    "nickname": "pieliedie",
+    "team": "Cloud9",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti4_dk_1",
+    "nickname": "Burning",
+    "team": "DK",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti4_dk_2",
+    "nickname": "Mushi",
+    "team": "DK",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti4_dk_3",
+    "nickname": "iceiceice",
+    "team": "DK",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti4_dk_4",
+    "nickname": "LaNm",
+    "team": "DK",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti4_dk_5",
+    "nickname": "MMY",
+    "team": "DK",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti4_navi_1",
+    "nickname": "XBOCT",
+    "team": "NaVi",
+    "year": 2014,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti4_navi_2",
+    "nickname": "Dendi",
+    "team": "NaVi",
+    "year": 2014,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti4_navi_3",
+    "nickname": "Funn1k",
+    "team": "NaVi",
+    "year": 2014,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti4_navi_4",
+    "nickname": "KuroKy",
+    "team": "NaVi",
+    "year": 2014,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti4_navi_5",
+    "nickname": "Puppey",
+    "team": "NaVi",
+    "year": 2014,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_eg_1",
+    "nickname": "Fear",
+    "team": "EG",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti5_eg_2",
+    "nickname": "SumaiL",
+    "team": "EG",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 96,
+    "price": 192
+  },
+  {
+    "id": "ti5_eg_3",
+    "nickname": "UNiVeRsE",
+    "team": "EG",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti5_eg_4",
+    "nickname": "Aui_2000",
+    "team": "EG",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti5_eg_5",
+    "nickname": "ppd",
+    "team": "EG",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti5_cdec_1",
+    "nickname": "Agressif",
+    "team": "CDEC",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti5_cdec_2",
+    "nickname": "Shiki",
+    "team": "CDEC",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti5_cdec_3",
+    "nickname": "Xz",
+    "team": "CDEC",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_cdec_4",
+    "nickname": "Garder",
+    "team": "CDEC",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti5_cdec_5",
+    "nickname": "Q",
+    "team": "CDEC",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti5_lgd_1",
+    "nickname": "Sylar",
+    "team": "LGD",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti5_lgd_2",
+    "nickname": "Maybe",
+    "team": "LGD",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti5_lgd_3",
+    "nickname": "Yao",
+    "team": "LGD",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti5_lgd_4",
+    "nickname": "ddc",
+    "team": "LGD",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_lgd_5",
+    "nickname": "MMY",
+    "team": "LGD",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti5_vg_1",
+    "nickname": "Hao",
+    "team": "VG",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti5_vg_2",
+    "nickname": "Super",
+    "team": "VG",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_vg_3",
+    "nickname": "iceiceice",
+    "team": "VG",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti5_vg_4",
+    "nickname": "fy",
+    "team": "VG",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti5_vg_5",
+    "nickname": "Fenrir",
+    "team": "VG",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti5_vp_1",
+    "nickname": "Illidan",
+    "team": "VP",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti5_vp_2",
+    "nickname": "God",
+    "team": "VP",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti5_vp_3",
+    "nickname": "DKPhobos",
+    "team": "VP",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti5_vp_4",
+    "nickname": "Lil",
+    "team": "VP",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_vp_5",
+    "nickname": "fng",
+    "team": "VP",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti5_ehome_1",
+    "nickname": "LaNm",
+    "team": "EHOME",
+    "year": 2015,
+    "positions": [
+      1,
+      4,
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti5_ehome_2",
+    "nickname": "Cty",
+    "team": "EHOME",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_ehome_3",
+    "nickname": "old chicken",
+    "team": "EHOME",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti5_ehome_4",
+    "nickname": "ROTK",
+    "team": "EHOME",
+    "year": 2015,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti5_ehome_5",
+    "nickname": "ddc",
+    "team": "EHOME",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti5_secret_1",
+    "nickname": "Arteezy",
+    "team": "Secret",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti5_secret_2",
+    "nickname": "s4",
+    "team": "Secret",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti5_secret_3",
+    "nickname": "Zai",
+    "team": "Secret",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti5_secret_4",
+    "nickname": "KuroKy",
+    "team": "Secret",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti5_secret_5",
+    "nickname": "Puppey",
+    "team": "Secret",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti5_ig_1",
+    "nickname": "Burning",
+    "team": "iG",
+    "year": 2015,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_ig_2",
+    "nickname": "Ferrari_430",
+    "team": "iG",
+    "year": 2015,
+    "positions": [
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti5_ig_3",
+    "nickname": "Xiao8",
+    "team": "iG",
+    "year": 2015,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti5_ig_4",
+    "nickname": "ChuaN",
+    "team": "iG",
+    "year": 2015,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti5_ig_5",
+    "nickname": "Faith",
+    "team": "iG",
+    "year": 2015,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti6_wings_1",
+    "nickname": "Shadow",
+    "team": "Wings",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti6_wings_2",
+    "nickname": "bLink",
+    "team": "Wings",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti6_wings_3",
+    "nickname": "Faith_bian",
+    "team": "Wings",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti6_wings_4",
+    "nickname": "y`",
+    "team": "Wings",
+    "year": 2016,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti6_wings_5",
+    "nickname": "iceice",
+    "team": "Wings",
+    "year": 2016,
+    "positions": [
+      4,
+      5
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti6_dc_1",
+    "nickname": "Resolut1on",
+    "team": "DC",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti6_dc_2",
+    "nickname": "w33",
+    "team": "DC",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti6_dc_3",
+    "nickname": "Moo",
+    "team": "DC",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti6_dc_4",
+    "nickname": "Saksa",
+    "team": "DC",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti6_dc_5",
+    "nickname": "MiSeRy",
+    "team": "DC",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti6_eg_1",
+    "nickname": "Fear",
+    "team": "EG",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti6_eg_2",
+    "nickname": "SumaiL",
+    "team": "EG",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti6_eg_3",
+    "nickname": "UNiVeRsE",
+    "team": "EG",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti6_eg_4",
+    "nickname": "zai",
+    "team": "EG",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti6_eg_5",
+    "nickname": "ppd",
+    "team": "EG",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti6_liquid_1",
+    "nickname": "MATUMBAMAN",
+    "team": "Liquid",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti6_liquid_2",
+    "nickname": "FATA-",
+    "team": "Liquid",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti6_liquid_3",
+    "nickname": "MinD_ContRoL",
+    "team": "Liquid",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti6_liquid_4",
+    "nickname": "JerAx",
+    "team": "Liquid",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti6_liquid_5",
+    "nickname": "KuroKy",
+    "team": "Liquid",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti6_fnatic_1",
+    "nickname": "MidOne",
+    "team": "Fnatic",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti6_fnatic_2",
+    "nickname": "DJ",
+    "team": "Fnatic",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti6_fnatic_3",
+    "nickname": "Ohaiyo",
+    "team": "Fnatic",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti6_fnatic_4",
+    "nickname": "Febby",
+    "team": "Fnatic",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti6_fnatic_5",
+    "nickname": "Mushi",
+    "team": "Fnatic",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti6_mvp_1",
+    "nickname": "QO",
+    "team": "MVP",
+    "year": 2016,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti6_mvp_2",
+    "nickname": "Febby",
+    "team": "MVP",
+    "year": 2016,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti6_mvp_3",
+    "nickname": "Forev",
+    "team": "MVP",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti6_mvp_4",
+    "nickname": "DuBu",
+    "team": "MVP",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti6_mvp_5",
+    "nickname": "MP",
+    "team": "MVP",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti6_ehome_1",
+    "nickname": "old chicken",
+    "team": "EHOME",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti6_ehome_2",
+    "nickname": "old eLeVeN",
+    "team": "EHOME",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti6_ehome_3",
+    "nickname": "iceiceice",
+    "team": "EHOME",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti6_ehome_4",
+    "nickname": "LaNm",
+    "team": "EHOME",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti6_ehome_5",
+    "nickname": "Fenrir",
+    "team": "EHOME",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti6_tnc_1",
+    "nickname": "Raven",
+    "team": "TNC",
+    "year": 2016,
+    "positions": [
+      1
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti6_tnc_2",
+    "nickname": "Kuku",
+    "team": "TNC",
+    "year": 2016,
+    "positions": [
+      2
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti6_tnc_3",
+    "nickname": "Sam_H",
+    "team": "TNC",
+    "year": 2016,
+    "positions": [
+      3
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti6_tnc_4",
+    "nickname": "Demon",
+    "team": "TNC",
+    "year": 2016,
+    "positions": [
+      4
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti6_tnc_5",
+    "nickname": "Eyyou",
+    "team": "TNC",
+    "year": 2016,
+    "positions": [
+      5
+    ],
+    "rating": 77,
+    "price": 154
+  },
+  {
+    "id": "ti7_liquid_1",
+    "nickname": "MATUMBAMAN",
+    "team": "Liquid",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti7_liquid_2",
+    "nickname": "Miracle-",
+    "team": "Liquid",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 97,
+    "price": 194
+  },
+  {
+    "id": "ti7_liquid_3",
+    "nickname": "MinD_ContRoL",
+    "team": "Liquid",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti7_liquid_4",
+    "nickname": "GH",
+    "team": "Liquid",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti7_liquid_5",
+    "nickname": "KuroKy",
+    "team": "Liquid",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti7_newbee_1",
+    "nickname": "uuu9",
+    "team": "Newbee",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti7_newbee_2",
+    "nickname": "Sccc",
+    "team": "Newbee",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti7_newbee_3",
+    "nickname": "Kpii",
+    "team": "Newbee",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti7_newbee_4",
+    "nickname": "Kaka",
+    "team": "Newbee",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti7_newbee_5",
+    "nickname": "Faith",
+    "team": "Newbee",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti7_lfy_1",
+    "nickname": "Monet",
+    "team": "LFY",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti7_lfy_2",
+    "nickname": "Super",
+    "team": "LFY",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti7_lfy_3",
+    "nickname": "Inflame",
+    "team": "LFY",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti7_lfy_4",
+    "nickname": "Ah fu",
+    "team": "LFY",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti7_lfy_5",
+    "nickname": "ddc",
+    "team": "LFY",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti7_vp_1",
+    "nickname": "RAMZES666",
+    "team": "VP",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti7_vp_2",
+    "nickname": "No[o]ne-",
+    "team": "VP",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti7_vp_3",
+    "nickname": "9pasha",
+    "team": "VP",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti7_vp_4",
+    "nickname": "Lil",
+    "team": "VP",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti7_vp_5",
+    "nickname": "Solo",
+    "team": "VP",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti7_lgd_1",
+    "nickname": "Ame",
+    "team": "LGD",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti7_lgd_2",
+    "nickname": "Maybe",
+    "team": "LGD",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti7_lgd_3",
+    "nickname": "Old eLeVeN",
+    "team": "LGD",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti7_lgd_4",
+    "nickname": "Yao",
+    "team": "LGD",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti7_lgd_5",
+    "nickname": "Victoria",
+    "team": "LGD",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti7_ig_1",
+    "nickname": "Burning",
+    "team": "iG",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti7_ig_2",
+    "nickname": "Op",
+    "team": "iG",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti7_ig_3",
+    "nickname": "Xxs",
+    "team": "iG",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti7_ig_4",
+    "nickname": "Boboka",
+    "team": "iG",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti7_ig_5",
+    "nickname": "Q",
+    "team": "iG",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti7_secret_1",
+    "nickname": "MP",
+    "team": "Secret",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti7_secret_2",
+    "nickname": "MidOne",
+    "team": "Secret",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti7_secret_3",
+    "nickname": "KheZu",
+    "team": "Secret",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti7_secret_4",
+    "nickname": "YapzOr",
+    "team": "Secret",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti7_secret_5",
+    "nickname": "Puppey",
+    "team": "Secret",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti7_empire_1",
+    "nickname": "Silent",
+    "team": "Empire",
+    "year": 2017,
+    "positions": [
+      1
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti7_empire_2",
+    "nickname": "fn",
+    "team": "Empire",
+    "year": 2017,
+    "positions": [
+      2
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti7_empire_3",
+    "nickname": "RodjER",
+    "team": "Empire",
+    "year": 2017,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti7_empire_4",
+    "nickname": "G",
+    "team": "Empire",
+    "year": 2017,
+    "positions": [
+      4
+    ],
+    "rating": 78,
+    "price": 156
+  },
+  {
+    "id": "ti7_empire_5",
+    "nickname": "Miposhka",
+    "team": "Empire",
+    "year": 2017,
+    "positions": [
+      5
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti8_og_1",
+    "nickname": "ana",
+    "team": "OG",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti8_og_2",
+    "nickname": "Topson",
+    "team": "OG",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti8_og_3",
+    "nickname": "Ceb",
+    "team": "OG",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti8_og_4",
+    "nickname": "JerAx",
+    "team": "OG",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti8_og_5",
+    "nickname": "N0tail",
+    "team": "OG",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti8_lgd_1",
+    "nickname": "Ame",
+    "team": "LGD",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti8_lgd_2",
+    "nickname": "Somnus",
+    "team": "LGD",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti8_lgd_3",
+    "nickname": "Chalice",
+    "team": "LGD",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti8_lgd_4",
+    "nickname": "fy",
+    "team": "LGD",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti8_lgd_5",
+    "nickname": "xNova",
+    "team": "LGD",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti8_eg_1",
+    "nickname": "Arteezy",
+    "team": "EG",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti8_eg_2",
+    "nickname": "SumaiL",
+    "team": "EG",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti8_eg_3",
+    "nickname": "s4",
+    "team": "EG",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti8_eg_4",
+    "nickname": "Cr1t-",
+    "team": "EG",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti8_eg_5",
+    "nickname": "Fly",
+    "team": "EG",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti8_liquid_1",
+    "nickname": "Miracle-",
+    "team": "Liquid",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti8_liquid_2",
+    "nickname": "MATUMBAMAN",
+    "team": "Liquid",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti8_liquid_3",
+    "nickname": "MinD_ContRoL",
+    "team": "Liquid",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti8_liquid_4",
+    "nickname": "GH",
+    "team": "Liquid",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti8_liquid_5",
+    "nickname": "KuroKy",
+    "team": "Liquid",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti8_secret_1",
+    "nickname": "Ace",
+    "team": "Secret",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti8_secret_2",
+    "nickname": "MidOne",
+    "team": "Secret",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti8_secret_3",
+    "nickname": "Fata",
+    "team": "Secret",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti8_secret_4",
+    "nickname": "YapzOr",
+    "team": "Secret",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti8_secret_5",
+    "nickname": "Puppey",
+    "team": "Secret",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti8_vgjs_1",
+    "nickname": "YawaR",
+    "team": "VGJ.Storm",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti8_vgjs_2",
+    "nickname": "CCnC",
+    "team": "VGJ.Storm",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti8_vgjs_3",
+    "nickname": "Sneyking",
+    "team": "VGJ.Storm",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti8_vgjs_4",
+    "nickname": "MSS",
+    "team": "VGJ.Storm",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti8_vgjs_5",
+    "nickname": "SVG",
+    "team": "VGJ.Storm",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti8_vp_1",
+    "nickname": "RAMZES666",
+    "team": "VP",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti8_vp_2",
+    "nickname": "No[o]ne-",
+    "team": "VP",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti8_vp_3",
+    "nickname": "9pasha",
+    "team": "VP",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti8_vp_4",
+    "nickname": "RodjER",
+    "team": "VP",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti8_vp_5",
+    "nickname": "Solo",
+    "team": "VP",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti8_optic_1",
+    "nickname": "Pajkatt",
+    "team": "Optic",
+    "year": 2018,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti8_optic_2",
+    "nickname": "CCnC",
+    "team": "Optic",
+    "year": 2018,
+    "positions": [
+      2
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti8_optic_3",
+    "nickname": "33",
+    "team": "Optic",
+    "year": 2018,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti8_optic_4",
+    "nickname": "zai",
+    "team": "Optic",
+    "year": 2018,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti8_optic_5",
+    "nickname": "ppd",
+    "team": "Optic",
+    "year": 2018,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti9_og_1",
+    "nickname": "ana",
+    "team": "OG",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti9_og_2",
+    "nickname": "Topson",
+    "team": "OG",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti9_og_3",
+    "nickname": "Ceb",
+    "team": "OG",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti9_og_4",
+    "nickname": "JerAx",
+    "team": "OG",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti9_og_5",
+    "nickname": "N0tail",
+    "team": "OG",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti9_liquid_1",
+    "nickname": "Miracle-",
+    "team": "Liquid",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti9_liquid_2",
+    "nickname": "w33",
+    "team": "Liquid",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti9_liquid_3",
+    "nickname": "MinD_ContRoL",
+    "team": "Liquid",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti9_liquid_4",
+    "nickname": "GH",
+    "team": "Liquid",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti9_liquid_5",
+    "nickname": "KuroKy",
+    "team": "Liquid",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti9_lgd_1",
+    "nickname": "Ame",
+    "team": "LGD",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti9_lgd_2",
+    "nickname": "Maybe",
+    "team": "LGD",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti9_lgd_3",
+    "nickname": "Chalice",
+    "team": "LGD",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti9_lgd_4",
+    "nickname": "fy",
+    "team": "LGD",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti9_lgd_5",
+    "nickname": "xNova",
+    "team": "LGD",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti9_secret_1",
+    "nickname": "Nisha",
+    "team": "Secret",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti9_secret_2",
+    "nickname": "MidOne",
+    "team": "Secret",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti9_secret_3",
+    "nickname": "Zai",
+    "team": "Secret",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti9_secret_4",
+    "nickname": "YapzOr",
+    "team": "Secret",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti9_secret_5",
+    "nickname": "Puppey",
+    "team": "Secret",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti9_vg_1",
+    "nickname": "Paparazi",
+    "team": "VG",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti9_vg_2",
+    "nickname": "Ori",
+    "team": "VG",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti9_vg_3",
+    "nickname": "Yang",
+    "team": "VG",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti9_vg_4",
+    "nickname": "Fade",
+    "team": "VG",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti9_vg_5",
+    "nickname": "Dy",
+    "team": "VG",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti9_eg_1",
+    "nickname": "Arteezy",
+    "team": "EG",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti9_eg_2",
+    "nickname": "SumaiL",
+    "team": "EG",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti9_eg_3",
+    "nickname": "s4",
+    "team": "EG",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti9_eg_4",
+    "nickname": "Cr1t-",
+    "team": "EG",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti9_eg_5",
+    "nickname": "Fly",
+    "team": "EG",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti9_vp_1",
+    "nickname": "RAMZES666",
+    "team": "VP",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti9_vp_2",
+    "nickname": "No[o]ne-",
+    "team": "VP",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti9_vp_3",
+    "nickname": "9pasha",
+    "team": "VP",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti9_vp_4",
+    "nickname": "RodjER",
+    "team": "VP",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti9_vp_5",
+    "nickname": "Solo",
+    "team": "VP",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti9_mineski_1",
+    "nickname": "Ahjit",
+    "team": "Mineski",
+    "year": 2019,
+    "positions": [
+      1
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti9_mineski_2",
+    "nickname": "Moon",
+    "team": "Mineski",
+    "year": 2019,
+    "positions": [
+      2
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti9_mineski_3",
+    "nickname": "Kpii",
+    "team": "Mineski",
+    "year": 2019,
+    "positions": [
+      3
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti9_mineski_4",
+    "nickname": "Bimbo",
+    "team": "Mineski",
+    "year": 2019,
+    "positions": [
+      4
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti9_mineski_5",
+    "nickname": "ninjaboogie",
+    "team": "Mineski",
+    "year": 2019,
+    "positions": [
+      5
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti10_spirit_1",
+    "nickname": "Yatoro",
+    "team": "Spirit",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 97,
+    "price": 194
+  },
+  {
+    "id": "ti10_spirit_2",
+    "nickname": "TORONTOTOKYO",
+    "team": "Spirit",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti10_spirit_3",
+    "nickname": "Collapse",
+    "team": "Spirit",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 96,
+    "price": 192
+  },
+  {
+    "id": "ti10_spirit_4",
+    "nickname": "Mira",
+    "team": "Spirit",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti10_spirit_5",
+    "nickname": "Miposhka",
+    "team": "Spirit",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti10_lgd_1",
+    "nickname": "Ame",
+    "team": "LGD",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti10_lgd_2",
+    "nickname": "NothingToSay",
+    "team": "LGD",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti10_lgd_3",
+    "nickname": "Faith_bian",
+    "team": "LGD",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti10_lgd_4",
+    "nickname": "XinQ",
+    "team": "LGD",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti10_lgd_5",
+    "nickname": "y`",
+    "team": "LGD",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti10_secret_1",
+    "nickname": "MATUMBAMAN",
+    "team": "Secret",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti10_secret_2",
+    "nickname": "Nisha",
+    "team": "Secret",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti10_secret_3",
+    "nickname": "zai",
+    "team": "Secret",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti10_secret_4",
+    "nickname": "YapzOr",
+    "team": "Secret",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti10_secret_5",
+    "nickname": "Puppey",
+    "team": "Secret",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti10_ig_1",
+    "nickname": "flyfly",
+    "team": "iG",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti10_ig_2",
+    "nickname": "Emo",
+    "team": "iG",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti10_ig_3",
+    "nickname": "JT-",
+    "team": "iG",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti10_ig_4",
+    "nickname": "Kaka",
+    "team": "iG",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti10_ig_5",
+    "nickname": "Oli",
+    "team": "iG",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti10_vg_1",
+    "nickname": "Poyoyo",
+    "team": "VG",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti10_vg_2",
+    "nickname": "Ori",
+    "team": "VG",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti10_vg_3",
+    "nickname": "Old eLeVeN",
+    "team": "VG",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti10_vg_4",
+    "nickname": "Pyw",
+    "team": "VG",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti10_vg_5",
+    "nickname": "Dy",
+    "team": "VG",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti10_vp_1",
+    "nickname": "Nightfall",
+    "team": "VP",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti10_vp_2",
+    "nickname": "gpk~",
+    "team": "VP",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti10_vp_3",
+    "nickname": "DM",
+    "team": "VP",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti10_vp_4",
+    "nickname": "Save-",
+    "team": "VP",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti10_vp_5",
+    "nickname": "Kingslayer",
+    "team": "VP",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti10_og_1",
+    "nickname": "SumaiL",
+    "team": "OG",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti10_og_2",
+    "nickname": "Topson",
+    "team": "OG",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti10_og_3",
+    "nickname": "Ceb",
+    "team": "OG",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti10_og_4",
+    "nickname": "Saksa",
+    "team": "OG",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti10_og_5",
+    "nickname": "N0tail",
+    "team": "OG",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti10_t1_1",
+    "nickname": "23savage",
+    "team": "T1",
+    "year": 2021,
+    "positions": [
+      1
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti10_t1_2",
+    "nickname": "Karl",
+    "team": "T1",
+    "year": 2021,
+    "positions": [
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti10_t1_3",
+    "nickname": "Kuku",
+    "team": "T1",
+    "year": 2021,
+    "positions": [
+      3
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti10_t1_4",
+    "nickname": "Xepher",
+    "team": "T1",
+    "year": 2021,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti10_t1_5",
+    "nickname": "Whitemon",
+    "team": "T1",
+    "year": 2021,
+    "positions": [
+      5
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti11_tundra_1",
+    "nickname": "skiter",
+    "team": "Tundra",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti11_tundra_2",
+    "nickname": "Nine",
+    "team": "Tundra",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti11_tundra_3",
+    "nickname": "33",
+    "team": "Tundra",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti11_tundra_4",
+    "nickname": "Saksa",
+    "team": "Tundra",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti11_tundra_5",
+    "nickname": "Sneyking",
+    "team": "Tundra",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti11_secret_1",
+    "nickname": "Crystallis",
+    "team": "Secret",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti11_secret_2",
+    "nickname": "Nisha",
+    "team": "Secret",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti11_secret_3",
+    "nickname": "Resolut1on",
+    "team": "Secret",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti11_secret_4",
+    "nickname": "Zayac",
+    "team": "Secret",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti11_secret_5",
+    "nickname": "Puppey",
+    "team": "Secret",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti11_liquid_1",
+    "nickname": "MATUMBAMAN",
+    "team": "Liquid",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti11_liquid_2",
+    "nickname": "m1CKe",
+    "team": "Liquid",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti11_liquid_3",
+    "nickname": "33",
+    "team": "Liquid",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti11_liquid_4",
+    "nickname": "Boxi",
+    "team": "Liquid",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti11_liquid_5",
+    "nickname": "iNSaNiA",
+    "team": "Liquid",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti11_aster_1",
+    "nickname": "Monet",
+    "team": "Aster",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti11_aster_2",
+    "nickname": "Ori",
+    "team": "Aster",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti11_aster_3",
+    "nickname": "Xxs",
+    "team": "Aster",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti11_aster_4",
+    "nickname": "BoBoKa",
+    "team": "Aster",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti11_aster_5",
+    "nickname": "Siamese.C",
+    "team": "Aster",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti11_lgd_1",
+    "nickname": "Ame",
+    "team": "LGD",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti11_lgd_2",
+    "nickname": "NothingToSay",
+    "team": "LGD",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti11_lgd_3",
+    "nickname": "Faith_bian",
+    "team": "LGD",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti11_lgd_4",
+    "nickname": "XinQ",
+    "team": "LGD",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti11_lgd_5",
+    "nickname": "y`",
+    "team": "LGD",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti11_og_1",
+    "nickname": "Yuragi",
+    "team": "OG",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti11_og_2",
+    "nickname": "bzm",
+    "team": "OG",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti11_og_3",
+    "nickname": "ATF",
+    "team": "OG",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti11_og_4",
+    "nickname": "Taiga",
+    "team": "OG",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti11_og_5",
+    "nickname": "Misha",
+    "team": "OG",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti11_entity_1",
+    "nickname": "Stormstormer",
+    "team": "Entity",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti11_entity_2",
+    "nickname": "Pure",
+    "team": "Entity",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti11_entity_3",
+    "nickname": "Kataomi`",
+    "team": "Entity",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti11_entity_4",
+    "nickname": "Fishman",
+    "team": "Entity",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti11_entity_5",
+    "nickname": "JerAx",
+    "team": "Entity",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti11_thunder_1",
+    "nickname": "Pakazs",
+    "team": "Thunder",
+    "year": 2022,
+    "positions": [
+      1
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti11_thunder_2",
+    "nickname": "DarkMago",
+    "team": "Thunder",
+    "year": 2022,
+    "positions": [
+      2
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti11_thunder_3",
+    "nickname": "Sacred",
+    "team": "Thunder",
+    "year": 2022,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti11_thunder_4",
+    "nickname": "Matthew",
+    "team": "Thunder",
+    "year": 2022,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti11_thunder_5",
+    "nickname": "Pandaboo",
+    "team": "Thunder",
+    "year": 2022,
+    "positions": [
+      5
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti12_spirit_1",
+    "nickname": "Yatoro",
+    "team": "Spirit",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 96,
+    "price": 192
+  },
+  {
+    "id": "ti12_spirit_2",
+    "nickname": "Larl",
+    "team": "Spirit",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti12_spirit_3",
+    "nickname": "Collapse",
+    "team": "Spirit",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti12_spirit_4",
+    "nickname": "Mira",
+    "team": "Spirit",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti12_spirit_5",
+    "nickname": "Miposhka",
+    "team": "Spirit",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti12_gg_1",
+    "nickname": "dyrachyo",
+    "team": "GG",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti12_gg_2",
+    "nickname": "Quinn",
+    "team": "GG",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti12_gg_3",
+    "nickname": "Ace",
+    "team": "GG",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti12_gg_4",
+    "nickname": "tOfu",
+    "team": "GG",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti12_gg_5",
+    "nickname": "Seleri",
+    "team": "GG",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti12_lgd_1",
+    "nickname": "Shiro",
+    "team": "LGD",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti12_lgd_2",
+    "nickname": "NothingToSay",
+    "team": "LGD",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti12_lgd_3",
+    "nickname": "niu",
+    "team": "LGD",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti12_lgd_4",
+    "nickname": "Planet",
+    "team": "LGD",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti12_lgd_5",
+    "nickname": "y`",
+    "team": "LGD",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti12_ar_1",
+    "nickname": "Somnus",
+    "team": "AzureRay",
+    "year": 2023,
+    "positions": [
+      1,
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti12_ar_2",
+    "nickname": "fy",
+    "team": "AzureRay",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti12_ar_3",
+    "nickname": "Chalice",
+    "team": "AzureRay",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti12_ar_4",
+    "nickname": "XinQ",
+    "team": "AzureRay",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti12_ar_5",
+    "nickname": "Ori",
+    "team": "AzureRay",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti12_vp_1",
+    "nickname": "Kiritych~",
+    "team": "VP",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti12_vp_2",
+    "nickname": "squad1x",
+    "team": "VP",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti12_vp_3",
+    "nickname": "Noticed",
+    "team": "VP",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti12_vp_4",
+    "nickname": "Antimage",
+    "team": "VP",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti12_vp_5",
+    "nickname": "Fng",
+    "team": "VP",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti12_liquid_1",
+    "nickname": "m1CKe",
+    "team": "Liquid",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti12_liquid_2",
+    "nickname": "Nisha",
+    "team": "Liquid",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti12_liquid_3",
+    "nickname": "33",
+    "team": "Liquid",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti12_liquid_4",
+    "nickname": "Boxi",
+    "team": "Liquid",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti12_liquid_5",
+    "nickname": "iNSaNiA",
+    "team": "Liquid",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti12_nouns_1",
+    "nickname": "K1",
+    "team": "Nouns",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti12_nouns_2",
+    "nickname": "Gunnar",
+    "team": "Nouns",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti12_nouns_3",
+    "nickname": "Moo",
+    "team": "Nouns",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti12_nouns_4",
+    "nickname": "ZFreek",
+    "team": "Nouns",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti12_nouns_5",
+    "nickname": "Yamsun",
+    "team": "Nouns",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 79,
+    "price": 158
+  },
+  {
+    "id": "ti12_entity_1",
+    "nickname": "Watson",
+    "team": "Entity",
+    "year": 2023,
+    "positions": [
+      1
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti12_entity_2",
+    "nickname": "Stormstormer",
+    "team": "Entity",
+    "year": 2023,
+    "positions": [
+      2
+    ],
+    "rating": 81,
+    "price": 162
+  },
+  {
+    "id": "ti12_entity_3",
+    "nickname": "Gabbi",
+    "team": "Entity",
+    "year": 2023,
+    "positions": [
+      3
+    ],
+    "rating": 80,
+    "price": 160
+  },
+  {
+    "id": "ti12_entity_4",
+    "nickname": "Kataomi`",
+    "team": "Entity",
+    "year": 2023,
+    "positions": [
+      4
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti12_entity_5",
+    "nickname": "Fishman",
+    "team": "Entity",
+    "year": 2023,
+    "positions": [
+      5
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti13_liquid_1",
+    "nickname": "miCKe",
+    "team": "Liquid",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti13_liquid_2",
+    "nickname": "Nisha",
+    "team": "Liquid",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 95,
+    "price": 190
+  },
+  {
+    "id": "ti13_liquid_3",
+    "nickname": "33",
+    "team": "Liquid",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti13_liquid_4",
+    "nickname": "Boxi",
+    "team": "Liquid",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti13_liquid_5",
+    "nickname": "Insania",
+    "team": "Liquid",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti13_gg_1",
+    "nickname": "dyrachyo",
+    "team": "GG",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti13_gg_2",
+    "nickname": "Quinn",
+    "team": "GG",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti13_gg_3",
+    "nickname": "Ace",
+    "team": "GG",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti13_gg_4",
+    "nickname": "tOfu",
+    "team": "GG",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti13_gg_5",
+    "nickname": "Seleri",
+    "team": "GG",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti13_tundra_1",
+    "nickname": "Pure",
+    "team": "Tundra",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti13_tundra_2",
+    "nickname": "bzm",
+    "team": "Tundra",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti13_tundra_3",
+    "nickname": "33",
+    "team": "Tundra",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti13_tundra_4",
+    "nickname": "Saksa",
+    "team": "Tundra",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti13_tundra_5",
+    "nickname": "Sneyking",
+    "team": "Tundra",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti13_xg_1",
+    "nickname": "Ame",
+    "team": "XG",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 93,
+    "price": 186
+  },
+  {
+    "id": "ti13_xg_2",
+    "nickname": "Xm",
+    "team": "XG",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti13_xg_3",
+    "nickname": "Xxs",
+    "team": "XG",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti13_xg_4",
+    "nickname": "XinQ",
+    "team": "XG",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti13_xg_5",
+    "nickname": "Dy",
+    "team": "XG",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti13_spirit_1",
+    "nickname": "Yatoro",
+    "team": "Spirit",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 94,
+    "price": 188
+  },
+  {
+    "id": "ti13_spirit_2",
+    "nickname": "Larl",
+    "team": "Spirit",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti13_spirit_3",
+    "nickname": "Collapse",
+    "team": "Spirit",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 92,
+    "price": 184
+  },
+  {
+    "id": "ti13_spirit_4",
+    "nickname": "Mira",
+    "team": "Spirit",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti13_spirit_5",
+    "nickname": "Miposhka",
+    "team": "Spirit",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 91,
+    "price": 182
+  },
+  {
+    "id": "ti13_falcons_1",
+    "nickname": "skiter",
+    "team": "Falcons",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti13_falcons_2",
+    "nickname": "Malr1ne",
+    "team": "Falcons",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 88,
+    "price": 176
+  },
+  {
+    "id": "ti13_falcons_3",
+    "nickname": "ATF",
+    "team": "Falcons",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti13_falcons_4",
+    "nickname": "Cr1t-",
+    "team": "Falcons",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 89,
+    "price": 178
+  },
+  {
+    "id": "ti13_falcons_5",
+    "nickname": "Sneyking",
+    "team": "Falcons",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 90,
+    "price": 180
+  },
+  {
+    "id": "ti13_bb_1",
+    "nickname": "Nightfall",
+    "team": "BB",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti13_bb_2",
+    "nickname": "gpk~",
+    "team": "BB",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 87,
+    "price": 174
+  },
+  {
+    "id": "ti13_bb_3",
+    "nickname": "MieRo`",
+    "team": "BB",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti13_bb_4",
+    "nickname": "Save-",
+    "team": "BB",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti13_bb_5",
+    "nickname": "TORONTOTOKYO",
+    "team": "BB",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 86,
+    "price": 172
+  },
+  {
+    "id": "ti13_aurora_1",
+    "nickname": "23savage",
+    "team": "Aurora",
+    "year": 2024,
+    "positions": [
+      1
+    ],
+    "rating": 85,
+    "price": 170
+  },
+  {
+    "id": "ti13_aurora_2",
+    "nickname": "lorenof",
+    "team": "Aurora",
+    "year": 2024,
+    "positions": [
+      2
+    ],
+    "rating": 84,
+    "price": 168
+  },
+  {
+    "id": "ti13_aurora_3",
+    "nickname": "Jabz",
+    "team": "Aurora",
+    "year": 2024,
+    "positions": [
+      3
+    ],
+    "rating": 82,
+    "price": 164
+  },
+  {
+    "id": "ti13_aurora_4",
+    "nickname": "Q",
+    "team": "Aurora",
+    "year": 2024,
+    "positions": [
+      4
+    ],
+    "rating": 83,
+    "price": 166
+  },
+  {
+    "id": "ti13_aurora_5",
+    "nickname": "Mikoto",
+    "team": "Aurora",
+    "year": 2024,
+    "positions": [
+      5
+    ],
+    "rating": 85,
+    "price": 170
+  }
+]
