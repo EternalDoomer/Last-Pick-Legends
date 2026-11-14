@@ -1,4 +1,3 @@
-import React from 'react';
 import { translations } from '../utils/i18n';
 
 export default function HomeScreen({ 

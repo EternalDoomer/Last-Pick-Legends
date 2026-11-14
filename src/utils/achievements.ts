@@ -32,29 +32,24 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
 
 export function checkAchievements(profile: UserProfile): string[] {
   const unlocked = new Set(profile.unlockedAchievements);
-  let changed = false;
 
   const unlock = (id: string, condition: boolean) => {
     if (condition && !unlocked.has(id)) {
       unlocked.add(id);
-      changed = true;
     }
   };
 
-  // Проверка матчей
   unlock('match_1', profile.matchesPlayed >= 1);
   unlock('match_10', profile.matchesPlayed >= 10);
   unlock('match_50', profile.matchesPlayed >= 50);
   unlock('match_100', profile.matchesPlayed >= 100);
   unlock('match_500', profile.matchesPlayed >= 500);
 
-  // Проверка побед
   unlock('win_1', profile.wins >= 1);
   unlock('win_5', profile.wins >= 5);
   unlock('win_20', profile.wins >= 20);
   unlock('win_50', profile.wins >= 50);
 
-  // Проверка Daily
   unlock('daily_1', profile.dailyCompleted >= 1);
   unlock('daily_7', profile.dailyCompleted >= 7);
   unlock('daily_30', profile.dailyCompleted >= 30);

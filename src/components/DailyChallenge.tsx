@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { hasPlayedDailyToday, getMockLeaderboard } from '../utils/storage';
 import { getTodayTheme } from '../utils/dailyThemes';
 import { translations } from '../utils/i18n';

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import rawPlayers from '../data/players.json';
 import type { Player } from '../types';
 import { translations } from '../utils/i18n';

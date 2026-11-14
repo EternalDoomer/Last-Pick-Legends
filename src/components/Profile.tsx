@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { getProfile, saveProfile, registerUser, loginUser, logoutUser } from '../utils/storage';
 import type { UserProfile } from '../utils/storage';
 import { ALL_ACHIEVEMENTS } from '../utils/achievements';

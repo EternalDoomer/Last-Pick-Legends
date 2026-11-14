@@ -7,6 +7,7 @@ export interface Player {
   year: number;
   positions: Position[];
   rating: number;
+  price?: number;
 }
 
 export type Roster = Record<Position, Player | null>;
@@ -39,16 +40,3 @@ export interface TournamentResult {
   title: string;
   champion: boolean;
 }
-export type Position = 1 | 2 | 3 | 4 | 5;
-
-export interface Player {
-  id: string;
-  nickname: string;
-  team: string;
-  year: number;
-  positions: Position[];
-  rating: number;
-  price?: number; // Добавлено: фиксированная цена для Daily
-}
-
-import type { Player, Position } from '../types';

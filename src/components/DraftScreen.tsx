@@ -238,7 +238,7 @@ export default function DraftScreen({
                   }`}
                 >
                   <div className="text-xs opacity-60 mb-1">
-                    {p.positions.map(pos => `${t.pos} ${pos}`).join(' · ')}
+                    {p.positions.map((pos: Position) => `${t.pos} ${pos}`).join(' · ')}
                   </div>
                   <div className="font-bold truncate text-ti9-light">{p.nickname}</div>
                   
