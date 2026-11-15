@@ -50,8 +50,8 @@ function simulateSeries(baseP: number, bo: 1 | 3 | 5): { won: boolean; maps: Map
 
     // Если шанс был меньше 15%, а мы выиграли — добавляем флейвор "Сенсации"
     if (mapWon && baseP < 0.15 && !eventText) {
-      eventText = '«Сенсация!» — андердоги творят историю, фавориты в шоке.';
-      casterText = '«I can\'t believe it!» — комментаторы не верят своим глазам!';
+      eventText = '«Sensation!» — underdogs did the incredible.';
+      casterText = '«I can\'t believe it!»';
     }
 
     maps.push({ won: mapWon, event: eventText, caster: casterText, shift: shiftValue });
@@ -60,33 +60,36 @@ function simulateSeries(baseP: number, bo: 1 | 3 | 5): { won: boolean; maps: Map
 }
 
 const EVENTS = [
-  { text: '«The Play» — идеальный сейв от Na\'Vi на TI2 полностью ломает драфт соперника.', shift: 0.15 },
-  { text: '«Эхо-слэм на $6 миллионов» — UNiVeRsE ловит всех героев врага ультой Earthshaker на TI5.', shift: 0.18 },
-  { text: '«Dream Coil на миллион» — s4 ловит телепорты Alliance и выигрывает TI3.', shift: 0.15 },
-  { text: '«Камбэк OG» — ваша команда переворачивает игру с мегакрипами, как OG в финале TI8.', shift: 0.16 },
-  { text: '«РП на хайграунде» — идеальный Reverse Polarity от вашего оффлейнера в стиле Collapse (TI10).', shift: 0.14 },
-  { text: '«Рат-дота» — Nature\'s Prophet вашего игрока разбирает базу врагов, как у AdmiralBulldog (TI3).', shift: 0.12 },
-  { text: '«Денай Аегиса» — враг в панике денаит свой же Аегис, как Kyxy в TI3!', shift: 0.10 },
-  { text: '«Ана на Эмбер Спирите» — невероятный 1v5 в исполнении вашего керри (TI8).', shift: 0.13 },
-  { text: '«Сгорели на хайграунде» — бездарный штурм базы заканчивается вайпом.', shift: -0.15 },
-  { text: '«Керри закинули» — враги поймали вашего главного кора без БКБ в лесу.', shift: -0.12 },
-  { text: '«Проиграли пик» — драфт полностью разобран соперником, играть невозможно.', shift: -0.10 },
-  { text: '«Потеряли Аегис» — враги сделали Рошана и забрали Аегис, у вас нет шансов.', shift: -0.13 },
-  { text: '«Смок сломан» — враги прочитали ваш закуп и вышли на варды.', shift: -0.09 },
-  { text: '«Тильт» — ваши игроки начали спорить в чате, игра развалилась.', shift: -0.11 },
-  { text: '«Байбек в никуда» — ваш керри умер, купил байбек и снова умер.', shift: -0.14 },
+  // Положительные (помогают победить)
+  { text: '«The Play» — Na\'Vi\'s perfect save breaks the enemy.', shift: 0.15 },
+  { text: '«$6M Echo Slam» — UNiVeRsE wipes the entire enemy team.', shift: 0.18 },
+  { text: '«Million Dollar Coil» — s4 catches the TPs and wins the fight.', shift: 0.15 },
+  { text: '«OG Comeback» — you defend against Mega Creeps and turn it around.', shift: 0.16 },
+  { text: '«Collapse RP» — your offlaner lands a game-winning Reverse Polarity.', shift: 0.14 },
+  { text: '«Rat Dota» — your Nature\'s Prophet destroys the enemy base.', shift: 0.12 },
+  { text: '«Aegis Denied» — the enemy panics and denies their own Aegis!', shift: 0.10 },
+  { text: '«Ana-style 1v5» — your carry goes absolutely godlike.', shift: 0.13 },
+  
+  // Отрицательные (мешают победить)
+  { text: '«Highground Throw» — your team wipes attacking the enemy base.', shift: -0.15 },
+  { text: '«Carry Caught Out» — your pos 1 dies in the woods without BKB.', shift: -0.12 },
+  { text: '«Outdrafted» — the enemy counters every single one of your picks.', shift: -0.10 },
+  { text: '«Aegis Lost» — the enemy takes Roshan and the Aegis.', shift: -0.13 },
+  { text: '«Smoke Broken» — the enemy reads your gank and sets a trap.', shift: -0.09 },
+  { text: '«Team Tilted» — your players start arguing in the chat.', shift: -0.11 },
+  { text: '«Buyback Wasted» — your core buys back and instantly dies again.', shift: -0.14 },
 ];
 
 const CASTER_PHRASES = [
-  '«It’s a disaster!» — Тобиван не может сдержать эмоций!',
-  '«Oh my god, they did it!» — комментатор срывает голос!',
-  '«The Play!» — легендарная фраза Тобивана.',
-  '«Six million dollar Echo Slam!» — ЛД в восторге от ульты!',
-  '«They are all dead!» — залп комментатора после идеальной драки.',
-  '«What a bait!» — враги купились на приманку!',
-  '«He\'s got the BKB!» — ОДПиксель кричит от восторга.',
-  '«Это просто невероятно!» — трибуны в восторге от происходящего на карте.',
-  '«Он сделал это!» — невероятный камбэк в исполнении вашей команды.',
+  '«It’s a disaster!»',
+  '«Oh my god, they did it!»',
+  '«The Play!»',
+  '«Six million dollar Echo Slam!»',
+  '«They are all dead!»',
+  '«What a bait!»',
+  '«He\'s got the BKB!»',
+  '«It\'s unbelievable!» ',
+  '«Teamwipe!»',
 ];
 
 let cachedBots: { name: string; power: number }[] | null = null;

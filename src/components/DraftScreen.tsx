@@ -35,6 +35,12 @@ export default function DraftScreen({
   const filled = countFilled(roster);
   const isComplete = filled === 5;
 
+  // 🔥 РАСЧЕТ СРЕДНЕГО РЕЙТИНГА (ЦЕЛОЕ ЧИСЛО)
+  const draftedPlayers = Object.values(roster).filter(Boolean) as Player[];
+  const averageRating = draftedPlayers.length > 0
+    ? Math.round(draftedPlayers.reduce((sum, p) => sum + p.rating, 0) / draftedPlayers.length).toString()
+    : '0';
+
   const getPlayerCost = (p: Player) => p.price || 150;
   
   const canAfford = (p: Player) => {
@@ -42,7 +48,6 @@ export default function DraftScreen({
     return spentBudget + getPlayerCost(p) <= budget;
   };
 
-  // 🔥 ОБНОВЛЕНО: Добавлен параметр excludeTeamName
   const rollNextTeam = (currentRoster: Roster, excludeTeamName?: string): TeamRoll | null => {
     let availableTeams = ALL_PLAYERS.map(p => ({ team: p.team, year: p.year }));
     
@@ -55,13 +60,11 @@ export default function DraftScreen({
 
     availableTeams = Array.from(new Set(availableTeams.map(t => JSON.stringify(t)))).map(s => JSON.parse(s));
 
-    // Оставляем только команды, где есть доступные игроки
     let validTeams = availableTeams.filter(t => {
       const teamPlayers = playersOfTeam(t.team, t.year);
       return hasValidPicks(teamPlayers, currentRoster);
     });
 
-    // 🔥 Исключаем команду, которая выпала только что, если есть альтернативы
     if (excludeTeamName) {
       const withoutExcluded = validTeams.filter(t => t.team !== excludeTeamName);
       if (withoutExcluded.length > 0) {
@@ -88,12 +91,10 @@ export default function DraftScreen({
     }
   }, []);
 
-  // Авто-реролл, если выпавшая команда не имеет доступных слотов
   useEffect(() => {
     if (isComplete || !currentTeam) return;
     if (hasValidPicks(currentTeam.players, roster)) return;
 
-    // Пытаемся исключить текущую команду, если это возможно
     const next = rollNextTeam(roster, currentTeam.team) || rollNextTeam(roster);
     if (next) {
       setCurrentTeam(next);
@@ -133,7 +134,6 @@ export default function DraftScreen({
     setSelectedPlayer(null);
     
     if (filled + 1 < 5) {
-      // 🔥 Передаем имя текущей команды, чтобы она не выпала снова
       const next = rollNextTeam(newRoster, currentTeam?.team);
       if (next) setCurrentTeam(next);
     } else {
@@ -144,7 +144,6 @@ export default function DraftScreen({
   function handleReroll() {
     if (rerollsLeft === 0 || isComplete) return;
     
-    // 🔥 Передаем имя текущей команды, чтобы не выпала та же самая
     const next = rollNextTeam(roster, currentTeam?.team);
     if (next) {
       setRerollsLeft(n => n - 1);
@@ -269,6 +268,23 @@ export default function DraftScreen({
       <div className="bg-ti9-panel rounded-lg p-4 border border-ti9-accent/20">
         <div className="flex justify-between items-center mb-3">
           <h2 className="font-bold text-ti9-accent">{t.yourRoster}: {filled}/5</h2>
+          
+          {/* 🔥 БЛОК ОТОБРАЖЕНИЯ СРЕДНЕГО РЕЙТИНГА */}
+          {(mode === 'normal' || mode === 'free') && filled > 0 && (
+            <div className="text-xs font-bold bg-ti9-dark px-2.5 py-1 rounded-md border border-ti9-accent/20 shadow-sm">
+              Avg OVR: <span className="text-ti9-teal text-sm ml-1">{averageRating}</span>
+            </div>
+          )}
+
+          {(mode === 'memory' || mode === 'daily') && (
+            <div className="text-xs font-bold bg-ti9-dark px-2.5 py-1 rounded-md border border-ti9-accent/20 shadow-sm">
+              Avg OVR: {isComplete ? (
+                <span className="text-ti9-teal text-sm ml-1">{averageRating}</span>
+              ) : (
+                <span className="text-purple-400 text-sm ml-1">?</span>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-5 gap-2">

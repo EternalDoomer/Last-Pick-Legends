@@ -21,8 +21,8 @@ export default function HomeScreen({
           onChange={(e) => setLang(e.target.value as 'ru' | 'en')}
           className="bg-ti9-panel px-2 py-1.5 rounded border border-ti9-accent/50 text-sm text-white outline-none cursor-pointer hover:border-ti9-accent transition"
         >
-          <option value="ru">Русский</option>
-          <option value="en">English</option>
+          <option value="ru">RU</option>
+          <option value="en">ENG</option>
         </select>
       </div>
 
