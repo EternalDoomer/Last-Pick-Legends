@@ -1,6 +1,7 @@
 import { auth, db } from './firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { checkAchievements } from './achievements';
 
 export interface DailyRecord {
   date: string;
@@ -20,7 +21,6 @@ export interface UserProfile {
   dailyHistory: DailyRecord[];
 }
 
-// Читаем из localStorage для мгновенного отображения
 export const getProfile = (): UserProfile => {
   const data = localStorage.getItem('lpl_profile');
   if (data) {
@@ -34,8 +34,12 @@ export const getProfile = (): UserProfile => {
   };
 };
 
-// Сохраняем локально И в облако, если авторизованы
 export const saveProfile = async (profile: UserProfile) => {
+  const newUnlocked = checkAchievements(profile);
+  if (newUnlocked.length > profile.unlockedAchievements.length) {
+    profile.unlockedAchievements = newUnlocked;
+  }
+
   localStorage.setItem('lpl_profile', JSON.stringify(profile));
   
   if (auth.currentUser) {
@@ -47,14 +51,12 @@ export const saveProfile = async (profile: UserProfile) => {
   }
 };
 
-// Проверка, занят ли ник
 const isNicknameTaken = async (nickname: string) => {
   const q = query(collection(db, "users"), where("nickname", "==", nickname));
   const snapshot = await getDocs(q);
   return !snapshot.empty;
 };
 
-// Регистрация
 export const registerUser = async (email: string, password: string, nickname: string) => {
   if (await isNicknameTaken(nickname)) {
     throw new Error('Этот никнейм уже занят!');
@@ -72,7 +74,6 @@ export const registerUser = async (email: string, password: string, nickname: st
   return newProfile;
 };
 
-// Вход
 export const loginUser = async (email: string, password: string) => {
   const userCred = await signInWithEmailAndPassword(auth, email, password);
   const docRef = doc(db, "users", userCred.user.uid);
@@ -80,19 +81,21 @@ export const loginUser = async (email: string, password: string) => {
   
   if (docSnap.exists()) {
     const cloudProfile = docSnap.data() as UserProfile;
+    const newUnlocked = checkAchievements(cloudProfile);
+    if (newUnlocked.length > cloudProfile.unlockedAchievements.length) {
+      cloudProfile.unlockedAchievements = newUnlocked;
+    }
     localStorage.setItem('lpl_profile', JSON.stringify(cloudProfile));
     return cloudProfile;
   }
   return getProfile();
 };
 
-// Выход
 export const logoutUser = async () => {
   await signOut(auth);
   localStorage.removeItem('lpl_profile');
 };
 
-// Обновление статистики (с синхронизацией)
 export const trackDraft = (playerId: string) => {
   const profile = getProfile();
   profile.favoritePlayers[playerId] = (profile.favoritePlayers[playerId] || 0) + 1;
@@ -112,7 +115,8 @@ export const hasPlayedDailyToday = (): boolean => {
   return profile.dailyHistory.some(r => r.date === today);
 };
 
-export const saveDailyResult = (placement: string, taskCompleted: boolean) => {
+// 🔥 ОБНОВЛЕНО: Сохраняем результат в глобальную коллекцию daily_scores
+export const saveDailyResult = async (placement: string, taskCompleted: boolean) => {
   const profile = getProfile();
   const today = new Date().toISOString().split('T')[0];
   const existingIdx = profile.dailyHistory.findIndex(r => r.date === today);
@@ -123,23 +127,55 @@ export const saveDailyResult = (placement: string, taskCompleted: boolean) => {
     profile.dailyHistory.push({ date: today, placement, taskCompleted });
     profile.dailyCompleted += 1;
   }
-  saveProfile(profile);
+  await saveProfile(profile);
+
+  // Сохраняем в общий рейтинг (доступен всем игрокам)
+  if (auth.currentUser) {
+    try {
+      await setDoc(doc(db, "daily_scores", `${today}_${auth.currentUser.uid}`), {
+        date: today,
+        nickname: profile.nickname || 'Аноним',
+        placement: placement,
+        taskCompleted: taskCompleted,
+        uid: auth.currentUser.uid
+      });
+    } catch (e) {
+      console.error("Ошибка сохранения в рейтинг", e);
+    }
+  }
 };
 
-export const getMockLeaderboard = (dateStr: string) => {
-  // В реальной игре здесь был бы запрос к Firestore (collection 'daily_scores')
-  const baseScores = [
-    { name: 'MiracleFan', score: '1-е место', task: true },
-    { name: 'DotaGod', score: '1-е место', task: true },
-    { name: 'PuppeyEnjoyer', score: '2-е место', task: true },
-    { name: 'Smurf_99', score: 'Топ-4', task: false },
-    { name: 'CarryOnly', score: 'Топ-6', task: false },
-  ];
+// 🔥 ОБНОВЛЕНО: Загружаем реальных игроков из Firebase
+export const getLeaderboard = async (dateStr: string) => {
+  const results: { name: string; score: string; task: boolean }[] = [];
   
-  const profile = getProfile();
-  const myRecord = profile.dailyHistory.find(r => r.date === dateStr);
-  if (myRecord && profile.nickname) {
-    baseScores.push({ name: profile.nickname, score: myRecord.placement, task: myRecord.taskCompleted });
+  try {
+    const q = query(collection(db, "daily_scores"), where("date", "==", dateStr));
+    const snapshot = await getDocs(q);
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      results.push({ 
+        name: data.nickname, 
+        score: data.placement, 
+        task: data.taskCompleted 
+      });
+    });
+  } catch (e) {
+    console.error("Ошибка загрузки рейтинга", e);
   }
-  return baseScores;
+  
+  // Если игрок не залогинен или произошла ошибка, показываем хотя бы его локальный результат
+  if (results.length === 0) {
+    const profile = getProfile();
+    const myRecord = profile.dailyHistory.find(r => r.date === dateStr);
+    if (myRecord && profile.nickname) {
+      results.push({ name: profile.nickname, score: myRecord.placement, task: myRecord.taskCompleted });
+    }
+  }
+  
+  // Сортируем: 1-е место -> 2-е место -> Топ-4 -> Топ-6
+  return results.sort((a, b) => {
+     const getScoreValue = (s: string) => s.includes('1-е') ? 1 : s.includes('2-е') ? 2 : s.includes('3') ? 3 : 5;
+     return getScoreValue(a.score) - getScoreValue(b.score);
+  });
 };

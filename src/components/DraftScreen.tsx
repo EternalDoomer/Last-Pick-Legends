@@ -24,13 +24,11 @@ export default function DraftScreen({
   mode, lang, speed, setSpeed, onFinish, customPool, budget 
 }: DraftScreenProps) {
   const t = translations[lang];
-  // В обычном и свободном режиме - 3 реролла, в остальных - 1
   const INITIAL_REROLLS = mode === 'memory' || mode === 'daily' ? 1 : 3;
 
   const [roster, setRoster] = useState<Roster>(emptyRoster());
   const [currentTeam, setCurrentTeam] = useState<TeamRoll | null>(null);
   const [rerollsLeft, setRerollsLeft] = useState(INITIAL_REROLLS);
-  const [log, setLog] = useState<string[]>([]);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [spentBudget, setSpentBudget] = useState(0);
 
@@ -44,10 +42,10 @@ export default function DraftScreen({
     return spentBudget + getPlayerCost(p) <= budget;
   };
 
-  const rollNextTeam = (currentRoster: Roster): TeamRoll | null => {
+  // 🔥 ОБНОВЛЕНО: Добавлен параметр excludeTeamName
+  const rollNextTeam = (currentRoster: Roster, excludeTeamName?: string): TeamRoll | null => {
     let availableTeams = ALL_PLAYERS.map(p => ({ team: p.team, year: p.year }));
     
-    // Применяем фильтры для разных режимов
     if (customPool) {
       availableTeams = customPool;
     } else if (mode === 'daily') {
@@ -55,19 +53,25 @@ export default function DraftScreen({
       availableTeams = availableTeams.filter(t => theme.filter(t.team, t.year));
     }
 
-    // Убираем дубликаты команд (так как ALL_PLAYERS имеет по 5 записей на каждую команду)
     availableTeams = Array.from(new Set(availableTeams.map(t => JSON.stringify(t)))).map(s => JSON.parse(s));
 
-    // Оставляем только те команды, где есть хотя бы один доступный игрок
-    const validTeams = availableTeams.filter(t => {
+    // Оставляем только команды, где есть доступные игроки
+    let validTeams = availableTeams.filter(t => {
       const teamPlayers = playersOfTeam(t.team, t.year);
       return hasValidPicks(teamPlayers, currentRoster);
     });
 
+    // 🔥 Исключаем команду, которая выпала только что, если есть альтернативы
+    if (excludeTeamName) {
+      const withoutExcluded = validTeams.filter(t => t.team !== excludeTeamName);
+      if (withoutExcluded.length > 0) {
+        validTeams = withoutExcluded;
+      }
+    }
+
     if (validTeams.length === 0) return null;
 
     let randomVal = Math.random();
-    // Для Daily используем сид, чтобы у всех игроков выпадали одни и те же команды
     if (mode === 'daily') {
       const today = new Date().toISOString().split('T')[0];
       const rng = getSeededRandom(today + filled); 
@@ -78,7 +82,6 @@ export default function DraftScreen({
     return { ...pick, players: playersOfTeam(pick.team, pick.year) };
   };
 
-  // Первичный ролл
   useEffect(() => {
     if (!currentTeam) {
       setCurrentTeam(rollNextTeam(roster));
@@ -90,10 +93,10 @@ export default function DraftScreen({
     if (isComplete || !currentTeam) return;
     if (hasValidPicks(currentTeam.players, roster)) return;
 
-    const next = rollNextTeam(roster);
+    // Пытаемся исключить текущую команду, если это возможно
+    const next = rollNextTeam(roster, currentTeam.team) || rollNextTeam(roster);
     if (next) {
       setCurrentTeam(next);
-      setLog(l => [...l, `${t.autoReroll}: ${currentTeam.team} → ${next.team}`]);
     }
   }, [currentTeam, roster, isComplete]);
 
@@ -127,11 +130,11 @@ export default function DraftScreen({
       setSpentBudget(prev => prev + getPlayerCost(selectedPlayer));
     }
 
-    setLog(l => [...l, `${lang === 'ru' ? 'Взяли' : 'Picked'} ${selectedPlayer.nickname} (${t.pos} ${pos})`]);
     setSelectedPlayer(null);
     
     if (filled + 1 < 5) {
-      const next = rollNextTeam(newRoster);
+      // 🔥 Передаем имя текущей команды, чтобы она не выпала снова
+      const next = rollNextTeam(newRoster, currentTeam?.team);
       if (next) setCurrentTeam(next);
     } else {
       setCurrentTeam(null);
@@ -141,13 +144,9 @@ export default function DraftScreen({
   function handleReroll() {
     if (rerollsLeft === 0 || isComplete) return;
     
-    if (rerollsLeft === 1 && currentTeam && hasValidPicks(currentTeam.players, roster)) {
-      if (!confirm(t.confirmReroll)) return;
-    }
-    
-    const next = rollNextTeam(roster);
+    // 🔥 Передаем имя текущей команды, чтобы не выпала та же самая
+    const next = rollNextTeam(roster, currentTeam?.team);
     if (next) {
-      setLog(l => [...l, `${t.manualReroll}: ${currentTeam?.team} → ${next.team}`]);
       setRerollsLeft(n => n - 1);
       setCurrentTeam(next);
       setSelectedPlayer(null);
@@ -169,10 +168,9 @@ export default function DraftScreen({
 
   return (
     <div className="space-y-4 pb-10">
-      {/* Шапка драфта */}
       <div className="flex justify-between items-center bg-ti9-panel p-3 rounded-lg border border-ti9-accent/20">
-        <div className="text-xs">
-          {t.play}: <span className="text-ti9-accent font-bold uppercase">{mode}</span>
+        <div className="text-sm">
+          <span className="text-ti9-accent font-bold uppercase">{mode}</span>
         </div>
         
         {mode === 'daily' && budget && (
@@ -199,14 +197,12 @@ export default function DraftScreen({
         )}
       </div>
 
-      {/* Подсказка */}
       <div className="text-center text-sm opacity-70 h-5">
         {selectedPlayer 
           ? `${t.pickedPlayer} ${selectedPlayer.nickname}. ${t.pickSlot}`
           : t.pickPlayer}
       </div>
 
-      {/* Выпавшая команда */}
       {!isComplete && currentTeam && (
         <div className="bg-ti9-panel rounded-lg p-4 border border-ti9-accent/20">
           <h3 className="font-bold mb-3 flex justify-between items-center">
@@ -270,7 +266,6 @@ export default function DraftScreen({
         </div>
       )}
 
-      {/* Твой состав */}
       <div className="bg-ti9-panel rounded-lg p-4 border border-ti9-accent/20">
         <div className="flex justify-between items-center mb-3">
           <h2 className="font-bold text-ti9-accent">{t.yourRoster}: {filled}/5</h2>
@@ -314,7 +309,6 @@ export default function DraftScreen({
         </div>
       </div>
 
-      {/* Кнопка завершения */}
       <button
         onClick={handleFinish}
         disabled={!isComplete}
@@ -323,14 +317,6 @@ export default function DraftScreen({
         {isComplete ? t.finishDraft : `${t.fillRoster} (${filled}/5)`}
       </button>
 
-      {/* Лог событий */}
-      {log.length > 0 && (
-        <div className="bg-ti9-panel rounded-lg p-3 text-xs opacity-60 max-h-32 overflow-y-auto">
-          {log.slice().reverse().map((entry, i) => (
-            <div key={i} className="mb-1">{entry}</div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

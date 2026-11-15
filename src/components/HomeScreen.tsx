@@ -13,11 +13,9 @@ export default function HomeScreen({
 
   return (
     <div className="flex flex-col min-h-screen bg-ti9-dark text-ti9-light pb-10">
-      {/* Шапка */}
       <div className="flex justify-between items-center p-4">
         <h1 className="text-3xl font-bold text-ti9-accent tracking-wider">Last Pick Legends</h1>
         
-        {/* Выпадающий список языков */}
         <select
           value={lang}
           onChange={(e) => setLang(e.target.value as 'ru' | 'en')}
@@ -36,7 +34,6 @@ export default function HomeScreen({
         </p>
       </div>
 
-      {/* Кнопки режимов */}
       <div className="grid grid-cols-2 gap-3 px-4 mb-6">
         <button onClick={() => onNavigate('draft_normal')} className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left">
           <div className="text-2xl mb-2">⚖️</div>
@@ -47,13 +44,11 @@ export default function HomeScreen({
           <div className="font-bold">{t.memoryMode}</div>
         </button>
         
-        {/* Новая кнопка Free Mode */}
         <button onClick={() => onNavigate('free_setup')} className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left">
           <div className="text-2xl mb-2">🛠️</div>
-          <div className="font-bold">{lang === 'ru' ? 'Свободный драфт' : 'Free Draft'}</div>
+          <div className="font-bold">{t.freeMode}</div>
         </button>
 
-        {/* Кнопка Daily Challenge (исправлен onNavigate) */}
         <button onClick={() => onNavigate('daily_setup')} className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left relative">
           <div className="text-2xl mb-2">🏆</div>
           <div className="font-bold">{t.dailyMode}</div>
@@ -61,40 +56,68 @@ export default function HomeScreen({
         </button>
       </div>
 
-      {/* Схематичная карта */}
-      <div className="px-4 mb-8">
-        <div className="w-full h-32 bg-ti9-panel rounded-xl border border-ti9-accent/20 relative overflow-hidden flex items-center justify-center">
-          {/* Абстрактная карта (замена Доты) */}
-          <div className="absolute w-20 h-20 bg-green-900/40 rounded-full blur-xl top-2 left-4"></div>
-          <div className="absolute w-20 h-20 bg-red-900/40 rounded-full blur-xl bottom-2 right-4"></div>
-          <div className="absolute w-full h-1 bg-blue-500/20 rotate-45 transform origin-center"></div>
-          <span className="relative z-10 text-sm font-bold text-white/50 tracking-widest">THE BATTLEFIELD</span>
+      {/* КВАДРАТНАЯ КАРТА */}
+      <div className="px-4 mb-8 flex justify-center">
+        <div className="w-full max-w-[320px] aspect-square bg-[#1a241c] rounded-xl border border-ti9-accent/20 relative overflow-hidden shadow-inner flex items-center justify-center">
+          
+          <svg className="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 100 100" preserveAspectRatio="none">
+            {/* Река: из левого верхнего (0,0) в правый нижний (100,100) */}
+            <path d="M 0 0 Q 40 60 100 100" fill="none" stroke="#3b82f6" strokeWidth="8" opacity="0.3" />
+            
+            {/* Верхняя линия (Top Lane): вверх по левому краю, затем вправо по верхнему */}
+            <path d="M 10 90 L 10 10 L 90 10" fill="none" stroke="#6b7280" strokeWidth="3" />
+            
+            {/* Средняя линия (Mid Lane): по диагонали */}
+            <path d="M 15 85 L 85 15" fill="none" stroke="#6b7280" strokeWidth="3" />
+            
+            {/* Нижняя линия (Bot Lane): вправо по нижнему краю, затем вверх по правому */}
+            <path d="M 10 90 L 90 90 L 90 10" fill="none" stroke="#6b7280" strokeWidth="3" />
+          </svg>
+
+          {/* Базы */}
+          <div className="absolute bottom-2 left-2 w-10 h-10 rounded-full bg-green-900/50 border-2 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] flex items-center justify-center">
+            <span className="text-[8px] font-bold text-green-300">RADIANT</span>
+          </div>
+          <div className="absolute top-2 right-2 w-10 h-10 rounded-full bg-red-900/50 border-2 border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)] flex items-center justify-center">
+            <span className="text-[8px] font-bold text-red-300">DIRE</span>
+          </div>
+
+          {/* ИГРОКИ RADIANT (Зеленые, слева-снизу) */}
+          <div className="absolute bottom-[15%] left-[45%] w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 1">1</div>
+          <div className="absolute bottom-[35%] left-[35%] w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 2">2</div>
+          <div className="absolute top-[15%] left-[15%] w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 3">3</div>
+          <div className="absolute bottom-[55%] left-[15%] w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 4">4</div>
+          <div className="absolute bottom-[10%] left-[20%] w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 5">5</div>
+
+          {/* ИГРОКИ DIRE (Красные, справа-сверху) */}
+          <div className="absolute top-[15%] right-[45%] w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 1">1</div>
+          <div className="absolute top-[35%] right-[35%] w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 2">2</div>
+          <div className="absolute bottom-[15%] right-[15%] w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 3">3</div>
+          <div className="absolute top-[55%] right-[15%] w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 4">4</div>
+          <div className="absolute top-[10%] right-[20%] w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold shadow-lg" title="Pos 5">5</div>
         </div>
       </div>
 
-      {/* Статистика сообщества */}
       <div className="grid grid-cols-3 gap-2 px-4 text-center mb-8">
         <div className="bg-ti9-panel p-3 rounded-lg border border-ti9-accent/10">
           <div className="text-ti9-teal font-bold text-lg">520</div>
-          <div className="text-xs opacity-70">{lang === 'ru' ? 'Игроков' : 'Players'}</div>
+          <div className="text-xs opacity-70">{t.players}</div>
         </div>
         <div className="bg-ti9-panel p-3 rounded-lg border border-ti9-accent/10">
           <div className="text-ti9-teal font-bold text-lg">104</div>
-          <div className="text-xs opacity-70">{lang === 'ru' ? 'Команд' : 'Teams'}</div>
+          <div className="text-xs opacity-70">{t.teams}</div>
         </div>
         <div className="bg-ti9-panel p-3 rounded-lg border border-ti9-accent/10">
           <div className="text-ti9-teal font-bold text-lg">1,420</div>
-          <div className="text-xs opacity-70">{lang === 'ru' ? 'Стаков собрано' : 'Stacks drafted'}</div>
+          <div className="text-xs opacity-70">{t.stacks}</div>
         </div>
       </div>
 
-      {/* Нижнее меню */}
       <div className="mt-auto px-4 flex gap-2">
         <button onClick={() => onNavigate('profile')} className="flex-1 bg-ti9-panel py-3 rounded-lg font-bold border border-ti9-teal/30 hover:bg-ti9-teal/10 transition">👤 {t.profile}</button>
         <button onClick={() => onNavigate('database')} className="flex-1 bg-ti9-panel py-3 rounded-lg font-bold border border-ti9-accent/30 hover:bg-ti9-accent/10 transition">📚 {t.database}</button>
       </div>
 
-      {/* Подвал */}
       <div className="text-center text-xs opacity-50 mt-6 px-4">
         {t.footer}
       </div>

@@ -14,14 +14,22 @@ type Screen = 'home' | 'draft_normal' | 'draft_memory' | 'draft_daily' | 'draft_
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
-  const [lang, setLang] = useState<'ru' | 'en'>('ru');
+  
+  // 🔥 Инициализируем язык из localStorage. Если там пусто, ставим 'ru'
+  const [lang, setLang] = useState<'ru' | 'en'>(() => {
+    const savedLang = localStorage.getItem('lpl_lang');
+    return (savedLang === 'en' || savedLang === 'ru') ? savedLang : 'ru';
+  });
+
   const [matchSpeed, setMatchSpeed] = useState<'normal' | 'fast' | 'super'>('normal');
   const [result, setResult] = useState<TournamentResult | null>(null);
   const [freePool, setFreePool] = useState<{ team: string; year: number }[] | undefined>();
 
   const t = translations[lang];
 
+  // 🔥 При каждом изменении языка сохраняем его в localStorage и меняем HTML-тег
   useEffect(() => {
+    localStorage.setItem('lpl_lang', lang);
     document.documentElement.lang = lang;
   }, [lang]);
 
