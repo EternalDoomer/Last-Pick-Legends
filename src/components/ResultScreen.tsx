@@ -59,14 +59,43 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
     setIsFinished(true);
   };
 
+  // 🔥 СЛОВАРИ ДЛЯ ПЕРЕВОДА СТАДИЙ И МЕСТ
+  const roundTranslations: Record<string, { ru: string, en: string }> = {
+    'Верхняя сетка: Четвертьфинал': { ru: 'Верхняя сетка: Четвертьфинал', en: 'Upper Bracket: Quarterfinal' },
+    'Верхняя сетка: Полуфинал': { ru: 'Верхняя сетка: Полуфинал', en: 'Upper Bracket: Semifinal' },
+    'Верхняя сетка: Финал': { ru: 'Верхняя сетка: Финал', en: 'Upper Bracket: Final' },
+    'Нижняя сетка: Раунд 1': { ru: 'Нижняя сетка: Раунд 1', en: 'Lower Bracket: Round 1' },
+    'Нижняя сетка: Раунд 2': { ru: 'Нижняя сетка: Раунд 2', en: 'Lower Bracket: Round 2' },
+    'Нижняя сетка: Финал': { ru: 'Нижняя сетка: Финал', en: 'Lower Bracket: Final' },
+    'Гранд-финал': { ru: 'Гранд-финал', en: 'Grand Final' },
+  };
+
+  const placementTranslations: Record<string, { ru: string, en: string }> = {
+    'Чемпион': { ru: 'Чемпион', en: 'Champion' },
+    'Финалист': { ru: 'Финалист', en: 'Finalist' },
+    'Топ-3': { ru: 'Топ-3', en: 'Top 3' },
+    'Топ-4': { ru: 'Топ-4', en: 'Top 4' },
+    'Топ-6': { ru: 'Топ-6', en: 'Top 6' },
+    'Топ-8': { ru: 'Топ-8', en: 'Top 8' },
+  };
+
+  const titleTranslations: Record<string, { ru: string, en: string }> = {
+    'Aegis Guardian': { ru: 'Страж Аегиса', en: 'Aegis Guardian' },
+    'Grand Finalist': { ru: 'Гранд-финалист', en: 'Grand Finalist' },
+    'Bronze': { ru: 'Бронзовый призер', en: 'Bronze' },
+    'Contender': { ru: 'Претендент', en: 'Contender' },
+    'Survivor': { ru: 'Выживший', en: 'Survivor' },
+    'Challenger': { ru: 'Бросающий вызов', en: 'Challenger' },
+  };
+
   return (
     <div className="space-y-4">
       <div className={`rounded-lg p-6 text-center transition-colors duration-500 ${isFinished && result.champion ? 'bg-ti9-accent text-ti9-dark' : 'bg-ti9-panel'}`}>
         <div className="text-3xl md:text-4xl font-bold mb-2">
-          {isFinished ? result.placement : t.tournamentInProgress}
+          {isFinished ? (placementTranslations[result.placement]?.[lang] || result.placement) : t.tournamentInProgress}
         </div>
         <div className="text-base md:text-lg opacity-90 font-bold">
-          {isFinished ? result.title : t.simulation}
+          {isFinished ? (titleTranslations[result.title]?.[lang] || result.title) : t.simulation}
         </div>
       </div>
 
@@ -94,7 +123,10 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
               <div className="flex justify-between items-start mb-2 gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="font-bold text-base md:text-lg flex flex-wrap items-center gap-2 text-ti9-light">
-                    <span className="break-words">{m.round}</span>
+                    {/* 🔥 ПЕРЕВОДИМ НАЗВАНИЕ СТАДИИ */}
+                    <span className="break-words">
+                      {roundTranslations[m.round]?.[lang] || m.round}
+                    </span>
                     <span className={`text-[10px] md:text-xs px-2 py-0.5 rounded shrink-0 ${
                       m.bracket === 'upper' ? 'bg-blue-600/50 text-blue-200' : 
                       m.bracket === 'lower' ? 'bg-orange-600/50 text-orange-200' : 
