@@ -308,8 +308,10 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
                             <div key={ach.id} className={`flex items-center gap-3 p-2 rounded transition ${isUnlocked ? 'bg-ti9-dark/40' : 'opacity-40 grayscale'}`}>
                               <div className="text-2xl w-10 text-center">{ach.icon}</div>
                               <div className="flex-1">
-                                <div className={`font-bold text-sm ${isUnlocked ? 'text-white' : 'text-slate-400'}`}>{ach.title}</div>
-                                <div className="text-xs text-slate-400">{ach.desc}</div>
+                                <div className={`font-bold text-sm ${isUnlocked ? 'text-white' : 'text-slate-400'}`}>
+                                  {ach.title[lang]}
+                                </div>
+                                <div className="text-xs text-slate-400">{ach.desc[lang]}</div>
                               </div>
                               {isUnlocked && (
                                 <button 
