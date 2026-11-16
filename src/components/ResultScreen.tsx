@@ -3,11 +3,12 @@ import type { TournamentResult } from '../types';
 import { trackMatch } from '../utils/storage';
 import { translations } from '../utils/i18n';
 
-export default function ResultScreen({ result, onRestart, speed, lang }: {
+export default function ResultScreen({ result, onRestart, speed, lang, mode }: {
   result: TournamentResult;
   onRestart: () => void;
   speed: 'normal' | 'fast' | 'super';
   lang: 'ru' | 'en';
+  mode: 'normal' | 'memory' | 'daily' | 'free';
 }) {
   const t = translations[lang];
   const [matchIdx, setMatchIdx] = useState(0);
@@ -16,9 +17,11 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
 
   useEffect(() => {
     if (isFinished) {
-      trackMatch(result.champion);
+      if (mode !== 'free') {
+        trackMatch(result.champion, mode);
+      }
     }
-  }, [isFinished, result.champion]);
+  }, [isFinished, result.champion, mode]);
 
   useEffect(() => {
     if (isFinished) return;
@@ -54,12 +57,16 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
   };
 
   const handleSkip = () => {
+    if (result.matches.length === 0) {
+      setIsFinished(true);
+      return;
+    }
     setMatchIdx(result.matches.length - 1);
     setMapCount(result.matches[result.matches.length - 1].maps.length);
     setIsFinished(true);
   };
 
-  // 🔥 СЛОВАРИ ДЛЯ ПЕРЕВОДА СТАДИЙ И МЕСТ
+  // СЛОВАРИ ДЛЯ ПЕРЕВОДА СТАДИЙ И МЕСТ
   const roundTranslations: Record<string, { ru: string, en: string }> = {
     'Верхняя сетка: Четвертьфинал': { ru: 'Верхняя сетка: Четвертьфинал', en: 'Upper Bracket: Quarterfinal' },
     'Верхняя сетка: Полуфинал': { ru: 'Верхняя сетка: Полуфинал', en: 'Upper Bracket: Semifinal' },
@@ -90,7 +97,15 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
 
   return (
     <div className="space-y-4">
-      <div className={`rounded-lg p-6 text-center transition-colors duration-500 ${isFinished && result.champion ? 'bg-ti9-accent text-ti9-dark' : 'bg-ti9-panel'}`}>
+      <div className={`rounded-lg p-6 text-center transition-colors duration-500 relative ${isFinished && result.champion ? 'bg-ti9-accent text-ti9-dark' : 'bg-ti9-panel'}`}>
+        
+        {/* 🔥 БЕЙДЖ ТАКТИКИ */}
+        <div className={`absolute top-2 right-2 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-wider ${
+          isFinished && result.champion ? 'bg-black/20 text-black/70' : 'bg-ti9-dark text-ti9-accent border border-ti9-accent/30'
+        }`}>
+          {result.tactic === 'early' ? '⚔️ EARLY' : result.tactic === 'late' ? '🛡️ LATE' : '⚖️ MID'}
+        </div>
+
         <div className="text-3xl md:text-4xl font-bold mb-2">
           {isFinished ? (placementTranslations[result.placement]?.[lang] || result.placement) : t.tournamentInProgress}
         </div>
@@ -123,7 +138,6 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
               <div className="flex justify-between items-start mb-2 gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="font-bold text-base md:text-lg flex flex-wrap items-center gap-2 text-ti9-light">
-                    {/* 🔥 ПЕРЕВОДИМ НАЗВАНИЕ СТАДИИ */}
                     <span className="break-words">
                       {roundTranslations[m.round]?.[lang] || m.round}
                     </span>
@@ -135,7 +149,7 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
                       {m.bracket === 'upper' ? t.upper : m.bracket === 'lower' ? t.lower : t.grandFinal}
                     </span>
                   </div>
-                  <div className="text-xs md:text-sm opacity-70 truncate">{m.opponent} <span className="text-[10px] opacity-50">({lang === 'ru' ? 'Сила' : 'Power'}: {Math.round(m.opponentPower)})</span></div>
+                  <div className="text-xs md:text-sm opacity-70 truncate">{m.opponent} <span className="text-[10px] opacity-50">({lang === 'ru' ? 'Ср. сила' : 'Avg OVR'}: {m.opponentAvgRating})</span></div>
                   
                   {!matchEnded && isCurrent && (
                     <div className="text-xs text-ti9-teal mt-1 animate-pulse">{t.playingMap} {mapCount + 1}...</div>
@@ -165,7 +179,10 @@ export default function ResultScreen({ result, onRestart, speed, lang }: {
                       </span>
                       {showEvent && map.event ? (
                         <div className="flex flex-col flex-1 min-w-0">
-                          <span className="text-ti9-light break-words">⚡ {map.event}</span>
+                          {/* 🔥 ДОБАВЛЕНА ЦВЕТОВАЯ ИНДИКАЦИЯ СОБЫТИЙ */}
+                          <span className={`break-words ${isPositiveEvent ? 'text-green-400' : 'text-red-400'}`}>
+                            ⚡ {map.event}
+                          </span>
                           {map.caster && <span className="text-ti9-teal italic mt-0.5 break-words">🎙️ {map.caster}</span>}
                         </div>
                       ) : (

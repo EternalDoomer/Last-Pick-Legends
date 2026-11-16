@@ -1,4 +1,5 @@
 export type Position = 1 | 2 | 3 | 4 | 5;
+export type Tactic = 'early' | 'mid' | 'late';
 
 export interface Player {
   id: string;
@@ -29,6 +30,7 @@ export interface MatchResult {
   round: string;
   opponent: string;
   opponentPower: number;
+  opponentAvgRating: number;
   maps: MapResult[];
   won: boolean;
   bracket: 'upper' | 'lower' | 'grand';
@@ -39,4 +41,5 @@ export interface TournamentResult {
   placement: string;
   title: string;
   champion: boolean;
+  tactic: Tactic;
 }

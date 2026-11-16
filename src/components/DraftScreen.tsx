@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import type { Player, Position, Roster, TeamRoll, TournamentResult } from '../types';
 import {
   emptyRoster, countFilled, isAlreadyDrafted, getAvailableSlots,
   hasValidPicks, selectPlayer, playersOfTeam, ALL_PLAYERS
 } from '../utils/draft';
-import { simulateTournament } from '../utils/simulate';
+import { simulateTournament, type Tactic } from '../utils/simulate';
 import { trackDraft } from '../utils/storage';
 import { translations } from '../utils/i18n';
 import { getSeededRandom } from '../utils/rng';
@@ -31,11 +31,17 @@ export default function DraftScreen({
   const [rerollsLeft, setRerollsLeft] = useState(INITIAL_REROLLS);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [spentBudget, setSpentBudget] = useState(0);
+  
+  // 🔥 Стейт для тактики
+  const [tactic, setTactic] = useState<Tactic>('mid');
+
+  const [isRolling, setIsRolling] = useState(false);
+  const [rollingTeamName, setRollingTeamName] = useState('???');
+  const pendingTeamRef = useRef<TeamRoll | null>(null);
 
   const filled = countFilled(roster);
   const isComplete = filled === 5;
 
-  // 🔥 РАСЧЕТ СРЕДНЕГО РЕЙТИНГА (ЦЕЛОЕ ЧИСЛО)
   const draftedPlayers = Object.values(roster).filter(Boolean) as Player[];
   const averageRating = draftedPlayers.length > 0
     ? Math.round(draftedPlayers.reduce((sum, p) => sum + p.rating, 0) / draftedPlayers.length).toString()
@@ -48,7 +54,7 @@ export default function DraftScreen({
     return spentBudget + getPlayerCost(p) <= budget;
   };
 
-  const rollNextTeam = (currentRoster: Roster, excludeTeamName?: string): TeamRoll | null => {
+  const getNextTeamData = (currentRoster: Roster, excludeTeamName?: string): TeamRoll | null => {
     let availableTeams = ALL_PLAYERS.map(p => ({ team: p.team, year: p.year }));
     
     if (customPool) {
@@ -85,21 +91,36 @@ export default function DraftScreen({
     return { ...pick, players: playersOfTeam(pick.team, pick.year) };
   };
 
-  useEffect(() => {
-    if (!currentTeam) {
-      setCurrentTeam(rollNextTeam(roster));
-    }
-  }, []);
+  const executeRoll = (isReroll: boolean) => {
+    if (isRolling || isComplete) return;
+    if (isReroll && rerollsLeft === 0) return;
 
-  useEffect(() => {
-    if (isComplete || !currentTeam) return;
-    if (hasValidPicks(currentTeam.players, roster)) return;
+    const nextTeam = getNextTeamData(roster, currentTeam?.team);
+    if (!nextTeam) return;
 
-    const next = rollNextTeam(roster, currentTeam.team) || rollNextTeam(roster);
-    if (next) {
-      setCurrentTeam(next);
+    if (isReroll) {
+      setRerollsLeft(n => n - 1);
     }
-  }, [currentTeam, roster, isComplete]);
+
+    pendingTeamRef.current = nextTeam;
+    setIsRolling(true);
+    setCurrentTeam(null);
+
+    const possibleNames = Array.from(new Set(ALL_PLAYERS.map(p => p.team)));
+    let ticks = 0;
+    const maxTicks = 20;
+
+    const interval = setInterval(() => {
+      setRollingTeamName(possibleNames[Math.floor(Math.random() * possibleNames.length)]);
+      ticks++;
+
+      if (ticks >= maxTicks) {
+        clearInterval(interval);
+        setCurrentTeam(pendingTeamRef.current);
+        setIsRolling(false);
+      }
+    }, 60);
+  };
 
   function handlePlayerClick(p: Player) {
     if (isAlreadyDrafted(p, roster)) return;
@@ -125,45 +146,22 @@ export default function DraftScreen({
     
     const newRoster = selectPlayer(selectedPlayer, roster, pos);
     setRoster(newRoster);
-    trackDraft(selectedPlayer.id);
+    
+    if (mode !== 'free') {
+      trackDraft(selectedPlayer.id);
+    }
     
     if (mode === 'daily') {
       setSpentBudget(prev => prev + getPlayerCost(selectedPlayer));
     }
 
     setSelectedPlayer(null);
-    
-    if (filled + 1 < 5) {
-      const next = rollNextTeam(newRoster, currentTeam?.team);
-      if (next) setCurrentTeam(next);
-    } else {
-      setCurrentTeam(null);
-    }
-  }
-
-  function handleReroll() {
-    if (rerollsLeft === 0 || isComplete) return;
-    
-    const next = rollNextTeam(roster, currentTeam?.team);
-    if (next) {
-      setRerollsLeft(n => n - 1);
-      setCurrentTeam(next);
-      setSelectedPlayer(null);
-    }
-  }
-
-  function handleFinish() {
-    if (!isComplete) return;
-    onFinish(simulateTournament(roster));
+    setCurrentTeam(null);
   }
 
   const displayRating = (rating: number) => {
     return (mode === 'memory' || mode === 'daily') ? '?' : rating;
   };
-
-  if (!currentTeam && !isComplete) {
-    return <div className="text-center p-10 animate-pulse">{lang === 'ru' ? 'Генерация команд...' : 'Generating teams...'}</div>;
-  }
 
   return (
     <div className="space-y-4 pb-10">
@@ -196,71 +194,133 @@ export default function DraftScreen({
         )}
       </div>
 
+      {/* 🔥 БЛОК ВЫБОРА ТАКТИКИ */}
+      <div className="bg-ti9-panel p-2 rounded-lg border border-ti9-accent/20 flex gap-1">
+        <button 
+          onClick={() => setTactic('early')} 
+          className={`flex-1 py-1.5 rounded text-xs font-bold transition ${tactic === 'early' ? 'bg-ti9-accent text-ti9-dark' : 'hover:bg-ti9-dark/50 text-slate-400'}`}
+        >
+          ⚔️ EARLY
+        </button>
+        <button 
+          onClick={() => setTactic('mid')} 
+          className={`flex-1 py-1.5 rounded text-xs font-bold transition ${tactic === 'mid' ? 'bg-ti9-accent text-ti9-dark' : 'hover:bg-ti9-dark/50 text-slate-400'}`}
+        >
+          ⚖️ MID
+        </button>
+        <button 
+          onClick={() => setTactic('late')} 
+          className={`flex-1 py-1.5 rounded text-xs font-bold transition ${tactic === 'late' ? 'bg-ti9-accent text-ti9-dark' : 'hover:bg-ti9-dark/50 text-slate-400'}`}
+        >
+          🛡️ LATE
+        </button>
+      </div>
+
       <div className="text-center text-sm opacity-70 h-5">
         {selectedPlayer 
           ? `${t.pickedPlayer} ${selectedPlayer.nickname}. ${t.pickSlot}`
           : t.pickPlayer}
       </div>
 
-      {!isComplete && currentTeam && (
+      {!isComplete && (
         <div className="bg-ti9-panel rounded-lg p-4 border border-ti9-accent/20">
+          
           <h3 className="font-bold mb-3 flex justify-between items-center">
             <span>
-              {t.rolled}: <span className="text-ti9-accent">{currentTeam.team}</span> · TI{currentTeam.year === 2011 ? '1' : currentTeam.year - 2010}
+              {t.rolled}: <span className="text-ti9-accent font-mono uppercase tracking-wider">
+                {isRolling ? rollingTeamName : (currentTeam ? currentTeam.team : '???')}
+              </span>
+              {!isRolling && currentTeam && <span className="text-ti9-light opacity-80"> · TI{currentTeam.year === 2011 ? '1' : currentTeam.year - 2010}</span>}
             </span>
             <span className="text-sm opacity-70">🎲 {t.rerolls}: {rerollsLeft}</span>
           </h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-            {currentTeam.players.map(p => {
-              const taken = isAlreadyDrafted(p, roster);
-              const slots = getAvailableSlots(p, roster);
-              const affordable = canAfford(p);
-              const disabled = taken || slots.length === 0 || !affordable;
-              const isSelected = selectedPlayer?.id === p.id;
-              
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => handlePlayerClick(p)}
-                  disabled={disabled}
-                  className={`rounded p-3 text-left text-sm transition border-2 relative ${
-                    disabled
-                      ? 'bg-ti9-dark/50 border-transparent opacity-40 cursor-not-allowed'
-                      : isSelected
-                        ? 'bg-ti9-accent/20 border-ti9-accent ring-2 ring-ti9-accent'
-                        : 'bg-ti9-dark border-transparent hover:border-ti9-accent/50'
-                  }`}
-                >
-                  <div className="text-xs opacity-60 mb-1">
-                    {p.positions.map((pos: Position) => `${t.pos} ${pos}`).join(' · ')}
-                  </div>
-                  <div className="font-bold truncate text-ti9-light">{p.nickname}</div>
-                  
-                  {mode === 'daily' ? (
-                    <div className={`font-bold text-sm ${budget && spentBudget + getPlayerCost(p) > budget ? 'text-red-400' : 'text-green-400'}`}>
-                      ${getPlayerCost(p)}
-                    </div>
-                  ) : (
-                    <div className={`font-bold text-lg ${mode === 'memory' ? 'text-purple-400' : 'text-ti9-teal'}`}>
-                      {displayRating(p.rating)}
-                    </div>
-                  )}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-3 min-h-[90px]">
+            {isRolling && (
+              [1, 2, 3, 4, 5].map(i => (
+                <div key={i} className="rounded p-3 border-2 border-dashed border-ti9-accent/20 bg-ti9-dark/30 flex flex-col justify-center items-center h-full">
+                  <div className="text-2xl text-ti9-accent/30 animate-pulse font-bold">?</div>
+                </div>
+              ))
+            )}
 
-                  {!affordable && <div className="text-[10px] text-red-400 font-bold mt-1">{t.noMoney}</div>}
-                </button>
-              );
-            })}
+            {!isRolling && !currentTeam && (
+              [1, 2, 3, 4, 5].map(i => (
+                <div key={i} className="rounded p-3 border-2 border-dashed border-ti9-accent/10 bg-ti9-dark/10 flex flex-col justify-center items-center h-full">
+                  <div className="text-slate-500 font-bold">—</div>
+                </div>
+              ))
+            )}
+
+            {!isRolling && currentTeam && (
+              currentTeam.players.map(p => {
+                const taken = isAlreadyDrafted(p, roster);
+                const slots = getAvailableSlots(p, roster);
+                const affordable = canAfford(p);
+                const disabled = taken || slots.length === 0 || !affordable;
+                const isSelected = selectedPlayer?.id === p.id;
+                
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => handlePlayerClick(p)}
+                    disabled={disabled}
+                    className={`rounded p-3 text-left text-sm transition border-2 relative h-full ${
+                      disabled
+                        ? 'bg-ti9-dark/50 border-transparent opacity-40 cursor-not-allowed'
+                        : isSelected
+                          ? 'bg-ti9-accent/20 border-ti9-accent ring-2 ring-ti9-accent'
+                          : 'bg-ti9-dark border-transparent hover:border-ti9-accent/50'
+                    }`}
+                  >
+                    <div className="text-xs opacity-60 mb-1">
+                      {p.positions.map((pos: Position) => `${t.pos} ${pos}`).join(' · ')}
+                    </div>
+                    <div className="font-bold truncate text-ti9-light">{p.nickname}</div>
+                    
+                    {mode === 'daily' ? (
+                      <div className={`font-bold text-sm ${budget && spentBudget + getPlayerCost(p) > budget ? 'text-red-400' : 'text-green-400'}`}>
+                        ${getPlayerCost(p)}
+                      </div>
+                    ) : (
+                      <div className={`font-bold text-lg ${mode === 'memory' ? 'text-purple-400' : 'text-ti9-teal'}`}>
+                        {displayRating(p.rating)}
+                      </div>
+                    )}
+                  </button>
+                );
+              })
+            )}
           </div>
           
-          <div className="mt-3">
-             <button
-                onClick={handleReroll}
-                disabled={rerollsLeft === 0 || isComplete}
-                className="w-full bg-ti9-dark hover:bg-ti9-panel disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-2 text-sm font-bold border border-ti9-accent/30 transition"
+          <div>
+            {!isRolling && !currentTeam && (
+              <button
+                onClick={() => executeRoll(false)}
+                className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 rounded-lg py-3 font-bold text-lg shadow-[0_0_15px_rgba(212,175,55,0.3)] transition transform active:scale-95"
+              >
+                🎲 {t.rollTeam}
+              </button>
+            )}
+
+            {!isRolling && currentTeam && (
+              <button
+                onClick={() => executeRoll(true)}
+                disabled={rerollsLeft === 0}
+                className="w-full bg-ti9-dark hover:bg-ti9-panel disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-3 text-lg font-bold border border-ti9-accent/30 transition transform active:scale-95 shadow-[0_0_15px_rgba(212,175,55,0.1)]"
               >
                 🎲 Reroll ({rerollsLeft})
               </button>
+            )}
+
+            {isRolling && (
+              <button
+                disabled
+                className="w-full bg-ti9-dark/50 text-ti9-accent/50 rounded-lg py-3 text-lg font-bold border border-ti9-accent/20 cursor-wait animate-pulse"
+              >
+                {t.rolling}...
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -269,7 +329,6 @@ export default function DraftScreen({
         <div className="flex justify-between items-center mb-3">
           <h2 className="font-bold text-ti9-accent">{t.yourRoster}: {filled}/5</h2>
           
-          {/* 🔥 БЛОК ОТОБРАЖЕНИЯ СРЕДНЕГО РЕЙТИНГА */}
           {(mode === 'normal' || mode === 'free') && filled > 0 && (
             <div className="text-xs font-bold bg-ti9-dark px-2.5 py-1 rounded-md border border-ti9-accent/20 shadow-sm">
               Avg OVR: <span className="text-ti9-teal text-sm ml-1">{averageRating}</span>
@@ -326,7 +385,7 @@ export default function DraftScreen({
       </div>
 
       <button
-        onClick={handleFinish}
+        onClick={() => onFinish(simulateTournament(roster, tactic))}
         disabled={!isComplete}
         className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-4 font-bold text-lg transition"
       >

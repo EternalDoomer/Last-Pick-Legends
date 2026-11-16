@@ -3,17 +3,23 @@ import rawPlayers from '../data/players.json';
 
 const PLAYERS = rawPlayers as Player[];
 
-const SLOT_WEIGHTS: Record<Position, number> = {
-  1: 1.2, 2: 1.2, 3: 1.0, 4: 0.8, 5: 0.8,
+
+// 🔥 РАЗНЫЕ ВЕСА ДЛЯ РАЗНЫХ ТАКТИК
+const TACTIC_WEIGHTS: Record<Tactic, Record<Position, number>> = {
+  early: { 1: 0.7, 2: 0.9, 3: 1.0, 4: 1.4, 5: 1.4 }, // Ранняя игра (сильные саппорты)
+  mid:   { 1: 1.1, 2: 1.1, 3: 1.0, 4: 1.0, 5: 1.0 }, // Середина (баланс)
+  late:  { 1: 1.5, 2: 1.4, 3: 1.0, 4: 0.6, 5: 0.6 }, // Поздняя игра (сильные керри)
 };
 
-export function teamPower(roster: Roster): number {
+export function teamPower(roster: Roster, tactic: Tactic = 'mid'): number {
+  const weights = TACTIC_WEIGHTS[tactic];
   let total = 0;
+  
   ([1, 2, 3, 4, 5] as Position[]).forEach(pos => {
     const p = roster[pos];
     if (!p) return;
     const comfort = p.positions[0] === pos ? 1.05 : 1.0;
-    total += p.rating * SLOT_WEIGHTS[pos] * comfort;
+    total += p.rating * weights[pos] * comfort;
   });
   return total;
 }
@@ -33,7 +39,6 @@ function simulateSeries(baseP: number, bo: 1 | 3 | 5): { won: boolean; maps: Map
   const maps: MapResult[] = [];
   
   while (a < need && b < need) {
-    // Гарантируем, что даже у самого слабого состава есть минимум 3% шанс выиграть карту
     let p = Math.max(0.03, Math.min(0.97, baseP)); 
     let eventText, casterText, shiftValue;
     
@@ -48,10 +53,9 @@ function simulateSeries(baseP: number, bo: 1 | 3 | 5): { won: boolean; maps: Map
     const mapWon = Math.random() < p;
     if (mapWon) a++; else b++;
 
-    // Если шанс был меньше 15%, а мы выиграли — добавляем флейвор "Сенсации"
     if (mapWon && baseP < 0.15 && !eventText) {
-      eventText = '«Sensation!» — underdogs did the incredible.';
-      casterText = '«I can\'t believe it!»';
+      eventText = '«Upset!» — Underdogs make history, favorites are in shock.';
+      casterText = '«I can\'t believe it!» — Casters can\'t believe their eyes!';
     }
 
     maps.push({ won: mapWon, event: eventText, caster: casterText, shift: shiftValue });
@@ -60,7 +64,6 @@ function simulateSeries(baseP: number, bo: 1 | 3 | 5): { won: boolean; maps: Map
 }
 
 const EVENTS = [
-  // Положительные (помогают победить)
   { text: '«The Play» — Na\'Vi\'s perfect save breaks the enemy.', shift: 0.15 },
   { text: '«$6M Echo Slam» — UNiVeRsE wipes the entire enemy team.', shift: 0.18 },
   { text: '«Million Dollar Coil» — s4 catches the TPs and wins the fight.', shift: 0.15 },
@@ -69,8 +72,6 @@ const EVENTS = [
   { text: '«Rat Dota» — your Nature\'s Prophet destroys the enemy base.', shift: 0.12 },
   { text: '«Aegis Denied» — the enemy panics and denies their own Aegis!', shift: 0.10 },
   { text: '«Ana-style 1v5» — your carry goes absolutely godlike.', shift: 0.13 },
-  
-  // Отрицательные (мешают победить)
   { text: '«Highground Throw» — your team wipes attacking the enemy base.', shift: -0.15 },
   { text: '«Carry Caught Out» — your pos 1 dies in the woods without BKB.', shift: -0.12 },
   { text: '«Outdrafted» — the enemy counters every single one of your picks.', shift: -0.10 },
@@ -81,15 +82,16 @@ const EVENTS = [
 ];
 
 const CASTER_PHRASES = [
-  '«It’s a disaster!»',
-  '«Oh my god, they did it!»',
-  '«The Play!»',
-  '«Six million dollar Echo Slam!»',
-  '«They are all dead!»',
-  '«What a bait!»',
-  '«He\'s got the BKB!»',
-  '«It\'s unbelievable!» ',
-  '«Teamwipe!»',
+  '«It’s a disaster!» — TobiWan is losing his mind.',
+  '«Oh my god, they did it!» — The caster loses his voice.',
+  '«The Play!» — A legendary moment.',
+  '«Six million dollar Echo Slam!» — LD is screaming.',
+  '«They are all dead!» — Total team wipe.',
+  '«What a bait!» — They fell for it completely.',
+  '«He\'s got the BKB!» — OD Pixel is casting at 400 words per minute.',
+  '«Unbelievable!» — The crowd goes wild.',
+  '«He did it!» — An insane solo play.',
+  '«Absolutely massive!» — A huge teamfight win.',
 ];
 
 let cachedBots: { name: string; power: number }[] | null = null;
@@ -124,16 +126,19 @@ function getAllBots() {
     }
     
     if (roster[1] && roster[2] && roster[3] && roster[4] && roster[5]) {
-      bots.push({ name, power: teamPower(roster) });
+      const avgRating = Math.round(
+        (roster[1].rating + roster[2].rating + roster[3].rating + roster[4].rating + roster[5].rating) / 5
+      );
+      bots.push({ name, power: teamPower(roster, 'mid'), avgRating });
     }
   }
   
   cachedBots = bots.sort((a, b) => b.power - a.power);
-return cachedBots;
+  return cachedBots;
 }
 
-export function simulateTournament(roster: Roster): TournamentResult {
-  const myPower = teamPower(roster);
+export function simulateTournament(roster: Roster, tactic: Tactic): TournamentResult {
+  const myPower = teamPower(roster, tactic);
   const myForm = applyForm(myPower);
   
   const allBots = getAllBots();
@@ -177,6 +182,7 @@ export function simulateTournament(roster: Roster): TournamentResult {
       round: currentStage,
       opponent: opp.name,
       opponentPower: opp.power,
+      opponentAvgRating: opp.avgRating,
       maps,
       won,
       bracket,
@@ -219,5 +225,5 @@ export function simulateTournament(roster: Roster): TournamentResult {
     placement = 'Топ-6'; title = 'Survivor';
   }
 
-  return { matches, placement, title, champion };
+  return { matches, placement, title, champion, tactic };
 }

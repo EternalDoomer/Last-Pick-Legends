@@ -1,12 +1,10 @@
 import { useState, useMemo } from 'react';
 import rawPlayers from '../data/players.json';
 import type { Player } from '../types';
-import { translations } from '../utils/i18n';
 
-type ViewMode = 'menu' | 'years' | 'teams' | 'year-detail' | 'team-detail';
+type ViewMode = 'menu' | 'years' | 'teams' | 'year-detail' | 'team-detail' | 'modes';
 
 export default function Database({ onBack, lang }: { onBack: () => void; lang: 'ru' | 'en' }) {
-  const t = translations[lang];
   const [view, setView] = useState<ViewMode>('menu');
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
@@ -15,6 +13,57 @@ export default function Database({ onBack, lang }: { onBack: () => void; lang: '
 
   const years = useMemo(() => Array.from(new Set(players.map(p => p.year))).sort((a, b) => a - b), [players]);
   const teams = useMemo(() => Array.from(new Set(players.map(p => p.team))).sort(), [players]);
+
+  const t = {
+    ru: {
+      knowledgeBase: 'База знаний',
+      selectTournament: 'Выберите турнир',
+      selectTeam: 'Выберите команду',
+      rosters: 'Составы',
+      byYears: 'По годам (TI)',
+      exploreRosters: 'Изучить составы конкретного турнира',
+      byTeams: 'По командам',
+      teamHistory: 'История ростеров организаций',
+      gameModes: 'Режимы игры',
+      gameModesDesc: 'Изучить правила, тактики и механики',
+      back: 'Назад',
+      pos: 'ПОЗ',
+      modes: [
+        { title: 'Обычная игра', desc: 'Классический драфт. Все рейтинги игроков видны. Дается 3 реролла (попытки сменить выпавшую команду). Идеально для первого знакомства и тестов.' },
+        { title: 'Игра по памяти', desc: 'Хардкорный режим. Рейтинги скрыты, вы видите только позиции и ники. Дается всего 1 реролл. Проверьте, насколько хорошо вы помните легендарные составы.' },
+        { title: 'Свободный драфт', desc: 'Вы сами выбираете пул команд, из которых будут выпадать игроки. Отличный способ собрать состав своей любимой организации или эпохи.' },
+        { title: 'Ежедневное испытание', desc: 'Одинаковые условия для всех. Тема дня, фиксированный бюджет и скрытые рейтинги. Успейте пройти вызов, выполнить задание и попасть в таблицу лидеров.' },
+        { title: '⚔️ Early Game (Ранняя игра)', desc: 'Акцент на позиции 4 и 5. Агрессивные саппорты, ранние драки и захват карты. В этой тактике слабые керри будут не так заметны, но сильные саппорты дадут огромное преимущество.' },
+        { title: '⚖️ Mid Game (Середина)', desc: 'Сбалансированный подход. Игра строится вокруг мидера (поз. 2) и оффлейнера (поз. 3), которые задают темп. Все роли важны одинаково.' },
+        { title: '🛡️ Late Game (Поздняя игра)', desc: 'Ставка на керри (поз. 1) и мидера (поз. 2). Вам нужны сильные кор-игроки, чтобы пережить раннее давление и выиграть игру на поздних стадиях. Саппорты здесь играют второстепенную роль.' }
+      ]
+    },
+    en: {
+      knowledgeBase: 'Database',
+      selectTournament: 'Select tournament',
+      selectTeam: 'Select team',
+      rosters: 'Rosters',
+      byYears: 'By years (TI)',
+      exploreRosters: 'Explore rosters of a specific tournament',
+      byTeams: 'By teams',
+      teamHistory: 'Organization roster history',
+      gameModes: 'Game Modes',
+      gameModesDesc: 'Learn rules, tactics and mechanics',
+      back: 'Back',
+      pos: 'POS',
+      modes: [
+        { title: 'Normal Game', desc: 'Classic draft. All player ratings are visible. You get 3 rerolls. Perfect for your first experience.' },
+        { title: 'Memory Game', desc: 'Hardcore mode. Ratings are hidden, you only see positions and nicknames. Only 1 reroll. Test how well you remember legendary rosters.' },
+        { title: 'Free Draft', desc: 'You choose the pool of teams. A great way to assemble your favorite organization or era.' },
+        { title: 'Daily Challenge', desc: 'Equal conditions for everyone. Daily theme, fixed budget, and hidden ratings. Complete the task and climb the leaderboard.' },
+        { title: '⚔️ Early Game', desc: 'Focus on pos 4 and 5. Aggressive supports, early fights and map control. Strong supports give a huge advantage.' },
+        { title: '⚖️ Mid Game', desc: 'Balanced approach. The game revolves around mid (pos 2) and offlane (pos 3) setting the tempo. All roles matter equally.' },
+        { title: '🛡️ Late Game', desc: 'Focus on carry (pos 1) and mid (pos 2). You need strong cores to survive early pressure and win late. Supports play a secondary role here.' }
+      ]
+    }
+  }[lang];
+
+  // --- ФУНКЦИИ РЕНДЕРА ---
 
   const renderMenu = () => (
     <div className="space-y-4 mt-8">
@@ -41,6 +90,30 @@ export default function Database({ onBack, lang }: { onBack: () => void; lang: '
         </div>
         <div className="text-2xl">→</div>
       </button>
+
+      {/* 🔥 НОВАЯ КНОПКА РЕЖИМОВ */}
+      <button 
+        onClick={() => setView('modes')}
+        className="w-full bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-6 rounded-xl border border-ti9-accent/30 flex items-center justify-between"
+      >
+        <div className="text-left">
+          <div className="text-2xl mb-1">🎮</div>
+          <div className="font-bold text-lg">{t.gameModes}</div>
+          <div className="text-sm opacity-70">{t.gameModesDesc}</div>
+        </div>
+        <div className="text-2xl">→</div>
+      </button>
+    </div>
+  );
+
+  const renderModes = () => (
+    <div className="space-y-4 mt-4">
+      {t.modes.map((mode, idx) => (
+        <div key={idx} className="bg-ti9-panel rounded-xl p-4 border border-ti9-accent/20">
+          <h3 className="font-bold text-ti9-accent mb-2 text-lg">{mode.title}</h3>
+          <p className="text-sm opacity-80 leading-relaxed">{mode.desc}</p>
+        </div>
+      ))}
     </div>
   );
 
@@ -152,6 +225,7 @@ export default function Database({ onBack, lang }: { onBack: () => void; lang: '
           {view === 'teams' && t.selectTeam}
           {view === 'year-detail' && `TI${selectedYear === 2011 ? '1' : (selectedYear || 0) - 2010} ${t.rosters}`}
           {view === 'team-detail' && selectedTeam}
+          {view === 'modes' && t.gameModes}
         </h2>
       </div>
 
@@ -160,6 +234,7 @@ export default function Database({ onBack, lang }: { onBack: () => void; lang: '
       {view === 'teams' && renderTeams()}
       {view === 'year-detail' && renderYearDetail()}
       {view === 'team-detail' && renderTeamDetail()}
+      {view === 'modes' && renderModes()}
     </div>
   );
 }
