@@ -11,15 +11,6 @@ import { auth } from '../utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { translations } from '../utils/i18n';
 
-const getTimesWord = (count: number) => {
-  const lastDigit = count % 10;
-  const lastTwoDigits = count % 100;
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'раз';
-  if (lastDigit === 1) return 'раз';
-  if (lastDigit >= 2 && lastDigit <= 4) return 'раза';
-  return 'раз';
-};
-
 export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'ru' | 'en' }) {
   const t = translations[lang];
   const [profile, setProfile] = useState<UserProfile>(getProfile());
@@ -37,8 +28,6 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
   const [searchResult, setSearchResult] = useState<Friend | null>(null);
   const [searchError, setSearchError] = useState('');
   const [viewingFriend, setViewingFriend] = useState<UserProfile | null>(null);
-
-  const players = rawPlayers as Player[];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -117,25 +106,6 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
   const toggleCategory = (category: string) => {
     setExpandedCategories(prev => ({ ...prev, [category]: !prev[category] }));
   };
-
-  const topPlayers = useMemo(() => {
-    const allSelected = Object.entries(profile.favoritePlayers)
-      .map(([id, count]) => ({ player: players.find(p => p.id === id), count }))
-      .filter(item => item.player !== undefined)
-      .sort((a, b) => b.count - a.count);
-
-    const slots: ({ player: Player | undefined; count: number } | null)[] = [null, null, null, null, null];
-    for (const item of allSelected) {
-      if (!item.player) continue;
-      for (let i = 0; i < 5; i++) {
-        if (slots[i] === null && item.player.positions.includes((i + 1) as Position)) {
-          slots[i] = item;
-          break;
-        }
-      }
-    }
-    return slots;
-  }, [profile.favoritePlayers, players]);
 
   const togglePin = (id: string) => {
     let newPinned = [...profile.pinnedAchievements];

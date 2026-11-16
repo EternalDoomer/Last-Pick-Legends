@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react';
-import type { Player, Position, Roster, TeamRoll, TournamentResult } from '../types';
+import { useState, useRef } from 'react';
+import type { Player, Position, Roster, TeamRoll, TournamentResult, Tactic } from '../types';
 import {
   emptyRoster, countFilled, isAlreadyDrafted, getAvailableSlots,
   hasValidPicks, selectPlayer, playersOfTeam, ALL_PLAYERS
 } from '../utils/draft';
-import { simulateTournament, type Tactic } from '../utils/simulate';
+import { simulateTournament } from '../utils/simulate';
 import { trackDraft } from '../utils/storage';
 import { translations } from '../utils/i18n';
 import { getSeededRandom } from '../utils/rng';
@@ -32,7 +32,6 @@ export default function DraftScreen({
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [spentBudget, setSpentBudget] = useState(0);
   
-  // 🔥 Стейт для тактики
   const [tactic, setTactic] = useState<Tactic>('mid');
 
   const [isRolling, setIsRolling] = useState(false);
@@ -194,7 +193,6 @@ export default function DraftScreen({
         )}
       </div>
 
-      {/* 🔥 БЛОК ВЫБОРА ТАКТИКИ */}
       <div className="bg-ti9-panel p-2 rounded-lg border border-ti9-accent/20 flex gap-1">
         <button 
           onClick={() => setTactic('early')} 

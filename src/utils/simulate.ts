@@ -1,14 +1,12 @@
-import type { Position, Roster, TournamentResult, MatchResult, MapResult, Player } from '../types';
+import type { Position, Roster, TournamentResult, MatchResult, MapResult, Player, Tactic } from '../types';
 import rawPlayers from '../data/players.json';
 
 const PLAYERS = rawPlayers as Player[];
 
-
-// 🔥 РАЗНЫЕ ВЕСА ДЛЯ РАЗНЫХ ТАКТИК
 const TACTIC_WEIGHTS: Record<Tactic, Record<Position, number>> = {
-  early: { 1: 0.7, 2: 0.9, 3: 1.0, 4: 1.4, 5: 1.4 }, // Ранняя игра (сильные саппорты)
-  mid:   { 1: 1.1, 2: 1.1, 3: 1.0, 4: 1.0, 5: 1.0 }, // Середина (баланс)
-  late:  { 1: 1.5, 2: 1.4, 3: 1.0, 4: 0.6, 5: 0.6 }, // Поздняя игра (сильные керри)
+  early: { 1: 0.7, 2: 0.9, 3: 1.0, 4: 1.4, 5: 1.4 },
+  mid:   { 1: 1.1, 2: 1.1, 3: 1.0, 4: 1.0, 5: 1.0 },
+  late:  { 1: 1.5, 2: 1.4, 3: 1.0, 4: 0.6, 5: 0.6 },
 };
 
 export function teamPower(roster: Roster, tactic: Tactic = 'mid'): number {
@@ -94,7 +92,8 @@ const CASTER_PHRASES = [
   '«Absolutely massive!» — A huge teamfight win.',
 ];
 
-let cachedBots: { name: string; power: number }[] | null = null;
+// 🔥 Исправили тип cachedBots (добавили avgRating)
+let cachedBots: { name: string; power: number; avgRating: number }[] | null = null;
 
 function getAllBots() {
   if (cachedBots) return cachedBots;
@@ -106,7 +105,7 @@ function getAllBots() {
     teamMap.get(key)!.push(p);
   }
 
-  const bots: { name: string; power: number }[] = [];
+  const bots: { name: string; power: number; avgRating: number }[] = [];
   
   for (const [name, players] of teamMap.entries()) {
     const roster: Roster = { 1: null, 2: null, 3: null, 4: null, 5: null };
@@ -160,7 +159,7 @@ export function simulateTournament(roster: Roster, tactic: Tactic): TournamentRe
   };
 
   while (!isEliminated) {
-    let opp: { name: string; power: number };
+    let opp: { name: string; power: number; avgRating: number };
     
     if (currentStage === 'Верхняя сетка: Четвертьфинал' || currentStage === 'Нижняя сетка: Раунд 1') {
       opp = pick(0.6, 1.0);
