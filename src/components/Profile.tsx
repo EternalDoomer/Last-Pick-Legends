@@ -11,6 +11,15 @@ import { auth } from '../utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { translations } from '../utils/i18n';
 
+const getTimesWord = (count: number) => {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'раз';
+  if (lastDigit === 1) return 'раз';
+  if (lastDigit >= 2 && lastDigit <= 4) return 'раза';
+  return 'раз';
+};
+
 export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'ru' | 'en' }) {
   const t = translations[lang];
   const [profile, setProfile] = useState<UserProfile>(getProfile());
@@ -28,6 +37,8 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
   const [searchResult, setSearchResult] = useState<Friend | null>(null);
   const [searchError, setSearchError] = useState('');
   const [viewingFriend, setViewingFriend] = useState<UserProfile | null>(null);
+
+  const players = rawPlayers as Player[];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -106,6 +117,26 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
   const toggleCategory = (category: string) => {
     setExpandedCategories(prev => ({ ...prev, [category]: !prev[category] }));
   };
+
+  // 🔥 ВОЗВРАЩЕННЫЙ БЛОК ЛЮБИМЫХ ИГРОКОВ
+  const topPlayers = useMemo(() => {
+    const allSelected = Object.entries(profile.favoritePlayers)
+      .map(([id, count]) => ({ player: players.find(p => p.id === id), count }))
+      .filter(item => item.player !== undefined)
+      .sort((a, b) => b.count - a.count);
+
+    const slots: ({ player: Player | undefined; count: number } | null)[] = [null, null, null, null, null];
+    for (const item of allSelected) {
+      if (!item.player) continue;
+      for (let i = 0; i < 5; i++) {
+        if (slots[i] === null && item.player.positions.includes((i + 1) as Position)) {
+          slots[i] = item;
+          break;
+        }
+      }
+    }
+    return slots;
+  }, [profile.favoritePlayers, players]);
 
   const togglePin = (id: string) => {
     let newPinned = [...profile.pinnedAchievements];
@@ -214,6 +245,35 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
                 );
               })}
             </div>
+          </div>
+
+          {/* 🔥 ВОЗВРАЩЕННЫЙ БЛОК ТОП-5 ИГРОКОВ */}
+          <div className="bg-ti9-panel p-4 rounded-xl mb-6 border border-ti9-accent/10">
+            <h3 className="font-bold mb-3 text-ti9-accent">{lang === 'ru' ? 'Ваши любимые игроки' : 'Your favorite players'}</h3>
+            {topPlayers.every(p => p === null) ? (
+              <p className="text-sm opacity-50">{lang === 'ru' ? 'Вы пока никого не выбрали. Сыграйте драфт!' : 'No players selected yet. Play a draft!'}</p>
+            ) : (
+              <div className="flex justify-between gap-1">
+                {topPlayers.map((found, index) => {
+                  const pos = index + 1;
+                  return (
+                    <div key={pos} className="bg-ti9-dark p-2 rounded text-center flex-1 border border-ti9-accent/10 relative">
+                      <div className="text-[10px] text-ti9-teal mb-1">{lang === 'ru' ? 'ПОЗ' : 'POS'} {pos}</div>
+                      {found ? (
+                        <>
+                          <div className="font-bold text-xs truncate">{found.player?.nickname}</div>
+                          <div className="text-[10px] text-ti9-accent">
+                            {found.count} {lang === 'ru' ? getTimesWord(found.count) : 'times'}
+                          </div>
+                        </>
+                      ) : (
+                        <div className="text-xs opacity-30 py-2">—</div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <div className="flex gap-2 mb-4">
