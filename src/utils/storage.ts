@@ -137,7 +137,7 @@ export const hasPlayedDailyToday = (): boolean => {
   return profile.dailyHistory.some(r => r.date === today);
 };
 
-export const saveDailyResult = async (placement: string, taskCompleted: boolean) => {
+export const saveDailyResult = async (placement: string, taskCompleted: boolean, teamPower: number, moneySaved: number) => {
   const profile = getProfile();
   const today = new Date().toISOString().split('T')[0];
   const existingIdx = profile.dailyHistory.findIndex(r => r.date === today);
@@ -157,7 +157,9 @@ export const saveDailyResult = async (placement: string, taskCompleted: boolean)
         nickname: profile.nickname || 'Аноним',
         placement: placement,
         taskCompleted: taskCompleted,
-        uid: auth.currentUser.uid
+        uid: auth.currentUser.uid,
+        teamPower: teamPower,
+        moneySaved: moneySaved
       });
     } catch (e) {
       console.error("Ошибка сохранения в рейтинг", e);
@@ -166,7 +168,7 @@ export const saveDailyResult = async (placement: string, taskCompleted: boolean)
 };
 
 export const getLeaderboard = async (dateStr: string) => {
-  const results: { name: string; score: string; task: boolean }[] = [];
+  const results: { name: string; score: string; task: boolean; power: number; saved: number }[] = [];
   
   try {
     const q = query(collection(db, "daily_scores"), where("date", "==", dateStr));
@@ -176,7 +178,9 @@ export const getLeaderboard = async (dateStr: string) => {
       results.push({ 
         name: data.nickname, 
         score: data.placement, 
-        task: data.taskCompleted 
+        task: data.taskCompleted,
+        power: data.teamPower || 0,
+        saved: data.moneySaved || 0
       });
     });
   } catch (e) {
@@ -187,14 +191,11 @@ export const getLeaderboard = async (dateStr: string) => {
     const profile = getProfile();
     const myRecord = profile.dailyHistory.find(r => r.date === dateStr);
     if (myRecord && profile.nickname) {
-      results.push({ name: profile.nickname, score: myRecord.placement, task: myRecord.taskCompleted });
+      results.push({ name: profile.nickname, score: myRecord.placement, task: myRecord.taskCompleted, power: 0, saved: 0 });
     }
   }
   
-  return results.sort((a, b) => {
-     const getScoreValue = (s: string) => s.includes('1-е') ? 1 : s.includes('2-е') ? 2 : s.includes('3') ? 3 : 5;
-     return getScoreValue(a.score) - getScoreValue(b.score);
-  });
+  return results;
 };
 
 export const searchUserByNickname = async (nickname: string): Promise<Friend | null> => {

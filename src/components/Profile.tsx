@@ -406,7 +406,7 @@ export default function Profile({ onBack, lang }: { onBack: () => void; lang: 'r
                             <div className="font-bold">{record.date}</div>
                             <div className="text-xs opacity-60">{lang === 'ru' ? 'Результат' : 'Result'}: {record.placement}</div>
                           </div>
-                          {record.taskCompleted ? <span className="text-lg" title="Task completed">👁️</span> : <span className="text-xs text-slate-500">{lang === 'ru' ? 'Без задания' : 'No task'}</span>}
+                          {record.taskCompleted ? <span className="text-lg" title="Task completed">⭐</span> : <span className="text-xs text-slate-500">{lang === 'ru' ? 'Без задания' : 'No task'}</span>}
                         </div>
                       ))}
                     </div>

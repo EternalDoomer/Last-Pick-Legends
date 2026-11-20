@@ -79,7 +79,7 @@ export default function FreeMode({
   return (
     <div className="min-h-screen bg-ti9-dark text-ti9-light flex flex-col h-screen">
       <div className="p-4 pb-2 shrink-0">
-        <button onClick={onBack} className="mb-4 text-ti9-accent hover:underline self-start">← {t.back}</button>
+        <button onClick={onBack} className="font-bold mb-4 text-ti9-accent hover:underline self-start">← {t.back}</button>
         <h2 className="text-2xl font-bold mb-1">{t.freeDraft}</h2>
         <p className="text-sm opacity-70 mb-4">{t.selectMinTeams}</p>
         

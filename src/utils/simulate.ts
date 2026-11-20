@@ -92,7 +92,6 @@ const CASTER_PHRASES = [
   '«Absolutely massive!» — A huge teamfight win.',
 ];
 
-// 🔥 Исправили тип cachedBots (добавили avgRating)
 let cachedBots: { name: string; power: number; avgRating: number }[] | null = null;
 
 function getAllBots() {

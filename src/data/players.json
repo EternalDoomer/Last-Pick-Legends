@@ -8,7 +8,7 @@
       1
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti1_navi_2",
@@ -19,7 +19,7 @@
       2
     ],
     "rating": 97,
-    "price": 1200
+    "price": 235
   },
   {
     "id": "ti1_navi_3",
@@ -30,7 +30,7 @@
       3
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti1_navi_4",
@@ -42,7 +42,7 @@
       5
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti1_navi_5",
@@ -54,7 +54,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti1_ehome_1",
@@ -65,7 +65,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti1_ehome_2",
@@ -76,7 +76,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti1_ehome_3",
@@ -87,7 +87,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti1_ehome_4",
@@ -99,7 +99,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti1_ehome_5",
@@ -111,7 +111,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti1_scythe_1",
@@ -123,7 +123,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti1_scythe_2",
@@ -135,7 +135,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti1_scythe_3",
@@ -146,7 +146,7 @@
       3
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti1_scythe_4",
@@ -157,7 +157,7 @@
       4
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti1_scythe_5",
@@ -168,7 +168,7 @@
       5
     ],
     "rating": 77,
-    "price": 150
+    "price": 135
   },
   {
     "id": "ti1_ig_1",
@@ -179,7 +179,7 @@
       1
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti1_ig_2",
@@ -190,7 +190,7 @@
       2
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti1_ig_3",
@@ -201,7 +201,7 @@
       3
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti1_ig_4",
@@ -212,7 +212,7 @@
       4
     ],
     "rating": 76,
-    "price": 140
+    "price": 130
   },
   {
     "id": "ti1_ig_5",
@@ -223,7 +223,7 @@
       5
     ],
     "rating": 75,
-    "price": 140
+    "price": 125
   },
   {
     "id": "ti1_mym_1",
@@ -236,7 +236,7 @@
       5
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti1_mym_2",
@@ -248,7 +248,7 @@
       2
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti1_mym_3",
@@ -260,7 +260,7 @@
       3
     ],
     "rating": 75,
-    "price": 140
+    "price": 125
   },
   {
     "id": "ti1_mym_4",
@@ -272,7 +272,7 @@
       5
     ],
     "rating": 74,
-    "price": 130
+    "price": 120
   },
   {
     "id": "ti1_mym_5",
@@ -284,7 +284,7 @@
       2
     ],
     "rating": 77,
-    "price": 150
+    "price": 135
   },
   {
     "id": "ti1_nirvana_1",
@@ -295,7 +295,7 @@
       1
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti1_nirvana_2",
@@ -306,7 +306,7 @@
       2
     ],
     "rating": 77,
-    "price": 150
+    "price": 135
   },
   {
     "id": "ti1_nirvana_3",
@@ -317,7 +317,7 @@
       3
     ],
     "rating": 75,
-    "price": 140
+    "price": 125
   },
   {
     "id": "ti1_nirvana_4",
@@ -328,7 +328,7 @@
       4
     ],
     "rating": 73,
-    "price": 120
+    "price": 115
   },
   {
     "id": "ti1_nirvana_5",
@@ -339,7 +339,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti1_virus_1",
@@ -350,7 +350,7 @@
       1
     ],
     "rating": 75,
-    "price": 140
+    "price": 125
   },
   {
     "id": "ti1_virus_2",
@@ -372,7 +372,7 @@
       3
     ],
     "rating": 70,
-    "price": 90
+    "price": 100
   },
   {
     "id": "ti1_virus_4",
@@ -383,7 +383,7 @@
       4
     ],
     "rating": 71,
-    "price": 100
+    "price": 105
   },
   {
     "id": "ti1_virus_5",
@@ -394,7 +394,7 @@
       5
     ],
     "rating": 70,
-    "price": 90
+    "price": 100
   },
   {
     "id": "ti1_zenith_1",
@@ -405,7 +405,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti1_zenith_2",
@@ -417,7 +417,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti1_zenith_3",
@@ -429,7 +429,7 @@
       4
     ],
     "rating": 75,
-    "price": 140
+    "price": 125
   },
   {
     "id": "ti1_zenith_4",
@@ -440,7 +440,7 @@
       4
     ],
     "rating": 73,
-    "price": 120
+    "price": 115
   },
   {
     "id": "ti1_zenith_5",
@@ -462,7 +462,7 @@
       1
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti2_ig_2",
@@ -473,7 +473,7 @@
       2
     ],
     "rating": 96,
-    "price": 1090
+    "price": 230
   },
   {
     "id": "ti2_ig_3",
@@ -484,7 +484,7 @@
       3
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti2_ig_4",
@@ -495,7 +495,7 @@
       4
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti2_ig_5",
@@ -506,7 +506,7 @@
       5
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti2_navi_1",
@@ -517,7 +517,7 @@
       1
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti2_navi_2",
@@ -528,7 +528,7 @@
       2
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti2_navi_3",
@@ -540,7 +540,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti2_navi_4",
@@ -552,7 +552,7 @@
       5
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti2_navi_5",
@@ -563,7 +563,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti2_lgd_1",
@@ -574,7 +574,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti2_lgd_2",
@@ -585,7 +585,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti2_lgd_3",
@@ -596,7 +596,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti2_lgd_4",
@@ -607,7 +607,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti2_lgd_5",
@@ -618,7 +618,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti2_dk_1",
@@ -629,7 +629,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti2_dk_2",
@@ -640,7 +640,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti2_dk_3",
@@ -651,7 +651,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti2_dk_4",
@@ -662,7 +662,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti2_dk_5",
@@ -673,7 +673,7 @@
       5
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti2_orange_1",
@@ -685,7 +685,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti2_orange_2",
@@ -697,7 +697,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti2_orange_3",
@@ -708,7 +708,7 @@
       3
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti2_orange_4",
@@ -719,7 +719,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti2_orange_5",
@@ -730,7 +730,7 @@
       5
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti2_tongfu_1",
@@ -741,7 +741,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti2_tongfu_2",
@@ -752,7 +752,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti2_tongfu_3",
@@ -763,7 +763,7 @@
       3
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti2_tongfu_4",
@@ -774,7 +774,7 @@
       4
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti2_tongfu_5",
@@ -785,7 +785,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti2_ehome_1",
@@ -796,7 +796,7 @@
       1
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti2_ehome_2",
@@ -807,7 +807,7 @@
       2
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti2_ehome_3",
@@ -818,7 +818,7 @@
       3
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti2_ehome_4",
@@ -829,7 +829,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti2_ehome_5",
@@ -840,7 +840,7 @@
       5
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti2_empire_1",
@@ -851,7 +851,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti2_empire_2",
@@ -862,7 +862,7 @@
       2
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti2_empire_3",
@@ -873,7 +873,7 @@
       3
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti2_empire_4",
@@ -884,7 +884,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti2_empire_5",
@@ -895,7 +895,7 @@
       5
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti3_alliance_1",
@@ -906,7 +906,7 @@
       1
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti3_alliance_2",
@@ -917,7 +917,7 @@
       2
     ],
     "rating": 96,
-    "price": 1090
+    "price": 230
   },
   {
     "id": "ti3_alliance_3",
@@ -928,7 +928,7 @@
       3
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti3_alliance_4",
@@ -939,7 +939,7 @@
       4
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti3_alliance_5",
@@ -950,7 +950,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti3_navi_1",
@@ -961,7 +961,7 @@
       1
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti3_navi_2",
@@ -972,7 +972,7 @@
       2
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti3_navi_3",
@@ -983,7 +983,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti3_navi_4",
@@ -995,7 +995,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti3_navi_5",
@@ -1007,7 +1007,7 @@
       5
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti3_orange_1",
@@ -1019,7 +1019,7 @@
       2
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti3_orange_2",
@@ -1031,7 +1031,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti3_orange_3",
@@ -1042,7 +1042,7 @@
       3
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti3_orange_4",
@@ -1053,7 +1053,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti3_orange_5",
@@ -1064,7 +1064,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti3_tongfu_1",
@@ -1075,7 +1075,7 @@
       1
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti3_tongfu_2",
@@ -1086,7 +1086,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti3_tongfu_3",
@@ -1097,7 +1097,7 @@
       3
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti3_tongfu_4",
@@ -1108,7 +1108,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti3_tongfu_5",
@@ -1119,7 +1119,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti3_ig_1",
@@ -1130,7 +1130,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti3_ig_2",
@@ -1141,7 +1141,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti3_ig_3",
@@ -1152,7 +1152,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti3_ig_4",
@@ -1163,7 +1163,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti3_ig_5",
@@ -1174,7 +1174,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti3_dk_1",
@@ -1185,7 +1185,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti3_dk_2",
@@ -1196,7 +1196,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti3_dk_3",
@@ -1207,7 +1207,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti3_dk_4",
@@ -1218,7 +1218,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti3_dk_5",
@@ -1229,7 +1229,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti3_fnatic_1",
@@ -1240,7 +1240,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti3_fnatic_2",
@@ -1251,7 +1251,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti3_fnatic_3",
@@ -1262,7 +1262,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti3_fnatic_4",
@@ -1273,7 +1273,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti3_fnatic_5",
@@ -1284,7 +1284,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti3_liquid_1",
@@ -1295,7 +1295,7 @@
       1
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti3_liquid_2",
@@ -1306,7 +1306,7 @@
       2
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti3_liquid_3",
@@ -1317,7 +1317,7 @@
       3
     ],
     "rating": 76,
-    "price": 140
+    "price": 130
   },
   {
     "id": "ti3_liquid_4",
@@ -1328,7 +1328,7 @@
       4
     ],
     "rating": 77,
-    "price": 150
+    "price": 135
   },
   {
     "id": "ti3_liquid_5",
@@ -1339,7 +1339,7 @@
       5
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti4_newbee_1",
@@ -1350,7 +1350,7 @@
       1
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti4_newbee_2",
@@ -1361,7 +1361,7 @@
       2
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti4_newbee_3",
@@ -1372,7 +1372,7 @@
       3
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti4_newbee_4",
@@ -1383,7 +1383,7 @@
       4
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti4_newbee_5",
@@ -1394,7 +1394,7 @@
       5
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti4_vg_1",
@@ -1405,7 +1405,7 @@
       1
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti4_vg_2",
@@ -1416,7 +1416,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti4_vg_3",
@@ -1427,7 +1427,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti4_vg_4",
@@ -1438,7 +1438,7 @@
       4
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti4_vg_5",
@@ -1449,7 +1449,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti4_eg_1",
@@ -1460,7 +1460,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti4_eg_2",
@@ -1471,7 +1471,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti4_eg_3",
@@ -1482,7 +1482,7 @@
       3
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti4_eg_4",
@@ -1494,7 +1494,7 @@
       5
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti4_eg_5",
@@ -1506,7 +1506,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti4_ig_1",
@@ -1517,7 +1517,7 @@
       1
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti4_ig_2",
@@ -1528,7 +1528,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti4_ig_3",
@@ -1539,7 +1539,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti4_ig_4",
@@ -1550,7 +1550,7 @@
       4
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti4_ig_5",
@@ -1561,7 +1561,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti4_lgd_1",
@@ -1572,7 +1572,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti4_lgd_2",
@@ -1583,7 +1583,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti4_lgd_3",
@@ -1594,7 +1594,7 @@
       3
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti4_lgd_4",
@@ -1605,7 +1605,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti4_lgd_5",
@@ -1616,7 +1616,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti4_cloud9_1",
@@ -1627,7 +1627,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti4_cloud9_2",
@@ -1638,7 +1638,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti4_cloud9_3",
@@ -1650,7 +1650,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti4_cloud9_4",
@@ -1661,7 +1661,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti4_cloud9_5",
@@ -1672,7 +1672,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti4_dk_1",
@@ -1683,7 +1683,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti4_dk_2",
@@ -1694,7 +1694,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti4_dk_3",
@@ -1705,7 +1705,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti4_dk_4",
@@ -1716,7 +1716,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti4_dk_5",
@@ -1727,7 +1727,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti4_navi_1",
@@ -1738,7 +1738,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti4_navi_2",
@@ -1749,7 +1749,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti4_navi_3",
@@ -1760,7 +1760,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti4_navi_4",
@@ -1771,7 +1771,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti4_navi_5",
@@ -1782,7 +1782,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_eg_1",
@@ -1793,7 +1793,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti5_eg_2",
@@ -1804,7 +1804,7 @@
       2
     ],
     "rating": 96,
-    "price": 1090
+    "price": 230
   },
   {
     "id": "ti5_eg_3",
@@ -1815,7 +1815,7 @@
       3
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti5_eg_4",
@@ -1826,7 +1826,7 @@
       4
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti5_eg_5",
@@ -1837,7 +1837,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti5_cdec_1",
@@ -1848,7 +1848,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti5_cdec_2",
@@ -1859,7 +1859,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti5_cdec_3",
@@ -1870,7 +1870,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_cdec_4",
@@ -1881,7 +1881,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti5_cdec_5",
@@ -1892,7 +1892,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti5_lgd_1",
@@ -1903,7 +1903,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti5_lgd_2",
@@ -1914,7 +1914,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti5_lgd_3",
@@ -1925,7 +1925,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti5_lgd_4",
@@ -1936,7 +1936,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_lgd_5",
@@ -1947,7 +1947,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti5_vg_1",
@@ -1958,7 +1958,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti5_vg_2",
@@ -1969,7 +1969,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_vg_3",
@@ -1980,7 +1980,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti5_vg_4",
@@ -1991,7 +1991,7 @@
       4
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti5_vg_5",
@@ -2002,7 +2002,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti5_vp_1",
@@ -2013,7 +2013,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti5_vp_2",
@@ -2024,7 +2024,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti5_vp_3",
@@ -2035,7 +2035,7 @@
       3
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti5_vp_4",
@@ -2046,7 +2046,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_vp_5",
@@ -2057,7 +2057,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti5_ehome_1",
@@ -2070,7 +2070,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti5_ehome_2",
@@ -2081,7 +2081,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_ehome_3",
@@ -2092,7 +2092,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti5_ehome_4",
@@ -2104,7 +2104,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti5_ehome_5",
@@ -2115,7 +2115,7 @@
       5
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti5_secret_1",
@@ -2126,7 +2126,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti5_secret_2",
@@ -2137,7 +2137,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti5_secret_3",
@@ -2148,7 +2148,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti5_secret_4",
@@ -2159,7 +2159,7 @@
       4
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti5_secret_5",
@@ -2170,7 +2170,7 @@
       5
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti5_ig_1",
@@ -2181,7 +2181,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_ig_2",
@@ -2192,7 +2192,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti5_ig_3",
@@ -2203,7 +2203,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti5_ig_4",
@@ -2214,7 +2214,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti5_ig_5",
@@ -2225,7 +2225,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti6_wings_1",
@@ -2236,7 +2236,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti6_wings_2",
@@ -2247,7 +2247,7 @@
       2
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti6_wings_3",
@@ -2258,7 +2258,7 @@
       3
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti6_wings_4",
@@ -2270,7 +2270,7 @@
       5
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti6_wings_5",
@@ -2282,7 +2282,7 @@
       5
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti6_dc_1",
@@ -2293,7 +2293,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti6_dc_2",
@@ -2304,7 +2304,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti6_dc_3",
@@ -2315,7 +2315,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti6_dc_4",
@@ -2326,7 +2326,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti6_dc_5",
@@ -2337,7 +2337,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti6_eg_1",
@@ -2348,7 +2348,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti6_eg_2",
@@ -2359,7 +2359,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti6_eg_3",
@@ -2370,7 +2370,7 @@
       3
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti6_eg_4",
@@ -2381,7 +2381,7 @@
       4
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti6_eg_5",
@@ -2392,7 +2392,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti6_liquid_1",
@@ -2403,7 +2403,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti6_liquid_2",
@@ -2414,7 +2414,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti6_liquid_3",
@@ -2425,7 +2425,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti6_liquid_4",
@@ -2436,7 +2436,7 @@
       4
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti6_liquid_5",
@@ -2447,7 +2447,7 @@
       5
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti6_fnatic_1",
@@ -2458,7 +2458,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti6_fnatic_2",
@@ -2469,7 +2469,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti6_fnatic_3",
@@ -2480,7 +2480,7 @@
       3
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti6_fnatic_4",
@@ -2491,7 +2491,7 @@
       4
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti6_fnatic_5",
@@ -2502,7 +2502,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti6_mvp_1",
@@ -2514,7 +2514,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti6_mvp_2",
@@ -2526,7 +2526,7 @@
       2
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti6_mvp_3",
@@ -2537,7 +2537,7 @@
       3
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti6_mvp_4",
@@ -2548,7 +2548,7 @@
       4
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti6_mvp_5",
@@ -2559,7 +2559,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti6_ehome_1",
@@ -2570,7 +2570,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti6_ehome_2",
@@ -2581,7 +2581,7 @@
       2
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti6_ehome_3",
@@ -2592,7 +2592,7 @@
       3
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti6_ehome_4",
@@ -2603,7 +2603,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti6_ehome_5",
@@ -2614,7 +2614,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti6_tnc_1",
@@ -2625,7 +2625,7 @@
       1
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti6_tnc_2",
@@ -2636,7 +2636,7 @@
       2
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti6_tnc_3",
@@ -2647,7 +2647,7 @@
       3
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti6_tnc_4",
@@ -2658,7 +2658,7 @@
       4
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti6_tnc_5",
@@ -2669,7 +2669,7 @@
       5
     ],
     "rating": 77,
-    "price": 150
+    "price": 135
   },
   {
     "id": "ti7_liquid_1",
@@ -2680,7 +2680,7 @@
       1
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti7_liquid_2",
@@ -2691,7 +2691,7 @@
       2
     ],
     "rating": 97,
-    "price": 1200
+    "price": 235
   },
   {
     "id": "ti7_liquid_3",
@@ -2702,7 +2702,7 @@
       3
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti7_liquid_4",
@@ -2713,7 +2713,7 @@
       4
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti7_liquid_5",
@@ -2724,7 +2724,7 @@
       5
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti7_newbee_1",
@@ -2735,7 +2735,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti7_newbee_2",
@@ -2746,7 +2746,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti7_newbee_3",
@@ -2757,7 +2757,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti7_newbee_4",
@@ -2768,7 +2768,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti7_newbee_5",
@@ -2779,7 +2779,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti7_lfy_1",
@@ -2790,7 +2790,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti7_lfy_2",
@@ -2801,7 +2801,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti7_lfy_3",
@@ -2812,7 +2812,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti7_lfy_4",
@@ -2823,7 +2823,7 @@
       4
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti7_lfy_5",
@@ -2834,7 +2834,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti7_vp_1",
@@ -2845,7 +2845,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti7_vp_2",
@@ -2856,7 +2856,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti7_vp_3",
@@ -2867,7 +2867,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti7_vp_4",
@@ -2878,7 +2878,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti7_vp_5",
@@ -2889,7 +2889,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti7_lgd_1",
@@ -2900,7 +2900,7 @@
       1
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti7_lgd_2",
@@ -2911,7 +2911,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti7_lgd_3",
@@ -2922,7 +2922,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti7_lgd_4",
@@ -2933,7 +2933,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti7_lgd_5",
@@ -2944,7 +2944,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti7_ig_1",
@@ -2955,7 +2955,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti7_ig_2",
@@ -2966,7 +2966,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti7_ig_3",
@@ -2977,7 +2977,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti7_ig_4",
@@ -2988,7 +2988,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti7_ig_5",
@@ -2999,7 +2999,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti7_secret_1",
@@ -3010,7 +3010,7 @@
       1
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti7_secret_2",
@@ -3021,7 +3021,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti7_secret_3",
@@ -3032,7 +3032,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti7_secret_4",
@@ -3043,7 +3043,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti7_secret_5",
@@ -3054,7 +3054,7 @@
       5
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti7_empire_1",
@@ -3065,7 +3065,7 @@
       1
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti7_empire_2",
@@ -3076,7 +3076,7 @@
       2
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti7_empire_3",
@@ -3087,7 +3087,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti7_empire_4",
@@ -3098,7 +3098,7 @@
       4
     ],
     "rating": 78,
-    "price": 160
+    "price": 140
   },
   {
     "id": "ti7_empire_5",
@@ -3109,7 +3109,7 @@
       5
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti8_og_1",
@@ -3120,7 +3120,7 @@
       1
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti8_og_2",
@@ -3131,7 +3131,7 @@
       2
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti8_og_3",
@@ -3142,7 +3142,7 @@
       3
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti8_og_4",
@@ -3153,7 +3153,7 @@
       4
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti8_og_5",
@@ -3164,7 +3164,7 @@
       5
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti8_lgd_1",
@@ -3175,7 +3175,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti8_lgd_2",
@@ -3186,7 +3186,7 @@
       2
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti8_lgd_3",
@@ -3197,7 +3197,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti8_lgd_4",
@@ -3208,7 +3208,7 @@
       4
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti8_lgd_5",
@@ -3219,7 +3219,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti8_eg_1",
@@ -3230,7 +3230,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti8_eg_2",
@@ -3241,7 +3241,7 @@
       2
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti8_eg_3",
@@ -3252,7 +3252,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti8_eg_4",
@@ -3263,7 +3263,7 @@
       4
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti8_eg_5",
@@ -3274,7 +3274,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti8_liquid_1",
@@ -3285,7 +3285,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti8_liquid_2",
@@ -3296,7 +3296,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti8_liquid_3",
@@ -3307,7 +3307,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti8_liquid_4",
@@ -3318,7 +3318,7 @@
       4
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti8_liquid_5",
@@ -3329,7 +3329,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti8_secret_1",
@@ -3340,7 +3340,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti8_secret_2",
@@ -3351,7 +3351,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti8_secret_3",
@@ -3362,7 +3362,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti8_secret_4",
@@ -3373,7 +3373,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti8_secret_5",
@@ -3384,7 +3384,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti8_vgjs_1",
@@ -3395,7 +3395,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti8_vgjs_2",
@@ -3406,7 +3406,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti8_vgjs_3",
@@ -3417,7 +3417,7 @@
       3
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti8_vgjs_4",
@@ -3428,7 +3428,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti8_vgjs_5",
@@ -3439,7 +3439,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti8_vp_1",
@@ -3450,7 +3450,7 @@
       1
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti8_vp_2",
@@ -3461,7 +3461,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti8_vp_3",
@@ -3472,7 +3472,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti8_vp_4",
@@ -3483,7 +3483,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti8_vp_5",
@@ -3494,7 +3494,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti8_optic_1",
@@ -3505,7 +3505,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti8_optic_2",
@@ -3516,7 +3516,7 @@
       2
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti8_optic_3",
@@ -3527,7 +3527,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti8_optic_4",
@@ -3538,7 +3538,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti8_optic_5",
@@ -3549,7 +3549,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti9_og_1",
@@ -3560,7 +3560,7 @@
       1
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti9_og_2",
@@ -3571,7 +3571,7 @@
       2
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti9_og_3",
@@ -3582,7 +3582,7 @@
       3
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti9_og_4",
@@ -3593,7 +3593,7 @@
       4
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti9_og_5",
@@ -3604,7 +3604,7 @@
       5
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti9_liquid_1",
@@ -3615,7 +3615,7 @@
       1
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti9_liquid_2",
@@ -3626,7 +3626,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti9_liquid_3",
@@ -3637,7 +3637,7 @@
       3
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti9_liquid_4",
@@ -3648,7 +3648,7 @@
       4
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti9_liquid_5",
@@ -3659,7 +3659,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti9_lgd_1",
@@ -3670,7 +3670,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti9_lgd_2",
@@ -3681,7 +3681,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti9_lgd_3",
@@ -3692,7 +3692,7 @@
       3
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti9_lgd_4",
@@ -3703,7 +3703,7 @@
       4
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti9_lgd_5",
@@ -3714,7 +3714,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti9_secret_1",
@@ -3725,7 +3725,7 @@
       1
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti9_secret_2",
@@ -3736,7 +3736,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti9_secret_3",
@@ -3747,7 +3747,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti9_secret_4",
@@ -3758,7 +3758,7 @@
       4
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti9_secret_5",
@@ -3769,7 +3769,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti9_vg_1",
@@ -3780,7 +3780,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti9_vg_2",
@@ -3791,7 +3791,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti9_vg_3",
@@ -3802,7 +3802,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti9_vg_4",
@@ -3813,7 +3813,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti9_vg_5",
@@ -3824,7 +3824,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti9_eg_1",
@@ -3835,7 +3835,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti9_eg_2",
@@ -3846,7 +3846,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti9_eg_3",
@@ -3857,7 +3857,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti9_eg_4",
@@ -3868,7 +3868,7 @@
       4
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti9_eg_5",
@@ -3879,7 +3879,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti9_vp_1",
@@ -3890,7 +3890,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti9_vp_2",
@@ -3901,7 +3901,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti9_vp_3",
@@ -3912,7 +3912,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti9_vp_4",
@@ -3923,7 +3923,7 @@
       4
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti9_vp_5",
@@ -3934,7 +3934,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti9_mineski_1",
@@ -3945,7 +3945,7 @@
       1
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti9_mineski_2",
@@ -3956,7 +3956,7 @@
       2
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti9_mineski_3",
@@ -3967,7 +3967,7 @@
       3
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti9_mineski_4",
@@ -3978,7 +3978,7 @@
       4
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti9_mineski_5",
@@ -3989,7 +3989,7 @@
       5
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti10_spirit_1",
@@ -4000,7 +4000,7 @@
       1
     ],
     "rating": 97,
-    "price": 1200
+    "price": 235
   },
   {
     "id": "ti10_spirit_2",
@@ -4011,7 +4011,7 @@
       2
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti10_spirit_3",
@@ -4022,7 +4022,7 @@
       3
     ],
     "rating": 96,
-    "price": 1090
+    "price": 230
   },
   {
     "id": "ti10_spirit_4",
@@ -4033,7 +4033,7 @@
       4
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti10_spirit_5",
@@ -4044,7 +4044,7 @@
       5
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti10_lgd_1",
@@ -4055,7 +4055,7 @@
       1
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti10_lgd_2",
@@ -4066,7 +4066,7 @@
       2
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti10_lgd_3",
@@ -4077,7 +4077,7 @@
       3
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti10_lgd_4",
@@ -4088,7 +4088,7 @@
       4
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti10_lgd_5",
@@ -4099,7 +4099,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti10_secret_1",
@@ -4110,7 +4110,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti10_secret_2",
@@ -4121,7 +4121,7 @@
       2
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti10_secret_3",
@@ -4132,7 +4132,7 @@
       3
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti10_secret_4",
@@ -4143,7 +4143,7 @@
       4
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti10_secret_5",
@@ -4154,7 +4154,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti10_ig_1",
@@ -4165,7 +4165,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti10_ig_2",
@@ -4176,7 +4176,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti10_ig_3",
@@ -4187,7 +4187,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti10_ig_4",
@@ -4198,7 +4198,7 @@
       4
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti10_ig_5",
@@ -4209,7 +4209,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti10_vg_1",
@@ -4220,7 +4220,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti10_vg_2",
@@ -4231,7 +4231,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti10_vg_3",
@@ -4242,7 +4242,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti10_vg_4",
@@ -4253,7 +4253,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti10_vg_5",
@@ -4264,7 +4264,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti10_vp_1",
@@ -4275,7 +4275,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti10_vp_2",
@@ -4286,7 +4286,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti10_vp_3",
@@ -4297,7 +4297,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti10_vp_4",
@@ -4308,7 +4308,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti10_vp_5",
@@ -4319,7 +4319,7 @@
       5
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti10_og_1",
@@ -4330,7 +4330,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti10_og_2",
@@ -4341,7 +4341,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti10_og_3",
@@ -4352,7 +4352,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti10_og_4",
@@ -4363,7 +4363,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti10_og_5",
@@ -4374,7 +4374,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti10_t1_1",
@@ -4385,7 +4385,7 @@
       1
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti10_t1_2",
@@ -4396,7 +4396,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti10_t1_3",
@@ -4407,7 +4407,7 @@
       3
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti10_t1_4",
@@ -4418,7 +4418,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti10_t1_5",
@@ -4429,7 +4429,7 @@
       5
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti11_tundra_1",
@@ -4440,7 +4440,7 @@
       1
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti11_tundra_2",
@@ -4451,7 +4451,7 @@
       2
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti11_tundra_3",
@@ -4462,7 +4462,7 @@
       3
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti11_tundra_4",
@@ -4473,7 +4473,7 @@
       4
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti11_tundra_5",
@@ -4484,7 +4484,7 @@
       5
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti11_secret_1",
@@ -4495,7 +4495,7 @@
       1
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti11_secret_2",
@@ -4506,7 +4506,7 @@
       2
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti11_secret_3",
@@ -4517,7 +4517,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti11_secret_4",
@@ -4528,7 +4528,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti11_secret_5",
@@ -4539,7 +4539,7 @@
       5
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti11_liquid_1",
@@ -4550,7 +4550,7 @@
       1
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti11_liquid_2",
@@ -4561,7 +4561,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti11_liquid_3",
@@ -4572,7 +4572,7 @@
       3
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti11_liquid_4",
@@ -4583,7 +4583,7 @@
       4
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti11_liquid_5",
@@ -4594,7 +4594,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti11_aster_1",
@@ -4605,7 +4605,7 @@
       1
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti11_aster_2",
@@ -4616,7 +4616,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti11_aster_3",
@@ -4627,7 +4627,7 @@
       3
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti11_aster_4",
@@ -4638,7 +4638,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti11_aster_5",
@@ -4649,7 +4649,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti11_lgd_1",
@@ -4660,7 +4660,7 @@
       1
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti11_lgd_2",
@@ -4671,7 +4671,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti11_lgd_3",
@@ -4682,7 +4682,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti11_lgd_4",
@@ -4693,7 +4693,7 @@
       4
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti11_lgd_5",
@@ -4704,7 +4704,7 @@
       5
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti11_og_1",
@@ -4715,7 +4715,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti11_og_2",
@@ -4726,7 +4726,7 @@
       2
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti11_og_3",
@@ -4737,7 +4737,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti11_og_4",
@@ -4748,7 +4748,7 @@
       4
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti11_og_5",
@@ -4759,7 +4759,7 @@
       5
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti11_entity_1",
@@ -4770,7 +4770,7 @@
       1
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti11_entity_2",
@@ -4781,7 +4781,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti11_entity_3",
@@ -4792,7 +4792,7 @@
       3
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti11_entity_4",
@@ -4803,7 +4803,7 @@
       4
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti11_entity_5",
@@ -4814,7 +4814,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti11_thunder_1",
@@ -4825,7 +4825,7 @@
       1
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti11_thunder_2",
@@ -4836,7 +4836,7 @@
       2
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti11_thunder_3",
@@ -4847,7 +4847,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti11_thunder_4",
@@ -4858,7 +4858,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti11_thunder_5",
@@ -4869,7 +4869,7 @@
       5
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti12_spirit_1",
@@ -4880,7 +4880,7 @@
       1
     ],
     "rating": 96,
-    "price": 1090
+    "price": 230
   },
   {
     "id": "ti12_spirit_2",
@@ -4891,7 +4891,7 @@
       2
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti12_spirit_3",
@@ -4902,7 +4902,7 @@
       3
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti12_spirit_4",
@@ -4913,7 +4913,7 @@
       4
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti12_spirit_5",
@@ -4924,7 +4924,7 @@
       5
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti12_gg_1",
@@ -4935,7 +4935,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti12_gg_2",
@@ -4946,7 +4946,7 @@
       2
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti12_gg_3",
@@ -4957,7 +4957,7 @@
       3
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti12_gg_4",
@@ -4968,7 +4968,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti12_gg_5",
@@ -4979,7 +4979,7 @@
       5
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti12_lgd_1",
@@ -4990,7 +4990,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti12_lgd_2",
@@ -5001,7 +5001,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti12_lgd_3",
@@ -5012,7 +5012,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti12_lgd_4",
@@ -5023,7 +5023,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti12_lgd_5",
@@ -5034,7 +5034,7 @@
       5
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti12_ar_1",
@@ -5046,7 +5046,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti12_ar_2",
@@ -5057,7 +5057,7 @@
       4
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti12_ar_3",
@@ -5068,7 +5068,7 @@
       3
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti12_ar_4",
@@ -5079,7 +5079,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti12_ar_5",
@@ -5090,7 +5090,7 @@
       2
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti12_vp_1",
@@ -5101,7 +5101,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti12_vp_2",
@@ -5112,7 +5112,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti12_vp_3",
@@ -5123,7 +5123,7 @@
       3
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti12_vp_4",
@@ -5134,7 +5134,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti12_vp_5",
@@ -5145,7 +5145,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti12_liquid_1",
@@ -5156,7 +5156,7 @@
       1
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti12_liquid_2",
@@ -5167,7 +5167,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti12_liquid_3",
@@ -5178,7 +5178,7 @@
       3
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti12_liquid_4",
@@ -5189,7 +5189,7 @@
       4
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti12_liquid_5",
@@ -5200,7 +5200,7 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti12_nouns_1",
@@ -5211,7 +5211,7 @@
       1
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti12_nouns_2",
@@ -5222,7 +5222,7 @@
       2
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti12_nouns_3",
@@ -5233,7 +5233,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti12_nouns_4",
@@ -5244,7 +5244,7 @@
       4
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti12_nouns_5",
@@ -5255,7 +5255,7 @@
       5
     ],
     "rating": 79,
-    "price": 170
+    "price": 145
   },
   {
     "id": "ti12_entity_1",
@@ -5266,7 +5266,7 @@
       1
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti12_entity_2",
@@ -5277,7 +5277,7 @@
       2
     ],
     "rating": 81,
-    "price": 190
+    "price": 155
   },
   {
     "id": "ti12_entity_3",
@@ -5288,7 +5288,7 @@
       3
     ],
     "rating": 80,
-    "price": 180
+    "price": 150
   },
   {
     "id": "ti12_entity_4",
@@ -5299,7 +5299,7 @@
       4
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti12_entity_5",
@@ -5310,7 +5310,7 @@
       5
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti13_liquid_1",
@@ -5321,7 +5321,7 @@
       1
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti13_liquid_2",
@@ -5332,7 +5332,7 @@
       2
     ],
     "rating": 95,
-    "price": 990
+    "price": 225
   },
   {
     "id": "ti13_liquid_3",
@@ -5343,7 +5343,7 @@
       3
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti13_liquid_4",
@@ -5354,7 +5354,7 @@
       4
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti13_liquid_5",
@@ -5365,7 +5365,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti13_gg_1",
@@ -5376,7 +5376,7 @@
       1
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti13_gg_2",
@@ -5387,7 +5387,7 @@
       2
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti13_gg_3",
@@ -5398,7 +5398,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti13_gg_4",
@@ -5409,7 +5409,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti13_gg_5",
@@ -5420,7 +5420,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti13_tundra_1",
@@ -5431,7 +5431,7 @@
       1
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti13_tundra_2",
@@ -5442,7 +5442,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti13_tundra_3",
@@ -5453,7 +5453,7 @@
       3
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti13_tundra_4",
@@ -5464,7 +5464,7 @@
       4
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti13_tundra_5",
@@ -5475,7 +5475,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti13_xg_1",
@@ -5486,7 +5486,7 @@
       1
     ],
     "rating": 93,
-    "price": 800
+    "price": 215
   },
   {
     "id": "ti13_xg_2",
@@ -5497,7 +5497,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti13_xg_3",
@@ -5508,7 +5508,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti13_xg_4",
@@ -5519,7 +5519,7 @@
       4
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti13_xg_5",
@@ -5530,7 +5530,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti13_spirit_1",
@@ -5541,7 +5541,7 @@
       1
     ],
     "rating": 94,
-    "price": 890
+    "price": 220
   },
   {
     "id": "ti13_spirit_2",
@@ -5552,7 +5552,7 @@
       2
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti13_spirit_3",
@@ -5563,7 +5563,7 @@
       3
     ],
     "rating": 92,
-    "price": 720
+    "price": 210
   },
   {
     "id": "ti13_spirit_4",
@@ -5574,7 +5574,7 @@
       4
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti13_spirit_5",
@@ -5585,7 +5585,7 @@
       5
     ],
     "rating": 91,
-    "price": 640
+    "price": 205
   },
   {
     "id": "ti13_falcons_1",
@@ -5596,7 +5596,7 @@
       1
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti13_falcons_2",
@@ -5607,7 +5607,7 @@
       2
     ],
     "rating": 88,
-    "price": 440
+    "price": 190
   },
   {
     "id": "ti13_falcons_3",
@@ -5618,7 +5618,7 @@
       3
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti13_falcons_4",
@@ -5629,7 +5629,7 @@
       4
     ],
     "rating": 89,
-    "price": 500
+    "price": 195
   },
   {
     "id": "ti13_falcons_5",
@@ -5640,7 +5640,7 @@
       5
     ],
     "rating": 90,
-    "price": 570
+    "price": 200
   },
   {
     "id": "ti13_bb_1",
@@ -5651,7 +5651,7 @@
       1
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti13_bb_2",
@@ -5662,7 +5662,7 @@
       2
     ],
     "rating": 87,
-    "price": 390
+    "price": 185
   },
   {
     "id": "ti13_bb_3",
@@ -5673,7 +5673,7 @@
       3
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti13_bb_4",
@@ -5684,7 +5684,7 @@
       4
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti13_bb_5",
@@ -5695,7 +5695,7 @@
       5
     ],
     "rating": 86,
-    "price": 340
+    "price": 180
   },
   {
     "id": "ti13_aurora_1",
@@ -5706,7 +5706,7 @@
       1
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   },
   {
     "id": "ti13_aurora_2",
@@ -5717,7 +5717,7 @@
       2
     ],
     "rating": 84,
-    "price": 260
+    "price": 170
   },
   {
     "id": "ti13_aurora_3",
@@ -5728,7 +5728,7 @@
       3
     ],
     "rating": 82,
-    "price": 210
+    "price": 160
   },
   {
     "id": "ti13_aurora_4",
@@ -5739,7 +5739,7 @@
       4
     ],
     "rating": 83,
-    "price": 230
+    "price": 165
   },
   {
     "id": "ti13_aurora_5",
@@ -5750,6 +5750,6 @@
       5
     ],
     "rating": 85,
-    "price": 300
+    "price": 175
   }
 ]

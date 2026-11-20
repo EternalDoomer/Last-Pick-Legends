@@ -15,7 +15,7 @@ interface DraftScreenProps {
   lang: 'ru' | 'en';
   speed: 'normal' | 'fast' | 'super';
   setSpeed: (s: 'normal' | 'fast' | 'super') => void;
-  onFinish: (r: TournamentResult) => void;
+  onFinish: (r: TournamentResult, avg: number, saved: number) => void;
   customPool?: { team: string; year: number }[];
   budget?: number;
 }
@@ -383,7 +383,7 @@ export default function DraftScreen({
       </div>
 
       <button
-        onClick={() => onFinish(simulateTournament(roster, tactic))}
+        onClick={() => onFinish(simulateTournament(roster, tactic), Number(averageRating), mode === 'daily' && budget ? budget - spentBudget : 0)}
         disabled={!isComplete}
         className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-4 font-bold text-lg transition"
       >
