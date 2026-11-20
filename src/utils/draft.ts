@@ -28,8 +28,9 @@ export function countFilled(roster: Roster): number {
   return Object.values(roster).filter(Boolean).length;
 }
 
+// 🔥 ИЗМЕНЕНИЕ: Теперь проверяем по никнейму, а не по ID
 export function isAlreadyDrafted(p: Player, roster: Roster): boolean {
-  return Object.values(roster).some(x => x?.id === p.id);
+  return Object.values(roster).some(x => x?.nickname.toLowerCase() === p.nickname.toLowerCase());
 }
 
 export function getAvailableSlots(p: Player, roster: Roster): Position[] {
