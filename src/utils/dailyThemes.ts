@@ -17,7 +17,8 @@ export const DAILY_THEMES: DailyTheme[] = [
     id: 'ti1_3',
     title: { ru: 'Легенды старой школы', en: 'Old School Legends' },
     description: { ru: 'Только команды первых трех The International (2011-2013).', en: 'Only teams from the first three The Internationals (2011-2013).' },
-    filter: (team, year) => year >= 2011 && year <= 2013,
+    // 🔥 ИСПРАВЛЕНО: добавили _ к team
+    filter: (_team, year) => year >= 2011 && year <= 2013,
     tasks: [
       { id: 'win', desc: { ru: 'Выиграть турнир.', en: 'Win the tournament.' }, check: (c) => c },
       { id: 'avg85', desc: { ru: 'Собрать состав со средним рейтингом 85+.', en: 'Build a team with avg rating 85+.' }, check: (_, avg) => avg >= 85 },
