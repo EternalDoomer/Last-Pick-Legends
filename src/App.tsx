@@ -6,11 +6,11 @@ import Profile from './components/Profile';
 import Database from './components/Database';
 import FreeMode from './components/FreeMode';
 import DailyChallenge from './components/DailyChallenge';
-import type { TournamentResult, GameMode, MatchSpeed, TeamOption } from './types';
+import type { TournamentResult, GameMode, MatchSpeed, TeamOption, Roster } from './types';
 import { saveDailyResult, recordRosterDrafted } from './utils/storage';
 import { auth } from './utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getTodayTheme, getTodayTask } from './utils/dailyThemes';
+import { getTodayTheme, getTodayTask, getThemeForDate } from './utils/dailyThemes';
 
 type Screen =
   | 'home'
@@ -30,6 +30,7 @@ export default function App() {
   const [result, setResult] = useState<TournamentResult | null>(null);
   const [lastMeta, setLastMeta] = useState<{ avg: number; saved: number }>({ avg: 0, saved: 0 });
   const [freePool, setFreePool] = useState<TeamOption[] | undefined>();
+  const [dailyPracticeDate, setDailyPracticeDate] = useState<string | undefined>();
   const [resultMode, setResultMode] = useState<GameMode>('normal');
   const [authReady, setAuthReady] = useState(false);
 
@@ -44,26 +45,34 @@ export default function App() {
   const handleRestart = () => {
     setResult(null);
     setFreePool(undefined);
+    setDailyPracticeDate(undefined);
     setScreen('home');
   };
 
-  const handleFinishMatch = (r: TournamentResult, avg: number, saved: number) => {
+  const handleFinishMatch = (
+    r: TournamentResult,
+    avg: number,
+    saved: number,
+    draftedRoster?: Roster
+  ) => {
     setResult(r);
     setLastMeta({ avg, saved });
 
     const currentMode = screen.replace('draft_', '') as GameMode;
-    if (currentMode !== 'free') {
+    const isPracticeRun = screen === 'draft_daily' && Boolean(dailyPracticeDate);
+
+    if (currentMode !== 'free' && !isPracticeRun) {
       recordRosterDrafted(avg);
     }
 
-    if (screen === 'draft_daily') {
+    if (screen === 'draft_daily' && !isPracticeRun) {
       const theme = getTodayTheme();
       const task = getTodayTask(theme);
-      const taskCompleted = task.check(r, avg, saved, theme.budget);
+      const taskCompleted = task.check(r, avg, saved, theme.budget, draftedRoster);
       saveDailyResult(r.placement, taskCompleted, avg, saved, theme.title);
     }
 
-    setResultMode(currentMode);
+    setResultMode(isPracticeRun ? 'free' : currentMode);
     setScreen('result');
   };
 
@@ -80,6 +89,11 @@ export default function App() {
     screen === 'draft_memory' ||
     screen === 'draft_daily' ||
     screen === 'draft_free';
+
+  const activeDailyBudget =
+    screen === 'draft_daily'
+      ? (dailyPracticeDate ? getThemeForDate(dailyPracticeDate) : getTodayTheme()).budget
+      : undefined;
 
   return (
     <div className="min-h-screen bg-ti9-dark text-ti9-light font-sans max-w-lg mx-auto shadow-2xl relative">
@@ -99,7 +113,8 @@ export default function App() {
             speed={matchSpeed}
             setSpeed={setMatchSpeed}
             customPool={screen === 'draft_free' ? freePool : undefined}
-            budget={screen === 'draft_daily' ? getTodayTheme().budget : undefined}
+            budget={activeDailyBudget}
+            dailyDate={screen === 'draft_daily' ? dailyPracticeDate : undefined}
             onFinish={handleFinishMatch}
           />
         </div>
@@ -125,7 +140,10 @@ export default function App() {
       {screen === 'daily_setup' && (
         <DailyChallenge
           onBack={handleRestart}
-          onStart={() => setScreen('draft_daily')}
+          onStart={(practiceDate) => {
+            setDailyPracticeDate(practiceDate);
+            setScreen('draft_daily');
+          }}
         />
       )}
 

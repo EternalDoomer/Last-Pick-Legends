@@ -21,21 +21,23 @@ import {
   playersOfTeam,
   formatTiEdition,
   getTodayDateStr,
+  ALL_PLAYERS,
   ALL_TEAMS,
 } from '../utils/draft';
 import { simulateTournament } from '../utils/simulate';
 import { trackDraft } from '../utils/storage';
 import { getSeededRandom } from '../utils/rng';
-import { getTodayTheme } from '../utils/dailyThemes';
+import { getTodayTheme, getThemeForDate, getTaskForDate } from '../utils/dailyThemes';
 import TacticLabel from './TacticBadge';
 
 interface DraftScreenProps {
   mode: GameMode;
   speed: MatchSpeed;
   setSpeed: (s: MatchSpeed) => void;
-  onFinish: (r: TournamentResult, avg: number, saved: number) => void;
+  onFinish: (r: TournamentResult, avg: number, saved: number, roster?: Roster) => void;
   customPool?: TeamOption[];
   budget?: number;
+  dailyDate?: string;
 }
 
 export default function DraftScreen({
@@ -45,6 +47,7 @@ export default function DraftScreen({
   onFinish,
   customPool,
   budget,
+  dailyDate,
 }: DraftScreenProps) {
   const INITIAL_REROLLS = mode === 'memory' || mode === 'daily' ? 1 : 3;
 
@@ -79,11 +82,25 @@ export default function DraftScreen({
   const remainingBudget = budget !== undefined ? budget - spentBudget : undefined;
   const hideRatings = mode === 'memory' || mode === 'daily';
 
+  const effectiveDate = dailyDate ?? getTodayDateStr();
+  const effectiveTheme = dailyDate ? getThemeForDate(dailyDate) : getTodayTheme();
+  const effectiveTask = mode === 'daily' ? getTaskForDate(effectiveDate, effectiveTheme) : null;
+  const targetPlayerKey = effectiveTask?.requiredPlayerId?.toLowerCase();
+
+  const matchesTargetPlayer = (p: Player): boolean => {
+    if (!targetPlayerKey) return false;
+    return (
+      p.id.toLowerCase() === targetPlayerKey ||
+      p.id.toLowerCase().startsWith(`${targetPlayerKey}_`) ||
+      p.nickname.toLowerCase().replace(/[^a-z0-9]/g, '') ===
+        targetPlayerKey.replace(/[^a-z0-9]/g, '')
+    );
+  };
+
   const getModePool = (): TeamOption[] => {
     if (customPool) return customPool;
     if (mode === 'daily') {
-      const theme = getTodayTheme();
-      return ALL_TEAMS.filter((t) => theme.filter(t.team, t.year));
+      return ALL_TEAMS.filter((t) => effectiveTheme.filter(t.team, t.year));
     }
     return ALL_TEAMS;
   };
@@ -111,9 +128,30 @@ export default function DraftScreen({
 
     if (validTeams.length === 0) return null;
 
+    if (mode === 'daily' && targetPlayerKey) {
+      const alreadyPicked = Object.values(currentRoster).some(
+        (p) => p && matchesTargetPlayer(p)
+      );
+      if (!alreadyPicked) {
+        const guaranteedTeams = validTeams.filter((t) =>
+          playersOfTeam(t.team, t.year).some(
+            (p) =>
+              matchesTargetPlayer(p) &&
+              canPickPlayer(p, currentRoster, currentRemainingBudget)
+          )
+        );
+        if (guaranteedTeams.length > 0 && attemptIndex >= 2) {
+          const seedKey = `${effectiveDate}_target_${attemptIndex}`;
+          const rVal = getSeededRandom(seedKey)();
+          const pick = guaranteedTeams[Math.floor(rVal * guaranteedTeams.length)];
+          return { ...pick, players: playersOfTeam(pick.team, pick.year) };
+        }
+      }
+    }
+
     let randomVal = Math.random();
     if (mode === 'daily') {
-      const seedKey = `${getTodayDateStr()}_s${countFilled(currentRoster)}_r${attemptIndex}`;
+      const seedKey = `${effectiveDate}_s${countFilled(currentRoster)}_r${attemptIndex}`;
       randomVal = getSeededRandom(seedKey)();
     }
 
@@ -172,7 +210,7 @@ export default function DraftScreen({
 
     setRoster(selectPlayer(selectedPlayer, roster, pos));
 
-    if (mode !== 'free') trackDraft(selectedPlayer.id);
+    if (mode !== 'free' && !dailyDate) trackDraft(selectedPlayer.id);
     if (mode === 'daily') setSpentBudget((prev) => prev + getPlayerCost(selectedPlayer));
 
     setSelectedPlayer(null);
@@ -183,7 +221,7 @@ export default function DraftScreen({
     <div className="space-y-4 pb-10">
       <div className="flex justify-between items-center bg-ti9-panel px-3.5 py-2.5 rounded-xl border border-ti9-accent/20">
         <div className="text-xs font-extrabold uppercase tracking-widest text-ti9-accent">
-          {mode}
+          {dailyDate ? `Daily Practice · ${dailyDate}` : mode}
         </div>
 
         {mode === 'daily' && remainingBudget !== undefined ? (
@@ -328,6 +366,7 @@ export default function DraftScreen({
                 const affordable =
                   remainingBudget === undefined || getPlayerCost(p) <= remainingBudget;
                 const isSelected = selectedPlayer?.id === p.id;
+                const isTarget = matchesTargetPlayer(p);
 
                 return (
                   <button
@@ -339,11 +378,14 @@ export default function DraftScreen({
                         ? 'bg-ti9-dark/50 border-transparent opacity-40 cursor-not-allowed'
                         : isSelected
                         ? 'bg-ti9-accent/20 border-ti9-accent ring-2 ring-ti9-accent'
+                        : isTarget
+                        ? 'bg-ti9-dark border-amber-400/60 hover:border-amber-300'
                         : 'bg-ti9-dark border-transparent hover:border-ti9-accent/50'
                     }`}
                   >
-                    <div className="text-xs opacity-60 mb-1">
-                      {p.positions.map((pos) => `POS ${pos}`).join(' · ')}
+                    <div className="text-xs opacity-60 mb-1 flex items-center justify-between">
+                      <span>{p.positions.map((pos) => `POS ${pos}`).join(' · ')}</span>
+                      {isTarget && <span className="text-[10px] text-amber-300 font-bold">★</span>}
                     </div>
                     <div className="font-bold truncate text-ti9-light">{p.nickname}</div>
 
@@ -467,7 +509,8 @@ export default function DraftScreen({
           onFinish(
             simulateTournament(roster, tactic),
             avgRating,
-            remainingBudget ?? 0
+            remainingBudget ?? 0,
+            roster
           )
         }
         disabled={!isComplete}
