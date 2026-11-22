@@ -93,6 +93,85 @@ function hydrateProfile(raw: Partial<UserProfile>): UserProfile {
   };
 }
 
+function hasMeaningfulProgress(p: UserProfile): boolean {
+  return Boolean(
+    p.nickname ||
+      p.matchesPlayed > 0 ||
+      p.wins > 0 ||
+      p.dailyCompleted > 0 ||
+      p.unlockedAchievements.length > 0 ||
+      p.dailyHistory.length > 0 ||
+      Object.keys(p.favoritePlayers || {}).length > 0
+  );
+}
+
+function mergeProfiles(cloud: UserProfile, local: UserProfile, fallbackEmail: string): UserProfile {
+  if (!hasMeaningfulProgress(cloud) && hasMeaningfulProgress(local)) {
+    return hydrateProfile({
+      ...local,
+      email: local.email || fallbackEmail,
+    });
+  }
+
+  const mergedFavs: Record<string, number> = { ...(cloud.favoritePlayers || {}) };
+  for (const [playerId, count] of Object.entries(local.favoritePlayers || {})) {
+    mergedFavs[playerId] = Math.max(mergedFavs[playerId] || 0, count);
+  }
+
+  const historyByDate = new Map<string, DailyRecord>();
+  for (const rec of local.dailyHistory || []) historyByDate.set(rec.date, rec);
+  for (const rec of cloud.dailyHistory || []) historyByDate.set(rec.date, rec);
+
+  const friendsByUid = new Map<string, Friend>();
+  for (const fr of local.friends || []) friendsByUid.set(fr.uid, fr);
+  for (const fr of cloud.friends || []) friendsByUid.set(fr.uid, fr);
+
+  const unlocked = Array.from(
+    new Set([
+      ...sanitizeAchievementIds(cloud.unlockedAchievements),
+      ...sanitizeAchievementIds(local.unlockedAchievements),
+    ])
+  );
+
+  const pinned = Array.from(
+    new Set([
+      ...sanitizeAchievementIds(cloud.pinnedAchievements),
+      ...sanitizeAchievementIds(local.pinnedAchievements),
+    ])
+  )
+    .filter((id) => unlocked.includes(id))
+    .slice(0, 3);
+
+  const wonTactics = Array.from(
+    new Set<Tactic>([...(cloud.wonTactics || []), ...(local.wonTactics || [])])
+  );
+
+  const validLocalLow = (local.lowestWinAvgRating || 0) > 0 ? local.lowestWinAvgRating : Infinity;
+  const validCloudLow = (cloud.lowestWinAvgRating || 0) > 0 ? cloud.lowestWinAvgRating : Infinity;
+  const minLow = Math.min(validLocalLow, validCloudLow);
+
+  return hydrateProfile({
+    nickname: cloud.nickname || local.nickname || '',
+    email: cloud.email || local.email || fallbackEmail,
+    matchesPlayed: Math.max(cloud.matchesPlayed || 0, local.matchesPlayed || 0),
+    wins: Math.max(cloud.wins || 0, local.wins || 0),
+    dailyCompleted: Math.max(cloud.dailyCompleted || 0, local.dailyCompleted || 0),
+    memoryWins: Math.max(cloud.memoryWins || 0, local.memoryWins || 0),
+    dailyWins: Math.max(cloud.dailyWins || 0, local.dailyWins || 0),
+    favoritePlayers: mergedFavs,
+    pinnedAchievements: pinned,
+    unlockedAchievements: unlocked,
+    dailyHistory: Array.from(historyByDate.values()).sort((a, b) => a.date.localeCompare(b.date)),
+    friends: Array.from(friendsByUid.values()),
+    bestAvgRating: Math.max(cloud.bestAvgRating || 0, local.bestAvgRating || 0),
+    lowestWinAvgRating: Number.isFinite(minLow) ? minLow : 0,
+    maxDailyWinSaved: Math.max(cloud.maxDailyWinSaved || 0, local.maxDailyWinSaved || 0),
+    wonTactics,
+    wonUpperRun: Boolean(cloud.wonUpperRun || local.wonUpperRun),
+    wonLowerRun: Boolean(cloud.wonLowerRun || local.wonLowerRun),
+  });
+}
+
 export const getProfile = (): UserProfile => {
   const data = localStorage.getItem('lpl_profile');
   if (!data) return createEmptyProfile();
@@ -109,7 +188,7 @@ export const saveProfile = async (profile: UserProfile) => {
 
   if (auth.currentUser) {
     try {
-      await setDoc(doc(db, 'users', auth.currentUser.uid), cleanProfile);
+      await setDoc(doc(db, 'users', auth.currentUser.uid), cleanProfile, { merge: true });
     } catch (e) {
       console.error('Failed to sync profile with cloud:', e);
     }
@@ -128,7 +207,26 @@ export const registerUser = async (email: string, password: string, nickname: st
   }
 
   const userCred = await createUserWithEmailAndPassword(auth, email, password);
-  const newProfile = createEmptyProfile(email, nickname);
+  const localData = getProfile();
+  const newProfile = hydrateProfile({
+    ...createEmptyProfile(email, nickname),
+    matchesPlayed: localData.matchesPlayed,
+    wins: localData.wins,
+    dailyCompleted: localData.dailyCompleted,
+    memoryWins: localData.memoryWins,
+    dailyWins: localData.dailyWins,
+    favoritePlayers: localData.favoritePlayers,
+    pinnedAchievements: localData.pinnedAchievements,
+    unlockedAchievements: localData.unlockedAchievements,
+    dailyHistory: localData.dailyHistory,
+    friends: localData.friends,
+    bestAvgRating: localData.bestAvgRating,
+    lowestWinAvgRating: localData.lowestWinAvgRating,
+    maxDailyWinSaved: localData.maxDailyWinSaved,
+    wonTactics: localData.wonTactics,
+    wonUpperRun: localData.wonUpperRun,
+    wonLowerRun: localData.wonLowerRun,
+  });
 
   await setDoc(doc(db, 'users', userCred.user.uid), newProfile);
   localStorage.setItem('lpl_profile', JSON.stringify(newProfile));
@@ -136,19 +234,32 @@ export const registerUser = async (email: string, password: string, nickname: st
 };
 
 export const loginUser = async (email: string, password: string) => {
+  const localProfile = getProfile();
   const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+  let rawCloud: Partial<UserProfile> | null = null;
   const docSnap = await getDoc(doc(db, 'users', userCred.user.uid));
 
   if (docSnap.exists()) {
-    const cloudProfile = hydrateProfile(docSnap.data() as Partial<UserProfile>);
-    const newUnlocked = checkAchievements(cloudProfile);
-    if (newUnlocked.length > cloudProfile.unlockedAchievements.length) {
-      cloudProfile.unlockedAchievements = newUnlocked;
+    rawCloud = docSnap.data() as Partial<UserProfile>;
+  } else {
+    const emailQuery = query(collection(db, 'users'), where('email', '==', email));
+    const emailSnap = await getDocs(emailQuery);
+    if (!emailSnap.empty) {
+      rawCloud = emailSnap.docs[0].data() as Partial<UserProfile>;
     }
-    await saveProfile(cloudProfile);
-    return cloudProfile;
   }
-  return getProfile();
+
+  const cloudHydrated = hydrateProfile(rawCloud ?? createEmptyProfile(email, ''));
+  const resolvedProfile = mergeProfiles(cloudHydrated, localProfile, email);
+
+  const newUnlocked = checkAchievements(resolvedProfile);
+  if (newUnlocked.length > resolvedProfile.unlockedAchievements.length) {
+    resolvedProfile.unlockedAchievements = newUnlocked;
+  }
+
+  await saveProfile(resolvedProfile);
+  return resolvedProfile;
 };
 
 export const logoutUser = async () => {
