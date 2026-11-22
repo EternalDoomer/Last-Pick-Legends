@@ -21,7 +21,6 @@ import {
   playersOfTeam,
   formatTiEdition,
   getTodayDateStr,
-  ALL_PLAYERS,
   ALL_TEAMS,
 } from '../utils/draft';
 import { simulateTournament } from '../utils/simulate';
