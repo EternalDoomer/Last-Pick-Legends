@@ -115,7 +115,22 @@ export default function DailyChallenge({
 
         <div className="relative my-4 rounded-xl bg-gradient-to-r from-ti9-accent/15 via-ti9-dark/85 to-ti9-dark/90 border border-ti9-accent/40 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-ti9-accent mb-2">
-            <span>🎯</span>
+           <svg
+             className="w-3.5 h-3.5 text-ti9-accent shrink-0"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             strokeWidth="2"
+             strokeLinecap="round"
+             strokeLinejoin="round"
+          >
+             <circle cx="12" cy="12" r="8" />
+             <circle cx="12" cy="12" r="3" />
+             <path d="M12 2v3" />
+             <path d="M12 19v3" />
+             <path d="M2 12h3" />
+             <path d="M19 12h3" />
+          </svg>
             <span>Extra Task</span>
           </div>
 
@@ -126,7 +141,17 @@ export default function DailyChallenge({
           <div className="pt-2 border-t border-ti9-accent/15 flex items-center justify-between text-xs text-slate-300">
             <span className="opacity-75">Reward:</span>
             <span className="font-semibold text-amber-300 flex items-center gap-1">
-              <span>⭐</span>
+              <svg
+                className="w-3.5 h-3.5 text-amber-300 shrink-0"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               strokeWidth="2"
+               strokeLinecap="round"
+               strokeLinejoin="round"
+              >
+               <polygon points="12 2.5 14.9 8.6 21.5 9.5 16.7 14.1 17.9 20.7 12 17.5 6.1 20.7 7.3 14.1 2.5 9.5 9.1 8.6 12 2.5" />
+              </svg>
               <span>{isPractice ? 'Practice only (no star)' : 'Star on leaderboard'}</span>
             </span>
           </div>
@@ -213,7 +238,21 @@ export default function DailyChallenge({
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-500 w-4">{i + 1}.</span>
                   <span className="font-bold">{entry.name}</span>
-                  {entry.task && <span title="Task completed">⭐</span>}
+                  {entry.task && (
+                    <span className="inline-flex items-center">
+                      <svg
+                        className="w-3.5 h-3.5 text-amber-300 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="12 2.5 14.9 8.6 21.5 9.5 16.7 14.1 17.9 20.7 12 17.5 6.1 20.7 7.3 14.1 2.5 9.5 9.1 8.6 12 2.5" />
+                      </svg>
+                    </span>
+                  )}
                 </div>
                 <span
                   className={`font-bold ${
