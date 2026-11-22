@@ -1,240 +1,342 @@
 import { useState, useMemo } from 'react';
-import rawPlayers from '../data/players.json';
-import type { Player } from '../types';
+import { ALL_PLAYERS, ALL_TEAMS, formatTiEdition } from '../utils/draft';
+import type { Player, Tactic } from '../types';
+import AchievementIcon from './AchievementIcon';
+import { TacticIcon } from './TacticBadge';
 
-type ViewMode = 'menu' | 'years' | 'teams' | 'year-detail' | 'team-detail' | 'modes';
+type DbTab = 'years' | 'teams' | 'modes';
 
-export default function Database({ onBack, lang }: { onBack: () => void; lang: 'ru' | 'en' }) {
-  const [view, setView] = useState<ViewMode>('menu');
+const GAME_MODES_INFO = [
+  {
+    icon: 'swords' as const,
+    tag: 'STANDARD · 3 REROLLS',
+    title: 'Normal Game',
+    desc: 'Classic draft across the full TI pool. Player ratings and positions are visible.',
+  },
+  {
+    icon: 'brain' as const,
+    tag: 'HARDCORE · 1 REROLL',
+    title: 'Memory Game',
+    desc: 'Player ratings are hidden. Rely on your knowledge of legendary TI rosters.',
+  },
+  {
+    icon: 'scout' as const,
+    tag: 'CUSTOM · 3 REROLLS',
+    title: 'Free Draft',
+    desc: 'Hand-pick at least 8 teams by TI edition or organization to build your own pool.',
+  },
+  {
+    icon: 'calendar' as const,
+    tag: '$1000 CAP · 1 REROLL',
+    title: 'Daily Challenge',
+    desc: 'Daily themed pool, fixed player prices, hidden OVR, and an optional Extra Task for leaderboard stars.',
+  },
+];
+
+const TACTICS_INFO: { tactic: Tactic; title: string; tag: string; desc: string }[] = [
+  {
+    tactic: 'early',
+    title: 'EARLY',
+    tag: 'POS 4 & 5 FOCUS',
+    desc: 'Empowers aggressive supports (1.25x) to snowball early fights; carry impact is reduced (0.65x).',
+  },
+  {
+    tactic: 'mid',
+    title: 'MID',
+    tag: 'BALANCED · 1.0X',
+    desc: 'Equal weight across all five roles. Pure roster rating and position comfort decide the game.',
+  },
+  {
+    tactic: 'late',
+    title: 'LATE',
+    tag: 'POS 1 & 2 FOCUS',
+    desc: 'Heavily scales carry (1.35x) and mid (1.25x) for late-game teamfights; supports scale less (0.7x).',
+  },
+];
+
+export default function Database({ onBack }: { onBack: () => void }) {
+  const [tab, setTab] = useState<DbTab>('years');
+  const [search, setSearch] = useState('');
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
 
-  const players = rawPlayers as Player[];
-
-  const years = useMemo(() => Array.from(new Set(players.map(p => p.year))).sort((a, b) => a - b), [players]);
-  const teams = useMemo(() => Array.from(new Set(players.map(p => p.team))).sort(), [players]);
-
-  const t = {
-    ru: {
-      knowledgeBase: 'База знаний',
-      selectTournament: 'Выберите турнир',
-      selectTeam: 'Выберите команду',
-      rosters: 'Составы',
-      byYears: 'По годам (TI)',
-      exploreRosters: 'Изучить составы конкретного турнира',
-      byTeams: 'По командам',
-      teamHistory: 'История ростеров организаций',
-      gameModes: 'Режимы игры',
-      gameModesDesc: 'Изучить правила, тактики и механики',
-      back: 'Назад',
-      pos: 'ПОЗ',
-      modes: [
-        { title: 'Обычная игра', desc: 'Классический драфт. Все рейтинги игроков видны. Дается 3 реролла (попытки сменить выпавшую команду). Идеально для первого знакомства и тестов.' },
-        { title: 'Игра по памяти', desc: 'Хардкорный режим. Рейтинги скрыты, вы видите только позиции и ники. Дается всего 1 реролл. Проверьте, насколько хорошо вы помните легендарные составы.' },
-        { title: 'Свободный драфт', desc: 'Вы сами выбираете пул команд, из которых будут выпадать игроки. Отличный способ собрать состав своей любимой организации или эпохи.' },
-        { title: 'Ежедневное испытание', desc: 'Одинаковые условия для всех. Тема дня, фиксированный бюджет и скрытые рейтинги. Успейте пройти вызов, выполнить задание и попасть в таблицу лидеров.' },
-        { title: '⚔️ Early Game (Ранняя игра)', desc: 'Акцент на позиции 4 и 5. Агрессивные саппорты, ранние драки и захват карты. В этой тактике слабые керри будут не так заметны, но сильные саппорты дадут огромное преимущество.' },
-        { title: '⚖️ Mid Game (Середина)', desc: 'Сбалансированный подход. Игра строится вокруг мидера (поз. 2) и оффлейнера (поз. 3), которые задают темп. Все роли важны одинаково.' },
-        { title: '🛡️ Late Game (Поздняя игра)', desc: 'Ставка на керри (поз. 1) и мидера (поз. 2). Вам нужны сильные кор-игроки, чтобы пережить раннее давление и выиграть игру на поздних стадиях. Саппорты здесь играют второстепенную роль.' }
-      ]
-    },
-    en: {
-      knowledgeBase: 'Database',
-      selectTournament: 'Select tournament',
-      selectTeam: 'Select team',
-      rosters: 'Rosters',
-      byYears: 'By years (TI)',
-      exploreRosters: 'Explore rosters of a specific tournament',
-      byTeams: 'By teams',
-      teamHistory: 'Organization roster history',
-      gameModes: 'Game Modes',
-      gameModesDesc: 'Learn rules, tactics and mechanics',
-      back: 'Back',
-      pos: 'POS',
-      modes: [
-        { title: 'Normal Game', desc: 'Classic draft. All player ratings are visible. You get 3 rerolls. Perfect for your first experience.' },
-        { title: 'Memory Game', desc: 'Hardcore mode. Ratings are hidden, you only see positions and nicknames. Only 1 reroll. Test how well you remember legendary rosters.' },
-        { title: 'Free Draft', desc: 'You choose the pool of teams. A great way to assemble your favorite organization or era.' },
-        { title: 'Daily Challenge', desc: 'Equal conditions for everyone. Daily theme, fixed budget, and hidden ratings. Complete the task and climb the leaderboard.' },
-        { title: '⚔️ Early Game', desc: 'Focus on pos 4 and 5. Aggressive supports, early fights and map control. Strong supports give a huge advantage.' },
-        { title: '⚖️ Mid Game', desc: 'Balanced approach. The game revolves around mid (pos 2) and offlane (pos 3) setting the tempo. All roles matter equally.' },
-        { title: '🛡️ Late Game', desc: 'Focus on carry (pos 1) and mid (pos 2). You need strong cores to survive early pressure and win late. Supports play a secondary role here.' }
-      ]
-    }
-  }[lang];
-
-  // --- ФУНКЦИИ РЕНДЕРА ---
-
-  const renderMenu = () => (
-    <div className="space-y-4 mt-8">
-      <button 
-        onClick={() => setView('years')}
-        className="w-full bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-6 rounded-xl border border-ti9-accent/30 flex items-center justify-between"
-      >
-        <div className="text-left">
-          <div className="text-2xl mb-1">📅</div>
-          <div className="font-bold text-lg">{t.byYears}</div>
-          <div className="text-sm opacity-70">{t.exploreRosters}</div>
-        </div>
-        <div className="text-2xl">→</div>
-      </button>
-
-      <button 
-        onClick={() => setView('teams')}
-        className="w-full bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-6 rounded-xl border border-ti9-accent/30 flex items-center justify-between"
-      >
-        <div className="text-left">
-          <div className="text-2xl mb-1">🛡️</div>
-          <div className="font-bold text-lg">{t.byTeams}</div>
-          <div className="text-sm opacity-70">{t.teamHistory}</div>
-        </div>
-        <div className="text-2xl">→</div>
-      </button>
-
-      {/* 🔥 НОВАЯ КНОПКА РЕЖИМОВ */}
-      <button 
-        onClick={() => setView('modes')}
-        className="w-full bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-6 rounded-xl border border-ti9-accent/30 flex items-center justify-between"
-      >
-        <div className="text-left">
-          <div className="text-2xl mb-1">🎮</div>
-          <div className="font-bold text-lg">{t.gameModes}</div>
-          <div className="text-sm opacity-70">{t.gameModesDesc}</div>
-        </div>
-        <div className="text-2xl">→</div>
-      </button>
-    </div>
+  const years = useMemo(
+    () => Array.from(new Set(ALL_PLAYERS.map((p) => p.year))).sort((a, b) => a - b),
+    []
   );
 
-  const renderModes = () => (
-    <div className="space-y-4 mt-4">
-      {t.modes.map((mode, idx) => (
-        <div key={idx} className="bg-ti9-panel rounded-xl p-4 border border-ti9-accent/20">
-          <h3 className="font-bold text-ti9-accent mb-2 text-lg">{mode.title}</h3>
-          <p className="text-sm opacity-80 leading-relaxed">{mode.desc}</p>
-        </div>
-      ))}
-    </div>
+  const teams = useMemo(
+    () => Array.from(new Set(ALL_PLAYERS.map((p) => p.team))).sort((a, b) => a.localeCompare(b)),
+    []
   );
 
-  const renderYears = () => (
-    <div className="grid grid-cols-2 gap-2 mt-4">
-      {years.map(year => (
-        <button
-          key={year}
-          onClick={() => { setSelectedYear(year); setView('year-detail'); }}
-          className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-lg border border-ti9-accent/20 text-center font-bold"
-        >
-          TI{year === 2011 ? '1' : year - 2010}
-          <span className="block text-xs font-normal opacity-50 mt-1">{year}</span>
-        </button>
-      ))}
-    </div>
-  );
-
-  const renderTeams = () => (
-    <div className="grid grid-cols-2 gap-2 mt-4">
-      {teams.map(team => (
-        <button
-          key={team}
-          onClick={() => { setSelectedTeam(team); setView('team-detail'); }}
-          className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-3 rounded-lg border border-ti9-accent/20 text-sm font-bold truncate"
-        >
-          {team}
-        </button>
-      ))}
-    </div>
-  );
-
-  const renderYearDetail = () => {
-    const yearPlayers = players.filter(p => p.year === selectedYear);
-    const grouped = yearPlayers.reduce((acc, p) => {
-      if (!acc[p.team]) acc[p.team] = [];
-      acc[p.team].push(p);
-      return acc;
-    }, {} as Record<string, Player[]>);
-
-    return (
-      <div className="space-y-6 mt-4">
-        {Object.entries(grouped).map(([team, roster]) => (
-          <div key={team} className="bg-ti9-panel rounded-xl p-4 border border-ti9-accent/20">
-            <h3 className="font-bold text-ti9-accent mb-3 text-lg">{team}</h3>
-            <div className="space-y-2">
-              {roster.sort((a,b) => a.positions[0] - b.positions[0]).map(p => (
-                <div key={p.id} className="flex justify-between items-center bg-ti9-dark p-2 rounded border border-ti9-accent/10 text-sm">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-ti9-teal min-w-[50px]">{t.pos} {p.positions.join(',')}</span>
-                    <span className="font-bold">{p.nickname}</span>
-                  </div>
-                  <span className="font-bold text-ti9-accent">{p.rating}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+  const filteredYears = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return years;
+    return years.filter(
+      (y) => formatTiEdition(y).toLowerCase().includes(q) || String(y).includes(q)
     );
-  };
+  }, [years, search]);
 
-  const renderTeamDetail = () => {
-    const teamPlayers = players.filter(p => p.team === selectedTeam);
-    const grouped = teamPlayers.reduce((acc, p) => {
-      if (!acc[p.year]) acc[p.year] = [];
-      acc[p.year].push(p);
-      return acc;
-    }, {} as Record<number, Player[]>);
+  const filteredTeams = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return teams;
+    return teams.filter((t) => t.toLowerCase().includes(q));
+  }, [teams, search]);
 
-    return (
-      <div className="space-y-6 mt-4">
-        {Object.entries(grouped).sort((a,b) => Number(a[0]) - Number(b[0])).map(([year, roster]) => (
-          <div key={year} className="bg-ti9-panel rounded-xl p-4 border border-ti9-accent/20">
-            <h3 className="font-bold text-ti9-accent mb-3 text-lg">TI{Number(year) === 2011 ? '1' : Number(year) - 2010} ({year})</h3>
-            <div className="space-y-2">
-              {roster.sort((a,b) => a.positions[0] - b.positions[0]).map(p => (
-                <div key={p.id} className="flex justify-between items-center bg-ti9-dark p-2 rounded border border-ti9-accent/10 text-sm">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-ti9-teal min-w-[50px]">{t.pos} {p.positions.join(',')}</span>
-                    <span className="font-bold">{p.nickname}</span>
-                  </div>
-                  <span className="font-bold text-ti9-accent">{p.rating}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
+  const isDetailView = selectedYear !== null || selectedTeam !== null;
 
   const handleBack = () => {
-    if (view === 'menu') onBack();
-    else if (view === 'year-detail') setView('years');
-    else if (view === 'team-detail') setView('teams');
-    else setView('menu');
+    if (selectedYear !== null) {
+      setSelectedYear(null);
+      return;
+    }
+    if (selectedTeam !== null) {
+      setSelectedTeam(null);
+      return;
+    }
+    onBack();
+  };
+
+  const renderCompactRoster = (key: string | number, heading: string, roster: Player[]) => {
+    const sorted = [...roster].sort((a, b) => a.positions[0] - b.positions[0]);
+    const avgOvr =
+      sorted.length > 0
+        ? Math.round(sorted.reduce((sum, p) => sum + p.rating, 0) / sorted.length)
+        : 0;
+
+    return (
+      <div
+        key={key}
+        className="bg-ti9-panel rounded-xl border border-white/10 overflow-hidden"
+      >
+        <div className="px-3.5 py-2.5 bg-ti9-dark/60 border-b border-white/5 flex items-center justify-between">
+          <h3 className="font-extrabold text-sm text-white">{heading}</h3>
+          <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-ti9-teal/15 text-ti9-teal border border-ti9-teal/30">
+            AVG {avgOvr}
+          </span>
+        </div>
+
+        <div className="divide-y divide-white/5">
+          {sorted.map((p) => (
+            <div
+              key={p.id}
+              className="px-3.5 py-2 flex items-center justify-between text-xs hover:bg-white/[0.02]"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="font-mono text-[10px] font-bold text-ti9-teal bg-ti9-dark px-1.5 py-0.5 rounded border border-white/5 w-14 text-center shrink-0">
+                  POS {p.positions.join('/')}
+                </span>
+                <span className="font-bold text-white truncate">{p.nickname}</span>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0 font-mono">
+                {p.price && (
+                  <span className="text-[11px] text-emerald-400/80">${p.price}</span>
+                )}
+                <span className="font-black text-ti9-accent w-6 text-right">{p.rating}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className="min-h-screen bg-ti9-dark text-ti9-light p-4 pb-20">
-      <div className="flex items-center mb-6">
-        <button onClick={handleBack} className="mr-4 text-ti9-accent hover:underline font-bold">
-          ← {t.back}
+      <div className="flex items-center justify-between mb-4">
+        <button onClick={handleBack} className="text-ti9-accent hover:underline font-bold">
+          ← {isDetailView ? 'All' : 'Back'}
         </button>
-        <h2 className="text-xl font-bold">
-          {view === 'menu' && t.knowledgeBase}
-          {view === 'years' && t.selectTournament}
-          {view === 'teams' && t.selectTeam}
-          {view === 'year-detail' && `TI${selectedYear === 2011 ? '1' : (selectedYear || 0) - 2010} ${t.rosters}`}
-          {view === 'team-detail' && selectedTeam}
-          {view === 'modes' && t.gameModes}
-        </h2>
+        <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400">
+          {selectedYear !== null
+            ? `${formatTiEdition(selectedYear)} (${selectedYear})`
+            : selectedTeam !== null
+            ? selectedTeam
+            : 'Database'}
+        </span>
+        <div className="w-12" />
       </div>
 
-      {view === 'menu' && renderMenu()}
-      {view === 'years' && renderYears()}
-      {view === 'teams' && renderTeams()}
-      {view === 'year-detail' && renderYearDetail()}
-      {view === 'team-detail' && renderTeamDetail()}
-      {view === 'modes' && renderModes()}
+      {!isDetailView && (
+        <div className="space-y-3 mb-4">
+          <div className="grid grid-cols-3 gap-1.5 bg-ti9-dark/90 p-1.5 rounded-2xl border border-ti9-accent/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+            {(
+              [
+                { id: 'years', label: 'By TI' },
+                { id: 'teams', label: 'By Teams' },
+                { id: 'modes', label: 'Rules & Tactics' },
+              ] as const
+            ).map((item) => {
+              const active = tab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setTab(item.id);
+                    setSearch('');
+                  }}
+                  className={`py-2.5 px-2 rounded-xl font-extrabold text-xs tracking-wide transition-all ${
+                    active
+                      ? 'bg-gradient-to-b from-amber-300 to-ti9-accent text-ti9-dark shadow-[0_2px_12px_rgba(212,175,55,0.35)] border border-amber-200/70'
+                      : 'bg-ti9-panel/70 text-slate-300 border border-white/5 hover:border-ti9-accent/35 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {tab !== 'modes' && (
+            <div className="relative">
+              <input
+                type="text"
+                placeholder={
+                  tab === 'years' ? 'Filter TI edition or year...' : 'Search organization...'
+                }
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full bg-ti9-panel px-3.5 py-2.5 pr-8 rounded-xl border border-ti9-accent/25 text-xs text-white outline-none focus:border-ti9-accent"
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {!isDetailView && tab === 'years' && (
+        <div className="grid grid-cols-3 gap-2">
+          {filteredYears.map((year) => {
+            const teamCount = ALL_TEAMS.filter((t) => t.year === year).length;
+            return (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark group transition p-3 rounded-xl border border-white/10 hover:border-ti9-accent text-center"
+              >
+                <div className="font-black text-base text-ti9-accent group-hover:text-ti9-dark">
+                  {formatTiEdition(year)}
+                </div>
+                <div className="font-mono text-[11px] opacity-75">{year}</div>
+                <div className="text-[10px] opacity-50 mt-1">{teamCount} teams</div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {!isDetailView && tab === 'teams' && (
+        <div className="grid grid-cols-2 gap-2">
+          {filteredTeams.map((team) => {
+            const appearances = ALL_TEAMS.filter((t) => t.team === team).length;
+            return (
+              <button
+                key={team}
+                onClick={() => setSelectedTeam(team)}
+                className="bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark group transition px-3.5 py-2.5 rounded-xl border border-white/10 hover:border-ti9-accent flex items-center justify-between gap-2 text-left"
+              >
+                <span className="font-bold text-xs truncate">{team}</span>
+                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-ti9-dark/60 text-ti9-teal group-hover:bg-black/15 group-hover:text-ti9-dark shrink-0">
+                  {appearances} TI
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {!isDetailView && tab === 'modes' && (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h3 className="text-[11px] font-extrabold uppercase tracking-widest text-ti9-accent px-1">
+              Game Modes
+            </h3>
+            {GAME_MODES_INFO.map((mode) => (
+              <div
+                key={mode.title}
+                className="bg-ti9-panel rounded-xl p-3.5 border border-white/10 flex items-start gap-3"
+              >
+                <div className="w-9 h-9 rounded-lg bg-ti9-dark border border-ti9-accent/30 text-ti9-accent flex items-center justify-center shrink-0 mt-0.5">
+                  <AchievementIcon icon={mode.icon} className="w-4 h-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-bold text-sm text-white truncate">{mode.title}</span>
+                    <span className="w-36 h-5 inline-flex items-center justify-center text-[9px] font-mono font-bold tracking-wider text-ti9-teal bg-ti9-teal/10 rounded border border-ti9-teal/25 shrink-0">
+                      {mode.tag}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">{mode.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-[11px] font-extrabold uppercase tracking-widest text-ti9-accent px-1">
+              Draft Tactics
+            </h3>
+            {TACTICS_INFO.map((tac) => (
+              <div
+                key={tac.tactic}
+                className="bg-ti9-panel rounded-xl p-3.5 border border-white/10 flex items-start gap-3"
+              >
+                <div className="w-9 h-9 rounded-lg bg-ti9-dark border border-ti9-accent/30 text-ti9-accent flex items-center justify-center shrink-0 mt-0.5">
+                  <TacticIcon tactic={tac.tactic} className="w-4 h-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-bold text-sm text-white truncate">{tac.title}</span>
+                    <span className="w-36 h-5 inline-flex items-center justify-center text-[9px] font-mono font-bold tracking-wider text-ti9-teal bg-ti9-teal/10 rounded border border-ti9-teal/25 shrink-0">
+                      {tac.tag}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">{tac.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {selectedYear !== null && (
+        <div className="space-y-3">
+          {Object.entries(
+            ALL_PLAYERS.filter((p) => p.year === selectedYear).reduce((acc, p) => {
+              if (!acc[p.team]) acc[p.team] = [];
+              acc[p.team].push(p);
+              return acc;
+            }, {} as Record<string, Player[]>)
+          )
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .map(([team, roster]) => renderCompactRoster(team, team, roster))}
+        </div>
+      )}
+
+      {selectedTeam !== null && (
+        <div className="space-y-3">
+          {Object.entries(
+            ALL_PLAYERS.filter((p) => p.team === selectedTeam).reduce((acc, p) => {
+              if (!acc[p.year]) acc[p.year] = [];
+              acc[p.year].push(p);
+              return acc;
+            }, {} as Record<number, Player[]>)
+          )
+            .sort((a, b) => Number(a[0]) - Number(b[0]))
+            .map(([year, roster]) =>
+              renderCompactRoster(year, `${formatTiEdition(Number(year))} (${year})`, roster)
+            )}
+        </div>
+      )}
     </div>
   );
 }

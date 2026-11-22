@@ -1,12 +1,19 @@
 import { auth, db } from './firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
-import { checkAchievements } from './achievements';
+import { ALL_ACHIEVEMENTS, checkAchievements } from './achievements';
+import { getTodayDateStr, normalizePlacement } from './draft';
+import type { GameMode, Tactic, TournamentResult } from '../types';
+
+const VALID_ACHIEVEMENT_IDS = new Set(ALL_ACHIEVEMENTS.map((a) => a.id));
 
 export interface DailyRecord {
   date: string;
   placement: string;
   taskCompleted: boolean;
+  themeTitle?: string;
+  avgRating?: number;
+  moneySaved?: number;
 }
 
 export interface Friend {
@@ -27,81 +34,118 @@ export interface UserProfile {
   unlockedAchievements: string[];
   dailyHistory: DailyRecord[];
   friends: Friend[];
+  bestAvgRating: number;
+  lowestWinAvgRating: number;
+  maxDailyWinSaved: number;
+  wonTactics: Tactic[];
+  wonUpperRun: boolean;
+  wonLowerRun: boolean;
+}
+
+function createEmptyProfile(email = '', nickname = ''): UserProfile {
+  return {
+    nickname,
+    email,
+    matchesPlayed: 0,
+    wins: 0,
+    dailyCompleted: 0,
+    memoryWins: 0,
+    dailyWins: 0,
+    favoritePlayers: {},
+    pinnedAchievements: [],
+    unlockedAchievements: [],
+    dailyHistory: [],
+    friends: [],
+    bestAvgRating: 0,
+    lowestWinAvgRating: 0,
+    maxDailyWinSaved: 0,
+    wonTactics: [],
+    wonUpperRun: false,
+    wonLowerRun: false,
+  };
+}
+
+function sanitizeAchievementIds(ids: string[] | undefined): string[] {
+  if (!Array.isArray(ids)) return [];
+  return Array.from(new Set(ids.filter((id) => VALID_ACHIEVEMENT_IDS.has(id))));
+}
+
+function hydrateProfile(raw: Partial<UserProfile>): UserProfile {
+  const base = {
+    ...createEmptyProfile(),
+    ...raw,
+    dailyHistory: raw.dailyHistory ?? [],
+    friends: raw.friends ?? [],
+    favoritePlayers: raw.favoritePlayers ?? {},
+    wonTactics: raw.wonTactics ?? [],
+  };
+
+  const cleanUnlocked = sanitizeAchievementIds(raw.unlockedAchievements);
+  const unlockedSet = new Set(cleanUnlocked);
+  const cleanPinned = sanitizeAchievementIds(raw.pinnedAchievements)
+    .filter((id) => unlockedSet.has(id))
+    .slice(0, 3);
+
+  return {
+    ...base,
+    unlockedAchievements: cleanUnlocked,
+    pinnedAchievements: cleanPinned,
+  };
 }
 
 export const getProfile = (): UserProfile => {
   const data = localStorage.getItem('lpl_profile');
-  if (data) {
-    const parsed = JSON.parse(data);
-    if (!parsed.dailyHistory) parsed.dailyHistory = [];
-    if (!parsed.friends) parsed.friends = [];
-    if (parsed.memoryWins === undefined) parsed.memoryWins = 0;
-    if (parsed.dailyWins === undefined) parsed.dailyWins = 0;
-    return parsed;
-  }
-  return {
-    nickname: '', email: '', matchesPlayed: 0, wins: 0, dailyCompleted: 0,
-    memoryWins: 0, dailyWins: 0,
-    favoritePlayers: {}, pinnedAchievements: [], unlockedAchievements: [], dailyHistory: [], friends: []
-  };
+  if (!data) return createEmptyProfile();
+  return hydrateProfile(JSON.parse(data));
 };
 
 export const saveProfile = async (profile: UserProfile) => {
-  const newUnlocked = checkAchievements(profile);
-  if (newUnlocked.length > profile.unlockedAchievements.length) {
-    profile.unlockedAchievements = newUnlocked;
+  const cleanProfile = hydrateProfile(profile);
+  const newUnlocked = checkAchievements(cleanProfile);
+  if (newUnlocked.length > cleanProfile.unlockedAchievements.length) {
+    cleanProfile.unlockedAchievements = newUnlocked;
   }
-  localStorage.setItem('lpl_profile', JSON.stringify(profile));
-  
+  localStorage.setItem('lpl_profile', JSON.stringify(cleanProfile));
+
   if (auth.currentUser) {
     try {
-      await setDoc(doc(db, "users", auth.currentUser.uid), profile);
+      await setDoc(doc(db, 'users', auth.currentUser.uid), cleanProfile);
     } catch (e) {
-      console.error("Ошибка синхронизации с облаком", e);
+      console.error('Failed to sync profile with cloud:', e);
     }
   }
 };
 
 const isNicknameTaken = async (nickname: string) => {
-  const q = query(collection(db, "users"), where("nickname", "==", nickname));
+  const q = query(collection(db, 'users'), where('nickname', '==', nickname));
   const snapshot = await getDocs(q);
   return !snapshot.empty;
 };
 
 export const registerUser = async (email: string, password: string, nickname: string) => {
   if (await isNicknameTaken(nickname)) {
-    throw new Error('Этот никнейм уже занят!');
+    throw new Error('This nickname is already taken!');
   }
-  
+
   const userCred = await createUserWithEmailAndPassword(auth, email, password);
-  
-  const newProfile: UserProfile = {
-    nickname, email, matchesPlayed: 0, wins: 0, dailyCompleted: 0,
-    memoryWins: 0, dailyWins: 0,
-    favoritePlayers: {}, pinnedAchievements: [], unlockedAchievements: [], dailyHistory: [], friends: []
-  };
-  
-  await setDoc(doc(db, "users", userCred.user.uid), newProfile);
+  const newProfile = createEmptyProfile(email, nickname);
+
+  await setDoc(doc(db, 'users', userCred.user.uid), newProfile);
   localStorage.setItem('lpl_profile', JSON.stringify(newProfile));
   return newProfile;
 };
 
 export const loginUser = async (email: string, password: string) => {
   const userCred = await signInWithEmailAndPassword(auth, email, password);
-  const docRef = doc(db, "users", userCred.user.uid);
-  const docSnap = await getDoc(docRef);
-  
+  const docSnap = await getDoc(doc(db, 'users', userCred.user.uid));
+
   if (docSnap.exists()) {
-    const cloudProfile = docSnap.data() as UserProfile;
-    if (!cloudProfile.friends) cloudProfile.friends = [];
-    if (cloudProfile.memoryWins === undefined) cloudProfile.memoryWins = 0;
-    if (cloudProfile.dailyWins === undefined) cloudProfile.dailyWins = 0;
-    
+    const cloudProfile = hydrateProfile(docSnap.data() as Partial<UserProfile>);
     const newUnlocked = checkAchievements(cloudProfile);
     if (newUnlocked.length > cloudProfile.unlockedAchievements.length) {
       cloudProfile.unlockedAchievements = newUnlocked;
     }
-    localStorage.setItem('lpl_profile', JSON.stringify(cloudProfile));
+    await saveProfile(cloudProfile);
     return cloudProfile;
   }
   return getProfile();
@@ -118,88 +162,150 @@ export const trackDraft = (playerId: string) => {
   saveProfile(profile);
 };
 
-export const trackMatch = (won: boolean, mode: 'normal' | 'memory' | 'daily' | 'free') => {
+export const recordRosterDrafted = (avgRating: number) => {
+  const profile = getProfile();
+  if (avgRating > (profile.bestAvgRating || 0)) {
+    profile.bestAvgRating = avgRating;
+    saveProfile(profile);
+  }
+};
+
+export const trackMatch = (
+  result: TournamentResult,
+  mode: GameMode,
+  avgRating = 0,
+  savedBudget = 0
+) => {
   const profile = getProfile();
   profile.matchesPlayed += 1;
-  
-  if (won) {
+
+  if (avgRating > (profile.bestAvgRating || 0)) {
+    profile.bestAvgRating = avgRating;
+  }
+
+  if (result.champion) {
     profile.wins += 1;
     if (mode === 'memory') profile.memoryWins += 1;
-    if (mode === 'daily') profile.dailyWins += 1;
+    if (mode === 'daily') {
+      profile.dailyWins += 1;
+      if (savedBudget > (profile.maxDailyWinSaved || 0)) {
+        profile.maxDailyWinSaved = savedBudget;
+      }
+    }
+
+    if (avgRating > 0 && (!profile.lowestWinAvgRating || avgRating < profile.lowestWinAvgRating)) {
+      profile.lowestWinAvgRating = avgRating;
+    }
+
+    if (!profile.wonTactics.includes(result.tactic)) {
+      profile.wonTactics.push(result.tactic);
+    }
+
+    const hadLowerMatches = result.matches.some((m) => m.bracket === 'lower');
+    if (!hadLowerMatches) {
+      profile.wonUpperRun = true;
+    }
+
+    const droppedInFirstMatch = result.matches.length > 0 && !result.matches[0].won;
+    if (droppedInFirstMatch) {
+      profile.wonLowerRun = true;
+    }
   }
-  
+
   saveProfile(profile);
 };
 
 export const hasPlayedDailyToday = (): boolean => {
   const profile = getProfile();
-  const today = new Date().toISOString().split('T')[0];
-  return profile.dailyHistory.some(r => r.date === today);
+  const today = getTodayDateStr();
+  return profile.dailyHistory.some((r) => r.date === today);
 };
 
-export const saveDailyResult = async (placement: string, taskCompleted: boolean, teamPower: number, moneySaved: number) => {
+export const saveDailyResult = async (
+  placement: string,
+  taskCompleted: boolean,
+  teamPower: number,
+  moneySaved: number,
+  themeTitle?: string
+) => {
   const profile = getProfile();
-  const today = new Date().toISOString().split('T')[0];
-  const existingIdx = profile.dailyHistory.findIndex(r => r.date === today);
-  
+  const today = getTodayDateStr();
+  const cleanPlacement = normalizePlacement(placement);
+  const existingIdx = profile.dailyHistory.findIndex((r) => r.date === today);
+
+  const record: DailyRecord = {
+    date: today,
+    placement: cleanPlacement,
+    taskCompleted,
+    themeTitle,
+    avgRating: teamPower,
+    moneySaved,
+  };
+
   if (existingIdx !== -1) {
-    profile.dailyHistory[existingIdx] = { date: today, placement, taskCompleted };
+    profile.dailyHistory[existingIdx] = record;
   } else {
-    profile.dailyHistory.push({ date: today, placement, taskCompleted });
+    profile.dailyHistory.push(record);
     profile.dailyCompleted += 1;
   }
   await saveProfile(profile);
 
   if (auth.currentUser) {
     try {
-      await setDoc(doc(db, "daily_scores", `${today}_${auth.currentUser.uid}`), {
+      await setDoc(doc(db, 'daily_scores', `${today}_${auth.currentUser.uid}`), {
         date: today,
-        nickname: profile.nickname || 'Аноним',
-        placement: placement,
-        taskCompleted: taskCompleted,
+        nickname: profile.nickname || 'Anonymous',
+        placement: cleanPlacement,
+        taskCompleted,
         uid: auth.currentUser.uid,
-        teamPower: teamPower,
-        moneySaved: moneySaved
+        teamPower,
+        moneySaved,
       });
     } catch (e) {
-      console.error("Ошибка сохранения в рейтинг", e);
+      console.error('Failed to save daily score:', e);
     }
   }
 };
 
 export const getLeaderboard = async (dateStr: string) => {
   const results: { name: string; score: string; task: boolean; power: number; saved: number }[] = [];
-  
+
   try {
-    const q = query(collection(db, "daily_scores"), where("date", "==", dateStr));
+    const q = query(collection(db, 'daily_scores'), where('date', '==', dateStr));
     const snapshot = await getDocs(q);
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      results.push({ 
-        name: data.nickname, 
-        score: data.placement, 
-        task: data.taskCompleted,
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      results.push({
+        name: data.nickname,
+        score: normalizePlacement(data.placement || ''),
+        task: Boolean(data.taskCompleted),
         power: data.teamPower || 0,
-        saved: data.moneySaved || 0
+        saved: data.moneySaved || 0,
       });
     });
   } catch (e) {
-    console.error("Ошибка загрузки рейтинга", e);
+    console.error('Failed to load leaderboard:', e);
   }
-  
+
   if (results.length === 0) {
     const profile = getProfile();
-    const myRecord = profile.dailyHistory.find(r => r.date === dateStr);
+    const myRecord = profile.dailyHistory.find((r) => r.date === dateStr);
     if (myRecord && profile.nickname) {
-      results.push({ name: profile.nickname, score: myRecord.placement, task: myRecord.taskCompleted, power: 0, saved: 0 });
+      results.push({
+        name: profile.nickname,
+        score: normalizePlacement(myRecord.placement),
+        task: myRecord.taskCompleted,
+        power: myRecord.avgRating || 0,
+        saved: myRecord.moneySaved || 0,
+      });
     }
   }
-  
+
   return results;
 };
 
 export const searchUserByNickname = async (nickname: string): Promise<Friend | null> => {
-  const q = query(collection(db, "users"), where("nickname", "==", nickname));
+  const q = query(collection(db, 'users'), where('nickname', '==', nickname));
   const snapshot = await getDocs(q);
   if (snapshot.empty) return null;
   const docData = snapshot.docs[0].data();
@@ -208,7 +314,7 @@ export const searchUserByNickname = async (nickname: string): Promise<Friend | n
 
 export const addFriendToProfile = async (friend: Friend) => {
   const profile = getProfile();
-  if (!profile.friends.some(f => f.uid === friend.uid)) {
+  if (!profile.friends.some((f) => f.uid === friend.uid)) {
     profile.friends.push(friend);
     await saveProfile(profile);
   }
@@ -216,15 +322,14 @@ export const addFriendToProfile = async (friend: Friend) => {
 
 export const removeFriendFromProfile = async (friendUid: string) => {
   const profile = getProfile();
-  profile.friends = profile.friends.filter(f => f.uid !== friendUid);
+  profile.friends = profile.friends.filter((f) => f.uid !== friendUid);
   await saveProfile(profile);
 };
 
 export const getFriendProfileById = async (uid: string): Promise<UserProfile | null> => {
-  const docRef = doc(db, "users", uid);
-  const docSnap = await getDoc(docRef);
+  const docSnap = await getDoc(doc(db, 'users', uid));
   if (docSnap.exists()) {
-    return docSnap.data() as UserProfile;
+    return hydrateProfile(docSnap.data() as Partial<UserProfile>);
   }
   return null;
 };

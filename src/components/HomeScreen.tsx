@@ -1,112 +1,98 @@
-import { translations } from '../utils/i18n';
+import { ALL_PLAYERS, ALL_TEAMS } from '../utils/draft';
+import AchievementIcon from './AchievementIcon';
 
-export default function HomeScreen({ 
-  onNavigate, 
-  lang, 
-  setLang 
-}: { 
+export default function HomeScreen({
+  onNavigate,
+}: {
   onNavigate: (screen: string) => void;
-  lang: 'ru' | 'en';
-  setLang: (l: 'ru' | 'en') => void;
 }) {
-  const t = translations[lang];
-
   return (
-    <div className="flex flex-col min-h-screen bg-ti9-dark text-ti9-light pb-10">
-      <div className="flex justify-between items-center p-4">
-        <h1 className="text-3xl font-bold text-ti9-accent tracking-wider">Last Pick Legends</h1>
-        
-        <select
-          value={lang}
-          onChange={(e) => setLang(e.target.value as 'ru' | 'en')}
-          className="bg-ti9-panel px-2 py-1.5 rounded border border-ti9-accent/50 text-sm text-white outline-none cursor-pointer hover:border-ti9-accent transition"
-        >
-          <option value="ru">RU</option>
-          <option value="en">ENG</option>
-        </select>
-      </div>
+    <div className="relative flex flex-col min-h-screen bg-ti9-dark text-ti9-light pb-8 overflow-hidden">
+      {/* SUBTLE AMBIENT TOP GLOW */}
+      <div className="pointer-events-none absolute -top-28 left-1/2 -translate-x-1/2 w-80 h-52 bg-ti9-accent/15 blur-3xl rounded-full" />
 
-      <div className="text-center px-4 mb-6">
-        <p className="font-vibes text-ti9-teal text-xl md:text-2xl tracking-wide opacity-80 drop-shadow-md">
-          {lang === 'ru' 
-            ? 'Соберите легендарный состав из игроков всех The International и приведите его к Аегису.' 
-            : 'Draft a legendary roster from all The Internationals and lead them to the Aegis.'}
+      {/* BRAND HEADER */}
+      <div className="relative px-4 pt-6 pb-4 text-center">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-ti9-panel/90 border border-ti9-accent/30 text-[10px] font-extrabold uppercase tracking-[0.2em] text-ti9-teal mb-2.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-ti9-teal" />
+          <span>The International Draft Simulator</span>
+        </div>
+
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-ti9-accent">
+          LAST PICK LEGENDS
+        </h1>
+
+        <p className="text-xs md:text-sm text-slate-400 mt-1.5 max-w-xs mx-auto leading-relaxed">
+          Assemble an all-time Dota 2 dream roster and conquer the TI bracket.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 px-4 mb-6">
-        {/* 🔥 Обычная игра */}
-        <button onClick={() => onNavigate('draft_normal')} className="group bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left">
-          <div className="mb-2 text-ti9-accent group-hover:text-ti9-dark transition">
-            <svg style={{ width: '28px', height: '28px' }} width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 3v18" />
-              <path d="M5 7h14" />
-              <path d="M5 7l-2.5 6h5L5 7z" />
-              <path d="M19 7l-2.5 6h5L19 7z" />
-              <path d="M9 21h6" />
-            </svg>
+      {/* 2x2 MODE GRID (CLEAN, NO SUBTITLES) */}
+      <div className="relative grid grid-cols-2 gap-3 px-4 mb-5">
+        <button
+          onClick={() => onNavigate('draft_normal')}
+          className="group relative overflow-hidden bg-gradient-to-b from-ti9-panel to-ti9-dark/90 hover:from-ti9-accent hover:to-amber-400 hover:text-ti9-dark transition-all duration-200 p-4 rounded-2xl border border-ti9-accent/30 hover:border-amber-200 text-left shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
+        >
+          <div className="w-10 h-10 rounded-xl bg-ti9-dark/80 group-hover:bg-black/15 border border-ti9-accent/30 group-hover:border-transparent flex items-center justify-center mb-3 text-ti9-accent group-hover:text-ti9-dark transition">
+            <AchievementIcon icon="swords" className="w-5 h-5" />
           </div>
-          <div className="font-bold text-lg">{t.normalMode}</div>
+          <div className="font-black text-base tracking-wide">NORMAL GAME</div>
         </button>
 
-        {/* 🔥 По памяти */}
-        <button onClick={() => onNavigate('draft_memory')} className="group bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left">
-          <div className="mb-2 text-ti9-accent group-hover:text-ti9-dark transition">
-            <svg style={{ width: '28px', height: '28px' }} width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
-              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
-            </svg>
+        <button
+          onClick={() => onNavigate('draft_memory')}
+          className="group relative overflow-hidden bg-gradient-to-b from-ti9-panel to-ti9-dark/90 hover:from-ti9-accent hover:to-amber-400 hover:text-ti9-dark transition-all duration-200 p-4 rounded-2xl border border-ti9-accent/30 hover:border-amber-200 text-left shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
+        >
+          <div className="w-10 h-10 rounded-xl bg-ti9-dark/80 group-hover:bg-black/15 border border-ti9-accent/30 group-hover:border-transparent flex items-center justify-center mb-3 text-ti9-accent group-hover:text-ti9-dark transition">
+            <AchievementIcon icon="brain" className="w-5 h-5" />
           </div>
-          <div className="font-bold text-lg">{t.memoryMode}</div>
-        </button>
-        
-        {/* 🔥 Свободный драфт */}
-        <button onClick={() => onNavigate('free_setup')} className="group bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left">
-          <div className="mb-2 text-ti9-accent group-hover:text-ti9-dark transition">
-            <svg style={{ width: '28px', height: '28px' }} width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-            </svg>
-          </div>
-          <div className="font-bold text-lg">{t.freeMode}</div>
+          <div className="font-black text-base tracking-wide">MEMORY GAME</div>
         </button>
 
-        {/* 🔥 Испытание дня */}
-        <button onClick={() => onNavigate('daily_setup')} className="group bg-ti9-panel hover:bg-ti9-accent hover:text-ti9-dark transition p-4 rounded-xl border border-ti9-accent/30 text-left relative">
-          <div className="mb-2 text-ti9-accent group-hover:text-ti9-dark transition">
-            <svg style={{ width: '28px', height: '28px' }} width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-              <path d="M4 22h16" />
-              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-            </svg>
+        <button
+          onClick={() => onNavigate('free_setup')}
+          className="group relative overflow-hidden bg-gradient-to-b from-ti9-panel to-ti9-dark/90 hover:from-ti9-accent hover:to-amber-400 hover:text-ti9-dark transition-all duration-200 p-4 rounded-2xl border border-ti9-accent/30 hover:border-amber-200 text-left shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
+        >
+          <div className="w-10 h-10 rounded-xl bg-ti9-dark/80 group-hover:bg-black/15 border border-ti9-accent/30 group-hover:border-transparent flex items-center justify-center mb-3 text-ti9-accent group-hover:text-ti9-dark transition">
+            <AchievementIcon icon="scout" className="w-5 h-5" />
           </div>
-          <div className="font-bold text-lg">{t.dailyMode}</div>
-          <div className="absolute top-2 right-2 text-[10px] bg-red-500 text-white px-1.5 py-0.5 rounded">NEW</div>
+          <div className="font-black text-base tracking-wide">FREE DRAFT</div>
+        </button>
+
+        <button
+          onClick={() => onNavigate('daily_setup')}
+          className="group relative overflow-hidden bg-gradient-to-br from-ti9-panel via-ti9-panel to-ti9-accent/15 hover:from-ti9-accent hover:to-amber-400 hover:text-ti9-dark transition-all duration-200 p-4 rounded-2xl border border-ti9-accent/55 hover:border-amber-200 text-left shadow-[0_6px_24px_rgba(212,175,55,0.14)]"
+        >
+          <div className="w-10 h-10 rounded-xl bg-ti9-accent/15 group-hover:bg-black/15 border border-ti9-accent/40 group-hover:border-transparent flex items-center justify-center mb-3 text-ti9-accent group-hover:text-ti9-dark transition">
+            <AchievementIcon icon="trophy" className="w-5 h-5" />
+          </div>
+          <div className="font-black text-base tracking-wide">DAILY CHALLENGE</div>
+          <div className="absolute top-3 right-3 text-[9px] font-extrabold tracking-widest uppercase bg-ti9-teal/20 text-ti9-teal group-hover:bg-black/15 group-hover:text-ti9-dark border border-ti9-teal/40 group-hover:border-transparent px-1.5 py-0.5 rounded-full">
+            LIVE
+          </div>
         </button>
       </div>
 
-      {/* КВАДРАТНАЯ КАРТА */}
-      <div className="px-4 mb-8 flex justify-center">
-        <div className="w-full max-w-[340px] aspect-square bg-[#181326] rounded-2xl border border-purple-400/15 relative overflow-hidden shadow-[0_12px_28px_rgba(7,4,15,0.55)] flex items-center justify-center select-none">
-          
-          <div 
+      {/* DOTA MINIMAP */}
+      <div className="px-4 mb-5 flex justify-center">
+        <div className="w-full max-w-[340px] aspect-square bg-[#181326] rounded-2xl border border-ti9-accent/20 relative overflow-hidden shadow-[0_12px_28px_rgba(7,4,15,0.65)] flex items-center justify-center select-none">
+          <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background: `
-                radial-gradient(circle at 14% 86%, rgba(16, 185, 129, 0.11) 0%, transparent 46%),
-                radial-gradient(circle at 86% 14%, rgba(244, 63, 94, 0.11) 0%, transparent 46%),
-                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 65%)
-              `
+                radial-gradient(circle at 14% 86%, rgba(16, 185, 129, 0.12) 0%, transparent 46%),
+                radial-gradient(circle at 86% 14%, rgba(244, 63, 94, 0.12) 0%, transparent 46%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.07) 0%, transparent 65%)
+              `,
             }}
           />
 
-          <div 
+          <div
             className="absolute inset-0 opacity-[0.045] pointer-events-none"
             style={{
-              backgroundImage: 'linear-gradient(to right, #e9d5ff 1px, transparent 1px), linear-gradient(to bottom, #e9d5ff 1px, transparent 1px)',
-              backgroundSize: '20px 20px'
+              backgroundImage:
+                'linear-gradient(to right, #e9d5ff 1px, transparent 1px), linear-gradient(to bottom, #e9d5ff 1px, transparent 1px)',
+              backgroundSize: '20px 20px',
             }}
           />
 
@@ -114,7 +100,7 @@ export default function HomeScreen({
             <defs>
               <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.10" />
-                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.22" />
+                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.24" />
                 <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.10" />
               </linearGradient>
             </defs>
@@ -124,11 +110,11 @@ export default function HomeScreen({
             <circle cx="33" cy="28" r="9" fill="#34d399" opacity="0.025" />
             <circle cx="67" cy="72" r="9" fill="#fb7185" opacity="0.025" />
 
-            <path 
-              d="M -5 5 C 25 20, 35 45, 50 50 C 65 55, 75 80, 105 95" 
-              fill="none" 
-              stroke="url(#riverGrad)" 
-              strokeWidth="6.5" 
+            <path
+              d="M -5 5 C 25 20, 35 45, 50 50 C 65 55, 75 80, 105 95"
+              fill="none"
+              stroke="url(#riverGrad)"
+              strokeWidth="6.5"
               strokeLinecap="round"
             />
 
@@ -191,45 +177,44 @@ export default function HomeScreen({
           ))}
         </div>
       </div>
-      
-      {/* 3 ЯЧЕЙКИ ПОД КАРТОЙ */}
-      <div className="grid grid-cols-3 gap-2 px-4 text-center mb-8">
-        <div className="bg-ti9-panel p-3 rounded-lg border border-ti9-accent/10">
-          <div className="text-ti9-teal font-bold text-lg">520</div>
-          <div className="text-xs opacity-70">{t.players}</div>
+
+      {/* COMPACT TELEMETRY STATS BAR */}
+      <div className="grid grid-cols-3 gap-2 px-4 text-center mb-6">
+        <div className="bg-ti9-panel/90 p-2.5 rounded-xl border border-white/5">
+          <div className="font-mono text-ti9-teal font-black text-base">{ALL_PLAYERS.length}</div>
+          <div className="text-[10px] uppercase tracking-wider text-slate-400">Players</div>
         </div>
-        <div className="bg-ti9-panel p-3 rounded-lg border border-ti9-accent/10">
-          <div className="text-ti9-teal font-bold text-lg">104</div>
-          <div className="text-xs opacity-70">{t.teams}</div>
+        <div className="bg-ti9-panel/90 p-2.5 rounded-xl border border-white/5">
+          <div className="font-mono text-ti9-accent font-black text-base">{ALL_TEAMS.length}</div>
+          <div className="text-[10px] uppercase tracking-wider text-slate-400">Rosters</div>
         </div>
-        <div className="bg-ti9-panel p-3 rounded-lg border border-ti9-accent/10">
-          <div className="text-ti9-teal font-bold text-lg">1,420</div>
-          <div className="text-xs opacity-70">{t.stacks}</div>
+        <div className="bg-ti9-panel/90 p-2.5 rounded-xl border border-white/5">
+          <div className="font-mono text-purple-300 font-black text-base">TI1–14</div>
+          <div className="text-[10px] uppercase tracking-wider text-slate-400">Eras</div>
         </div>
       </div>
 
-      {/* КНОПКИ ПРОФИЛЯ И БАЗЫ ДАННЫХ */}
-      <div className="mt-auto px-4 flex gap-2">
-        <button onClick={() => onNavigate('profile')} className="text-lg flex-1 bg-ti9-panel py-3 rounded-lg font-bold border border-ti9-teal/30 hover:bg-ti9-teal/10 transition flex items-center justify-center gap-2">
-          <svg style={{ width: '20px', height: '20px' }} width="20" height="20" className="text-ti9-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          <span>{t.profile}</span>
+      {/* BOTTOM NAVIGATION */}
+      <div className="mt-auto px-4 flex gap-2.5">
+        <button
+          onClick={() => onNavigate('profile')}
+          className="flex-1 bg-ti9-panel hover:bg-ti9-teal/15 py-3.5 rounded-xl font-extrabold text-sm tracking-wider border border-ti9-teal/35 text-white transition flex items-center justify-center gap-2"
+        >
+          <AchievementIcon icon="aegis" className="w-4 h-4 text-ti9-teal" />
+          <span>PROFILE</span>
         </button>
 
-        <button onClick={() => onNavigate('database')} className="text-lg flex-1 bg-ti9-panel py-3 rounded-lg font-bold border border-ti9-accent/30 hover:bg-ti9-accent/10 transition flex items-center justify-center gap-2">
-          <svg style={{ width: '20px', height: '20px' }} width="20" height="20" className="text-ti9-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-            <path d="M8 7h6" />
-            <path d="M8 11h8" />
-          </svg>
-          <span>{t.database}</span>
+        <button
+          onClick={() => onNavigate('database')}
+          className="flex-1 bg-ti9-panel hover:bg-ti9-accent/15 py-3.5 rounded-xl font-extrabold text-sm tracking-wider border border-ti9-accent/35 text-white transition flex items-center justify-center gap-2"
+        >
+          <AchievementIcon icon="laurel" className="w-4 h-4 text-ti9-accent" />
+          <span>DATABASE</span>
         </button>
       </div>
 
-      <div className="text-center text-xs opacity-70 mt-6 px-4">
-        {t.footer}
+      <div className="text-center text-[11px] text-slate-500 mt-5 px-4">
+        Non-commercial fan project dedicated to The International history.
       </div>
     </div>
   );

@@ -1,27 +1,44 @@
 import { useEffect, useState } from 'react';
-import type { TournamentResult } from '../types';
+import type { TournamentResult, GameMode, MatchSpeed } from '../types';
 import { trackMatch } from '../utils/storage';
-import { translations } from '../utils/i18n';
+import { normalizePlacement } from '../utils/draft';
+import TacticLabel from './TacticBadge';
 
-export default function ResultScreen({ result, onRestart, speed, lang, mode }: {
+const LEGACY_ROUND_MAP: Record<string, string> = {
+  'Верхняя сетка: Четвертьфинал': 'Upper Bracket: Quarterfinal',
+  'Верхняя сетка: Полуфинал': 'Upper Bracket: Semifinal',
+  'Верхняя сетка: Финал': 'Upper Bracket: Final',
+  'Нижняя сетка: Раунд 1': 'Lower Bracket: Round 1',
+  'Нижняя сетка: Раунд 2': 'Lower Bracket: Round 2',
+  'Нижняя сетка: Финал': 'Lower Bracket: Final',
+  'Гранд-финал': 'Grand Final',
+};
+
+export default function ResultScreen({
+  result,
+  onRestart,
+  speed,
+  mode,
+  avgRating = 0,
+  savedBudget = 0,
+}: {
   result: TournamentResult;
   onRestart: () => void;
-  speed: 'normal' | 'fast' | 'super';
-  lang: 'ru' | 'en';
-  mode: 'normal' | 'memory' | 'daily' | 'free';
+  speed: MatchSpeed;
+  mode: GameMode;
+  avgRating?: number;
+  savedBudget?: number;
 }) {
-  const t = translations[lang];
   const [matchIdx, setMatchIdx] = useState(0);
   const [mapCount, setMapCount] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [expandedMatches, setExpandedMatches] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    if (isFinished) {
-      if (mode !== 'free') {
-        trackMatch(result.champion, mode);
-      }
+    if (isFinished && mode !== 'free') {
+      trackMatch(result, mode, avgRating, savedBudget);
     }
-  }, [isFinished, result.champion, mode]);
+  }, [isFinished, result, mode, avgRating, savedBudget]);
 
   useEffect(() => {
     if (isFinished) return;
@@ -35,25 +52,31 @@ export default function ResultScreen({ result, onRestart, speed, lang, mode }: {
 
     const timer = setTimeout(() => {
       if (mapCount < currentMatch.maps.length) {
-        setMapCount(prev => prev + 1);
+        setMapCount((prev) => prev + 1);
+      } else if (matchIdx === result.matches.length - 1) {
+        setIsFinished(true);
       } else {
-        if (matchIdx === result.matches.length - 1) {
-          setIsFinished(true);
-        } else {
-          setMatchIdx(prev => prev + 1);
-          setMapCount(0);
-        }
+        setMatchIdx((prev) => prev + 1);
+        setMapCount(0);
       }
     }, delay);
 
     return () => clearTimeout(timer);
   }, [matchIdx, mapCount, isFinished, result.matches, speed]);
 
-  const getScore = (match: typeof result.matches[0], currentMapIdx: number) => {
+  const toggleMatch = (index: number) => {
+    setExpandedMatches((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  };
+
+  const getScore = (match: TournamentResult['matches'][0], currentMapIdx: number) => {
     const playedMaps = match.maps.slice(0, currentMapIdx);
-    const myScore = playedMaps.filter(m => m.won).length;
-    const oppScore = playedMaps.filter(m => !m.won).length;
-    return { myScore, oppScore };
+    const myScore = playedMaps.filter((m) => m.won).length;
+    return { myScore, oppScore: playedMaps.length - myScore };
   };
 
   const handleSkip = () => {
@@ -61,60 +84,78 @@ export default function ResultScreen({ result, onRestart, speed, lang, mode }: {
       setIsFinished(true);
       return;
     }
-    setMatchIdx(result.matches.length - 1);
-    setMapCount(result.matches[result.matches.length - 1].maps.length);
+    const lastIdx = result.matches.length - 1;
+    setMatchIdx(lastIdx);
+    setMapCount(result.matches[lastIdx].maps.length);
     setIsFinished(true);
   };
 
-  // СЛОВАРИ ДЛЯ ПЕРЕВОДА СТАДИЙ И МЕСТ
-  const roundTranslations: Record<string, { ru: string, en: string }> = {
-    'Верхняя сетка: Четвертьфинал': { ru: 'Верхняя сетка: Четвертьфинал', en: 'Upper Bracket: Quarterfinal' },
-    'Верхняя сетка: Полуфинал': { ru: 'Верхняя сетка: Полуфинал', en: 'Upper Bracket: Semifinal' },
-    'Верхняя сетка: Финал': { ru: 'Верхняя сетка: Финал', en: 'Upper Bracket: Final' },
-    'Нижняя сетка: Раунд 1': { ru: 'Нижняя сетка: Раунд 1', en: 'Lower Bracket: Round 1' },
-    'Нижняя сетка: Раунд 2': { ru: 'Нижняя сетка: Раунд 2', en: 'Lower Bracket: Round 2' },
-    'Нижняя сетка: Финал': { ru: 'Нижняя сетка: Финал', en: 'Lower Bracket: Final' },
-    'Гранд-финал': { ru: 'Гранд-финал', en: 'Grand Final' },
-  };
-
-  const placementTranslations: Record<string, { ru: string, en: string }> = {
-    'Чемпион': { ru: 'Чемпион', en: 'Champion' },
-    'Финалист': { ru: 'Финалист', en: 'Finalist' },
-    'Топ-3': { ru: 'Топ-3', en: 'Top 3' },
-    'Топ-4': { ru: 'Топ-4', en: 'Top 4' },
-    'Топ-6': { ru: 'Топ-6', en: 'Top 6' },
-    'Топ-8': { ru: 'Топ-8', en: 'Top 8' },
-  };
-
-  const titleTranslations: Record<string, { ru: string, en: string }> = {
-    'Aegis Guardian': { ru: 'Страж Аегиса', en: 'Aegis Guardian' },
-    'Grand Finalist': { ru: 'Гранд-финалист', en: 'Grand Finalist' },
-    'Bronze': { ru: 'Бронзовый призер', en: 'Bronze' },
-    'Contender': { ru: 'Претендент', en: 'Contender' },
-    'Survivor': { ru: 'Выживший', en: 'Survivor' },
-    'Challenger': { ru: 'Бросающий вызов', en: 'Challenger' },
-  };
+  const placementLabel = normalizePlacement(result.placement);
 
   return (
-    <div className="space-y-4">
-      <div className={`rounded-lg p-6 text-center transition-colors duration-500 relative ${isFinished && result.champion ? 'bg-ti9-accent text-ti9-dark' : 'bg-ti9-panel'}`}>
-        
-        {/* 🔥 БЕЙДЖ ТАКТИКИ */}
-        <div className={`absolute top-2 right-2 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-wider ${
-          isFinished && result.champion ? 'bg-black/20 text-black/70' : 'bg-ti9-dark text-ti9-accent border border-ti9-accent/30'
-        }`}>
-          {result.tactic === 'early' ? '⚔️ EARLY' : result.tactic === 'late' ? '🛡️ LATE' : '⚖️ MID'}
+    <div className="space-y-4 pb-6">
+      <div
+        className={`sticky top-2 z-20 rounded-2xl p-5 text-center transition-all duration-500 relative overflow-hidden border shadow-[0_10px_30px_rgba(0,0,0,0.55)] backdrop-blur-md ${
+          isFinished && result.champion
+            ? 'bg-gradient-to-br from-amber-300 via-ti9-accent to-amber-500 text-ti9-dark border-amber-200'
+            : isFinished
+            ? 'bg-gradient-to-b from-ti9-panel to-ti9-dark/95 text-ti9-light border-ti9-accent/50'
+            : 'bg-ti9-panel/95 text-ti9-light border-ti9-accent/30'
+        }`}
+      >
+        {!result.champion && (
+          <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-32 bg-ti9-accent/15 blur-3xl rounded-full" />
+        )}
+
+        <div className="relative flex items-center justify-between mb-2">
+          <span
+            className={`text-[10px] px-2.5 py-0.5 rounded-full font-extrabold uppercase tracking-widest ${
+              isFinished && result.champion
+                ? 'bg-black/15 text-ti9-dark'
+                : 'bg-ti9-teal/15 text-ti9-teal border border-ti9-teal/30'
+            }`}
+          >
+            {isFinished ? 'Tournament Result' : 'Live Simulation'}
+          </span>
+
+          <span
+            className={`text-[10px] px-2.5 py-0.5 rounded-full font-extrabold uppercase tracking-wider ${
+              isFinished && result.champion
+                ? 'bg-black/15 text-ti9-dark'
+                : 'bg-ti9-dark/80 text-ti9-accent border border-ti9-accent/30'
+            }`}
+          >
+            <TacticLabel tactic={result.tactic} iconClass="w-3 h-3" />
+          </span>
         </div>
 
-        <div className="text-3xl md:text-4xl font-bold mb-2">
-          {isFinished ? (placementTranslations[result.placement]?.[lang] || result.placement) : t.tournamentInProgress}
-        </div>
-        <div className="text-base md:text-lg opacity-90 font-bold">
-          {isFinished ? (titleTranslations[result.title]?.[lang] || result.title) : t.simulation}
+        <div className="relative">
+          <div
+            className={`text-3xl md:text-4xl font-black tracking-tight leading-tight ${
+              isFinished && !result.champion
+                ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-ti9-accent'
+                : ''
+            }`}
+          >
+            {isFinished ? (
+              <>
+                {result.champion && <span className="mr-2">🏆</span>}
+                {placementLabel}
+              </>
+            ) : (
+              <span className="animate-pulse">Simulating Bracket...</span>
+            )}
+          </div>
+
+          {!isFinished && (
+            <div className="text-xs md:text-sm font-bold uppercase tracking-widest mt-1 text-ti9-teal/90">
+              Match {Math.min(matchIdx + 1, result.matches.length)} of {result.matches.length}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2.5">
         {result.matches.map((m, index) => {
           if (index > matchIdx) return null;
 
@@ -124,95 +165,160 @@ export default function ResultScreen({ result, onRestart, speed, lang, mode }: {
           const matchEnded = isCurrent ? mapCount === m.maps.length : true;
           const playedMaps = m.maps.slice(0, showMaps);
 
-          const bracketColor = m.bracket === 'upper' ? 'border-blue-500/50' : m.bracket === 'lower' ? 'border-orange-500/50' : 'border-ti9-accent';
+          const isExpanded = !matchEnded || expandedMatches.has(index);
+
+          const bracketBadge =
+            m.bracket === 'upper'
+              ? { label: 'UPPER', cls: 'bg-sky-500/20 text-sky-300 border-sky-400/30' }
+              : m.bracket === 'lower'
+              ? { label: 'LOWER', cls: 'bg-orange-500/20 text-orange-300 border-orange-400/30' }
+              : { label: 'GRAND FINAL', cls: 'bg-ti9-accent/20 text-ti9-accent border-ti9-accent/40' };
+
+          const cardBorder = !matchEnded
+            ? 'bg-ti9-panel border-ti9-accent/60 shadow-[0_0_20px_rgba(212,175,55,0.12)]'
+            : m.won
+            ? 'bg-emerald-950/25 border-emerald-500/30 hover:border-emerald-400/50'
+            : 'bg-rose-950/25 border-rose-500/30 hover:border-rose-400/50';
 
           return (
-            <div 
-              key={index} 
-              className={`p-3 md:p-4 rounded transition-all duration-300 border-2 ${
-                matchEnded 
-                  ? m.won ? 'bg-green-900/20 border-green-800/50' : 'bg-red-900/20 border-red-800/50'
-                  : `bg-ti9-panel ${bracketColor}`
-              }`}
+            <div
+              key={index}
+              className={`rounded-xl border transition-all duration-300 overflow-hidden ${cardBorder}`}
             >
-              <div className="flex justify-between items-start mb-2 gap-2">
+              <div
+                onClick={() => matchEnded && toggleMatch(index)}
+                className={`p-3.5 flex items-center justify-between gap-3 ${
+                  matchEnded ? 'cursor-pointer select-none' : ''
+                }`}
+              >
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-base md:text-lg flex flex-wrap items-center gap-2 text-ti9-light">
-                    <span className="break-words">
-                      {roundTranslations[m.round]?.[lang] || m.round}
+                  <div className="flex items-center gap-2 mb-1">
+                    <span
+                      className={`text-[9px] font-extrabold tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${bracketBadge.cls}`}
+                    >
+                      {bracketBadge.label}
                     </span>
-                    <span className={`text-[10px] md:text-xs px-2 py-0.5 rounded shrink-0 ${
-                      m.bracket === 'upper' ? 'bg-blue-600/50 text-blue-200' : 
-                      m.bracket === 'lower' ? 'bg-orange-600/50 text-orange-200' : 
-                      'bg-ti9-accent text-ti9-dark'
-                    }`}>
-                      {m.bracket === 'upper' ? t.upper : m.bracket === 'lower' ? t.lower : t.grandFinal}
+                    <span className="text-[11px] font-semibold text-slate-400 truncate">
+                      {LEGACY_ROUND_MAP[m.round] || m.round}
                     </span>
                   </div>
-                  <div className="text-xs md:text-sm opacity-70 truncate">{m.opponent} <span className="text-[10px] opacity-50">({lang === 'ru' ? 'Ср. сила' : 'Avg OVR'}: {m.opponentAvgRating})</span></div>
-                  
+
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-extrabold text-base text-white truncate">
+                      {m.opponent}
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-400 shrink-0">
+                      OVR {m.opponentAvgRating}
+                    </span>
+                  </div>
+
                   {!matchEnded && isCurrent && (
-                    <div className="text-xs text-ti9-teal mt-1 animate-pulse">{t.playingMap} {mapCount + 1}...</div>
-                  )}
-                  {matchEnded && !m.won && index !== result.matches.length - 1 && m.bracket === 'upper' && (
-                    <div className="text-xs text-orange-400 mt-1 font-bold">{t.dropToLower}</div>
-                  )}
-                </div>
-
-                <div className={`shrink-0 whitespace-nowrap text-xl md:text-2xl font-bold ${
-                  matchEnded ? m.won ? 'text-green-400' : 'text-red-400' : 'text-ti9-accent'
-                }`}>
-                  {myScore} : {oppScore}
-                </div>
-              </div>
-
-              <div className="space-y-1 mt-3">
-                {playedMaps.map((map, i) => {
-                  const isPositiveEvent = map.shift && map.shift > 0;
-                  const isNegativeEvent = map.shift && map.shift < 0;
-                  const showEvent = (map.won && isPositiveEvent) || (!map.won && isNegativeEvent);
-                  
-                  return (
-                    <div key={i} className="text-xs flex items-start gap-2">
-                      <span className={`font-mono font-bold min-w-[50px] md:min-w-[60px] ${map.won ? 'text-green-500' : 'text-red-500'}`}>
-                        {lang === 'ru' ? 'Карта' : 'Map'} {i + 1}:
-                      </span>
-                      {showEvent && map.event ? (
-                        <div className="flex flex-col flex-1 min-w-0">
-                          {/* 🔥 ДОБАВЛЕНА ЦВЕТОВАЯ ИНДИКАЦИЯ СОБЫТИЙ */}
-                          <span className={`break-words ${isPositiveEvent ? 'text-green-400' : 'text-red-400'}`}>
-                            ⚡ {map.event}
-                          </span>
-                          {map.caster && <span className="text-ti9-teal italic mt-0.5 break-words">🎙️ {map.caster}</span>}
-                        </div>
-                      ) : (
-                        <span className="opacity-50 italic flex-1">{t.quietGame}</span>
-                      )}
+                    <div className="text-xs font-semibold text-ti9-teal mt-1 animate-pulse">
+                      Playing map {mapCount + 1}...
                     </div>
-                  );
-                })}
+                  )}
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0">
+                  <div
+                    className={`font-mono text-xl md:text-2xl font-black px-2.5 py-1 rounded-lg bg-ti9-dark/70 border border-white/5 ${
+                      matchEnded
+                        ? m.won
+                          ? 'text-emerald-400'
+                          : 'text-rose-400'
+                        : 'text-ti9-accent'
+                    }`}
+                  >
+                    {myScore} : {oppScore}
+                  </div>
+
+                  {matchEnded && (
+                    <span
+                      className={`text-xs text-slate-400 transition-transform duration-200 ${
+                        isExpanded ? 'rotate-180' : 'rotate-0'
+                      }`}
+                    >
+                      ▼
+                    </span>
+                  )}
+                </div>
               </div>
+
+              {isExpanded && (
+                <div className="px-3.5 pb-3.5 pt-2.5 border-t border-white/10 bg-ti9-dark/35 space-y-2">
+                  {playedMaps.length === 0 ? (
+                    <div className="text-xs text-slate-400 italic">Drafting heroes...</div>
+                  ) : (
+                    playedMaps.map((map, i) => {
+                      const isPositiveEvent = Boolean(map.shift && map.shift > 0);
+                      const isNegativeEvent = Boolean(map.shift && map.shift < 0);
+                      const isComebackDespiteEvent = map.won && isNegativeEvent;
+
+                      return (
+                        <div key={i} className="text-xs flex items-center gap-2.5">
+                          <span
+                            className={`w-24 inline-flex items-center justify-center font-mono font-bold py-0.5 rounded text-[10px] shrink-0 ${
+                              map.won
+                                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                                : 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
+                            }`}
+                          >
+                            MAP {i + 1} · {map.won ? 'WIN' : 'LOSS'}
+                          </span>
+
+                          {map.event ? (
+                            <span
+                              className={`font-semibold truncate ${
+                                isPositiveEvent ? 'text-emerald-300' : 'text-rose-300'
+                              }`}
+                              title={map.event}
+                            >
+                              ⚡ {map.event}
+                              {isComebackDespiteEvent && (
+                                <span className="ml-1.5 text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300">
+                                  Comeback!
+                                </span>
+                              )}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 italic truncate">
+                              Clean execution, no major swings.
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })
+                  )}
+
+                  {matchEnded && !m.won && index !== result.matches.length - 1 && m.bracket === 'upper' && (
+                    <div className="pt-1.5 text-xs text-orange-400 font-bold flex items-center gap-1">
+                      <span>⬇</span>
+                      <span>Dropped to Lower Bracket</span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           );
         })}
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row gap-3 pt-2">
         {!isFinished && (
           <button
             onClick={handleSkip}
-            className="flex-1 bg-ti9-panel hover:bg-slate-700 rounded-lg py-3 font-bold border border-ti9-accent/30 transition"
+            className="flex-1 bg-ti9-panel hover:bg-slate-700 rounded-xl py-3.5 font-bold border border-ti9-accent/30 transition"
           >
-            {t.skip}
+            Skip ⏩
           </button>
         )}
-        
+
         <button
           onClick={onRestart}
           disabled={!isFinished}
-          className="flex-1 bg-ti9-accent text-ti9-dark hover:bg-amber-400 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-3 font-bold transition"
+          className="flex-1 bg-ti9-accent text-ti9-dark hover:bg-amber-400 disabled:opacity-30 disabled:cursor-not-allowed rounded-xl py-3.5 font-extrabold text-base transition shadow-[0_0_20px_rgba(212,175,55,0.3)]"
         >
-          {isFinished ? t.playAgain : t.tournamentInProgress}
+          {isFinished ? 'Play Again' : 'Tournament in progress...'}
         </button>
       </div>
     </div>

@@ -1,29 +1,52 @@
-import { useState, useRef } from 'react';
-import type { Player, Position, Roster, TeamRoll, TournamentResult, Tactic } from '../types';
+import { useState, useRef, useEffect } from 'react';
+import type {
+  Player,
+  Position,
+  Roster,
+  TeamRoll,
+  TournamentResult,
+  Tactic,
+  GameMode,
+  MatchSpeed,
+  TeamOption,
+} from '../types';
 import {
-  emptyRoster, countFilled, isAlreadyDrafted, getAvailableSlots,
-  hasValidPicks, selectPlayer, playersOfTeam, ALL_PLAYERS
+  emptyRoster,
+  countFilled,
+  getAverageRating,
+  getPlayerCost,
+  isAlreadyDrafted,
+  canPickPlayer,
+  selectPlayer,
+  playersOfTeam,
+  formatTiEdition,
+  getTodayDateStr,
+  ALL_PLAYERS,
+  ALL_TEAMS,
 } from '../utils/draft';
 import { simulateTournament } from '../utils/simulate';
 import { trackDraft } from '../utils/storage';
-import { translations } from '../utils/i18n';
 import { getSeededRandom } from '../utils/rng';
 import { getTodayTheme } from '../utils/dailyThemes';
+import TacticLabel from './TacticBadge';
 
 interface DraftScreenProps {
-  mode: 'normal' | 'memory' | 'daily' | 'free';
-  lang: 'ru' | 'en';
-  speed: 'normal' | 'fast' | 'super';
-  setSpeed: (s: 'normal' | 'fast' | 'super') => void;
+  mode: GameMode;
+  speed: MatchSpeed;
+  setSpeed: (s: MatchSpeed) => void;
   onFinish: (r: TournamentResult, avg: number, saved: number) => void;
-  customPool?: { team: string; year: number }[];
+  customPool?: TeamOption[];
   budget?: number;
 }
 
-export default function DraftScreen({ 
-  mode, lang, speed, setSpeed, onFinish, customPool, budget 
+export default function DraftScreen({
+  mode,
+  speed,
+  setSpeed,
+  onFinish,
+  customPool,
+  budget,
 }: DraftScreenProps) {
-  const t = translations[lang];
   const INITIAL_REROLLS = mode === 'memory' || mode === 'daily' ? 1 : 3;
 
   const [roster, setRoster] = useState<Roster>(emptyRoster());
@@ -31,68 +54,68 @@ export default function DraftScreen({
   const [rerollsLeft, setRerollsLeft] = useState(INITIAL_REROLLS);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [spentBudget, setSpentBudget] = useState(0);
-  
+  const [rollCount, setRollCount] = useState(0);
   const [tactic, setTactic] = useState<Tactic>('mid');
 
   const [isRolling, setIsRolling] = useState(false);
   const [rollingTeamName, setRollingTeamName] = useState('???');
   const pendingTeamRef = useRef<TeamRoll | null>(null);
+  const [speedOpen, setSpeedOpen] = useState(false);
+  const speedDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!speedOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (speedDropdownRef.current && !speedDropdownRef.current.contains(e.target as Node)) {
+        setSpeedOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [speedOpen]);
 
   const filled = countFilled(roster);
   const isComplete = filled === 5;
+  const avgRating = getAverageRating(roster);
+  const remainingBudget = budget !== undefined ? budget - spentBudget : undefined;
+  const hideRatings = mode === 'memory' || mode === 'daily';
 
-  const draftedPlayers = Object.values(roster).filter(Boolean) as Player[];
-  const averageRating = draftedPlayers.length > 0
-    ? Math.round(draftedPlayers.reduce((sum, p) => sum + p.rating, 0) / draftedPlayers.length).toString()
-    : '0';
-
-  const getPlayerCost = (p: Player) => p.price || 150;
-  
-  const canAfford = (p: Player) => {
-    if (mode !== 'daily' || !budget) return true;
-    return spentBudget + getPlayerCost(p) <= budget;
+  const getModePool = (): TeamOption[] => {
+    if (customPool) return customPool;
+    if (mode === 'daily') {
+      const theme = getTodayTheme();
+      return ALL_TEAMS.filter((t) => theme.filter(t.team, t.year));
+    }
+    return ALL_TEAMS;
   };
 
-  // 🔥 УМНЫЙ ПОДБОР КОМАНД (учитывает бюджет и доступные слоты)
-  const getNextTeamData = (currentRoster: Roster, currentSpent: number, excludeTeamName?: string): TeamRoll | null => {
-    let availableTeams = ALL_PLAYERS.map(p => ({ team: p.team, year: p.year }));
-    
-    if (customPool) {
-      availableTeams = customPool;
-    } else if (mode === 'daily') {
-      const theme = getTodayTheme();
-      availableTeams = availableTeams.filter(t => theme.filter(t.team, t.year));
-    }
+  const getNextTeamData = (
+    currentRoster: Roster,
+    currentRemainingBudget: number | undefined,
+    attemptIndex: number,
+    excludeTeam?: TeamOption
+  ): TeamRoll | null => {
+    const modePool = getModePool();
 
-    availableTeams = Array.from(new Set(availableTeams.map(t => JSON.stringify(t)))).map(s => JSON.parse(s));
+    let validTeams = modePool.filter((t) =>
+      playersOfTeam(t.team, t.year).some((p) =>
+        canPickPlayer(p, currentRoster, currentRemainingBudget)
+      )
+    );
 
-    let validTeams = availableTeams.filter(t => {
-      const teamPlayers = playersOfTeam(t.team, t.year);
-      // Проверяем, есть ли в команде ХОТЯ БЫ ОДИН игрок, который подходит по слоту И по деньгам
-      return teamPlayers.some(p => {
-        if (isAlreadyDrafted(p, currentRoster)) return false;
-        if (getAvailableSlots(p, currentRoster).length === 0) return false;
-        if (mode === 'daily' && budget) {
-          return currentSpent + getPlayerCost(p) <= budget;
-        }
-        return true;
-      });
-    });
-
-    if (excludeTeamName) {
-      const withoutExcluded = validTeams.filter(t => t.team !== excludeTeamName);
-      if (withoutExcluded.length > 0) {
-        validTeams = withoutExcluded;
-      }
+    if (excludeTeam && validTeams.length > 1) {
+      const filtered = validTeams.filter(
+        (t) => !(t.team === excludeTeam.team && t.year === excludeTeam.year)
+      );
+      if (filtered.length > 0) validTeams = filtered;
     }
 
     if (validTeams.length === 0) return null;
 
     let randomVal = Math.random();
     if (mode === 'daily') {
-      const today = new Date().toISOString().split('T')[0];
-      const rng = getSeededRandom(today + filled); 
-      randomVal = rng();
+      const seedKey = `${getTodayDateStr()}_s${countFilled(currentRoster)}_r${attemptIndex}`;
+      randomVal = getSeededRandom(seedKey)();
     }
 
     const pick = validTeams[Math.floor(randomVal * validTeams.length)];
@@ -103,26 +126,28 @@ export default function DraftScreen({
     if (isRolling || isComplete) return;
     if (isReroll && rerollsLeft === 0) return;
 
-    const nextTeam = getNextTeamData(roster, spentBudget, currentTeam?.team);
+    const nextAttempt = rollCount + 1;
+    const exclude = currentTeam ? { team: currentTeam.team, year: currentTeam.year } : undefined;
+    const nextTeam = getNextTeamData(roster, remainingBudget, nextAttempt, exclude);
+
     if (!nextTeam) return;
 
-    if (isReroll) {
-      setRerollsLeft(n => n - 1);
-    }
+    setRollCount(nextAttempt);
+    if (isReroll) setRerollsLeft((n) => n - 1);
 
     pendingTeamRef.current = nextTeam;
     setIsRolling(true);
     setCurrentTeam(null);
 
-    const possibleNames = Array.from(new Set(ALL_PLAYERS.map(p => p.team)));
-    let ticks = 0;
-    const maxTicks = 20;
+    const poolNames = Array.from(new Set(getModePool().map((t) => t.team)));
+    const possibleNames = poolNames.length > 0 ? poolNames : ALL_TEAMS.map((t) => t.team);
 
+    let ticks = 0;
     const interval = setInterval(() => {
       setRollingTeamName(possibleNames[Math.floor(Math.random() * possibleNames.length)]);
       ticks++;
 
-      if (ticks >= maxTicks) {
+      if (ticks >= 20) {
         clearInterval(interval);
         setCurrentTeam(pendingTeamRef.current);
         setIsRolling(false);
@@ -130,143 +155,181 @@ export default function DraftScreen({
     }, 60);
   };
 
-  function handlePlayerClick(p: Player) {
+  const handlePlayerClick = (p: Player) => {
     if (isAlreadyDrafted(p, roster)) return;
-    if (!canAfford(p)) {
-      alert(lang === 'ru' ? 'Недостаточно бюджета для этого игрока!' : 'Not enough budget for this player!');
+    if (remainingBudget !== undefined && getPlayerCost(p) > remainingBudget) {
+      alert('Not enough budget for this player!');
       return;
     }
-    if (selectedPlayer?.id === p.id) {
-      setSelectedPlayer(null);
-    } else {
-      setSelectedPlayer(p);
-    }
-  }
+    setSelectedPlayer(selectedPlayer?.id === p.id ? null : p);
+  };
 
-  function handleSlotClick(pos: Position) {
+  const handleSlotClick = (pos: Position) => {
     if (roster[pos] !== null || !selectedPlayer) return;
     if (!selectedPlayer.positions.includes(pos)) {
-      alert(lang === 'ru' 
-        ? `${selectedPlayer.nickname} не может играть на позиции ${pos}.` 
-        : `${selectedPlayer.nickname} cannot play position ${pos}.`);
+      alert(`${selectedPlayer.nickname} cannot play position ${pos}.`);
       return;
     }
-    
-    const newRoster = selectPlayer(selectedPlayer, roster, pos);
-    setRoster(newRoster);
-    
-    if (mode !== 'free') {
-      trackDraft(selectedPlayer.id);
-    }
-    
-    if (mode === 'daily') {
-      setSpentBudget(prev => prev + getPlayerCost(selectedPlayer));
-    }
+
+    setRoster(selectPlayer(selectedPlayer, roster, pos));
+
+    if (mode !== 'free') trackDraft(selectedPlayer.id);
+    if (mode === 'daily') setSpentBudget((prev) => prev + getPlayerCost(selectedPlayer));
 
     setSelectedPlayer(null);
-    setCurrentTeam(null); // После выбора игрока команда обнуляется, ждем нажатия кнопки "Ролл"
-  }
-
-  const displayRating = (rating: number) => {
-    return (mode === 'memory' || mode === 'daily') ? '?' : rating;
+    setCurrentTeam(null);
   };
 
   return (
     <div className="space-y-4 pb-10">
-      <div className="flex justify-between items-center bg-ti9-panel p-3 rounded-lg border border-ti9-accent/20">
-        <div className="text-sm">
-          <span className="text-ti9-accent font-bold uppercase">{mode}</span>
+      <div className="flex justify-between items-center bg-ti9-panel px-3.5 py-2.5 rounded-xl border border-ti9-accent/20">
+        <div className="text-xs font-extrabold uppercase tracking-widest text-ti9-accent">
+          {mode}
         </div>
-        
-        {mode === 'daily' && budget && (
+
+        {mode === 'daily' && remainingBudget !== undefined ? (
           <div className="text-sm font-bold">
-            {t.budget}: <span className={budget - spentBudget > 0 ? 'text-green-400' : 'text-red-400'}>
-              ${budget - spentBudget}
+            Budget:{' '}
+            <span className={remainingBudget > 0 ? 'text-green-400' : 'text-red-400'}>
+              ${remainingBudget}
             </span>
           </div>
-        )}
+        ) : (
+          <div className="flex items-center gap-2.5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              Match Speed
+            </span>
 
-        {mode !== 'daily' && (
-          <div className="flex items-center gap-2 text-xs">
-            <span className="opacity-70">{t.matchSpeed}:</span>
-            <select 
-              value={speed} 
-              onChange={(e) => setSpeed(e.target.value as any)}
-              className="bg-ti9-dark border border-ti9-accent/30 rounded p-1 text-white outline-none cursor-pointer"
-            >
-              <option value="normal">{t.speedNormal}</option>
-              <option value="fast">{t.speedFast}</option>
-              <option value="super">{t.speedSuper}</option>
-            </select>
+            <div ref={speedDropdownRef} className="relative w-32">
+              <button
+                type="button"
+                onClick={() => setSpeedOpen((o) => !o)}
+                className={`w-full bg-ti9-dark hover:bg-[#171226] border border-ti9-accent/40 hover:border-ti9-accent px-3 py-1.5 text-xs font-extrabold text-ti9-teal flex items-center justify-between gap-2 transition cursor-pointer ${
+                  speedOpen
+                    ? 'rounded-t-xl rounded-b-none border-b-white/10'
+                    : 'rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
+                }`}
+              >
+                <span className="flex-1 text-center truncate">
+                  {speed === 'normal' ? 'Normal' : speed === 'fast' ? 'Fast' : 'Super Fast'}
+                </span>
+                <svg
+                  className={`w-3 h-3 text-ti9-accent shrink-0 transition-transform duration-200 ${
+                    speedOpen ? 'rotate-180' : 'rotate-0'
+                  }`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+
+              {speedOpen && (
+                <div className="absolute right-0 left-0 top-full z-30 bg-[#151024] border border-t-0 border-ti9-accent/45 rounded-b-xl shadow-[0_12px_28px_rgba(0,0,0,0.65)] overflow-hidden">
+                  {(
+                    [
+                      { value: 'normal', label: 'Normal' },
+                      { value: 'fast', label: 'Fast' },
+                      { value: 'super', label: 'Super Fast' },
+                    ] as { value: MatchSpeed; label: string }[]
+                  ).map((opt) => {
+                    const active = speed === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => {
+                          setSpeed(opt.value);
+                          setSpeedOpen(false);
+                        }}
+                        className={`w-full px-3 py-2 text-xs font-bold text-center transition flex items-center justify-center ${
+                          active
+                            ? 'bg-ti9-accent/20 text-ti9-accent font-extrabold'
+                            : 'text-slate-200 hover:bg-ti9-panel hover:text-white'
+                        }`}
+                      >
+                        <span>{opt.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
 
-      <div className="bg-ti9-panel p-2 rounded-lg border border-ti9-accent/20 flex gap-1">
-        <button 
-          onClick={() => setTactic('early')} 
-          className={`flex-1 py-1.5 rounded text-xs font-bold transition ${tactic === 'early' ? 'bg-ti9-accent text-ti9-dark' : 'hover:bg-ti9-dark/50 text-slate-400'}`}
-        >
-          ⚔️ EARLY
-        </button>
-        <button 
-          onClick={() => setTactic('mid')} 
-          className={`flex-1 py-1.5 rounded text-xs font-bold transition ${tactic === 'mid' ? 'bg-ti9-accent text-ti9-dark' : 'hover:bg-ti9-dark/50 text-slate-400'}`}
-        >
-          ⚖️ MID
-        </button>
-        <button 
-          onClick={() => setTactic('late')} 
-          className={`flex-1 py-1.5 rounded text-xs font-bold transition ${tactic === 'late' ? 'bg-ti9-accent text-ti9-dark' : 'hover:bg-ti9-dark/50 text-slate-400'}`}
-        >
-          🛡️ LATE
-        </button>
+      <div className="bg-ti9-panel p-1.5 rounded-xl border border-ti9-accent/20 flex gap-1">
+        {(['early', 'mid', 'late'] as Tactic[]).map((item) => (
+          <button
+            key={item}
+            onClick={() => setTactic(item)}
+            className={`flex-1 py-2 rounded-lg text-xs font-extrabold tracking-wider transition ${
+              tactic === item
+                ? 'bg-ti9-accent text-ti9-dark shadow-sm'
+                : 'hover:bg-ti9-dark/50 text-slate-400'
+            }`}
+          >
+            <TacticLabel tactic={item} />
+          </button>
+        ))}
       </div>
 
       <div className="text-center text-sm opacity-70 h-5">
-        {selectedPlayer 
-          ? `${t.pickedPlayer} ${selectedPlayer.nickname}. ${t.pickSlot}`
-          : t.pickPlayer}
+        {selectedPlayer
+          ? `Selected ${selectedPlayer.nickname}. Click on an empty slot (POS).`
+          : 'Click on a player to select them.'}
       </div>
 
       {!isComplete && (
         <div className="bg-ti9-panel rounded-lg p-4 border border-ti9-accent/20">
-          
           <h3 className="font-bold mb-3 flex justify-between items-center">
             <span>
-              {t.rolled}: <span className="text-ti9-accent font-mono uppercase tracking-wider">
-                {isRolling ? rollingTeamName : (currentTeam ? currentTeam.team : '???')}
+              Rolled:{' '}
+              <span className="text-ti9-accent font-mono uppercase tracking-wider">
+                {isRolling ? rollingTeamName : currentTeam ? currentTeam.team : '???'}
               </span>
-              {!isRolling && currentTeam && <span className="text-ti9-light opacity-80"> · TI{currentTeam.year === 2011 ? '1' : currentTeam.year - 2010}</span>}
+              {!isRolling && currentTeam && (
+                <span className="text-ti9-light opacity-80">
+                  {' '}
+                  · {formatTiEdition(currentTeam.year)}
+                </span>
+              )}
             </span>
-            <span className="text-sm opacity-70">🎲 {t.rerolls}: {rerollsLeft}</span>
+            <span className="text-sm opacity-70">🎲 Rerolls: {rerollsLeft}</span>
           </h3>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-3 min-h-[90px]">
-            {isRolling && (
-              [1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="rounded p-3 border-2 border-dashed border-ti9-accent/20 bg-ti9-dark/30 flex flex-col justify-center items-center h-full">
-                  <div className="text-2xl text-ti9-accent/30 animate-pulse font-bold">?</div>
+            {(isRolling || !currentTeam) &&
+              [1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className={`rounded p-3 border-2 border-dashed flex flex-col justify-center items-center h-full ${
+                    isRolling
+                      ? 'border-ti9-accent/20 bg-ti9-dark/30'
+                      : 'border-ti9-accent/10 bg-ti9-dark/10'
+                  }`}
+                >
+                  {isRolling ? (
+                    <div className="text-2xl text-ti9-accent/30 animate-pulse font-bold">?</div>
+                  ) : (
+                    <div className="text-slate-500 font-bold">—</div>
+                  )}
                 </div>
-              ))
-            )}
+              ))}
 
-            {!isRolling && !currentTeam && (
-              [1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="rounded p-3 border-2 border-dashed border-ti9-accent/10 bg-ti9-dark/10 flex flex-col justify-center items-center h-full">
-                  <div className="text-slate-500 font-bold">—</div>
-                </div>
-              ))
-            )}
-
-            {!isRolling && currentTeam && (
-              currentTeam.players.map(p => {
-                const taken = isAlreadyDrafted(p, roster);
-                const slots = getAvailableSlots(p, roster);
-                const affordable = canAfford(p);
-                const disabled = taken || slots.length === 0 || !affordable;
+            {!isRolling &&
+              currentTeam &&
+              currentTeam.players.map((p) => {
+                const disabled = !canPickPlayer(p, roster, remainingBudget);
+                const affordable =
+                  remainingBudget === undefined || getPlayerCost(p) <= remainingBudget;
                 const isSelected = selectedPlayer?.id === p.id;
-                
+
                 return (
                   <button
                     key={p.id}
@@ -276,37 +339,44 @@ export default function DraftScreen({
                       disabled
                         ? 'bg-ti9-dark/50 border-transparent opacity-40 cursor-not-allowed'
                         : isSelected
-                          ? 'bg-ti9-accent/20 border-ti9-accent ring-2 ring-ti9-accent'
-                          : 'bg-ti9-dark border-transparent hover:border-ti9-accent/50'
+                        ? 'bg-ti9-accent/20 border-ti9-accent ring-2 ring-ti9-accent'
+                        : 'bg-ti9-dark border-transparent hover:border-ti9-accent/50'
                     }`}
                   >
                     <div className="text-xs opacity-60 mb-1">
-                      {p.positions.map((pos: Position) => `${t.pos} ${pos}`).join(' · ')}
+                      {p.positions.map((pos) => `POS ${pos}`).join(' · ')}
                     </div>
                     <div className="font-bold truncate text-ti9-light">{p.nickname}</div>
-                    
+
                     {mode === 'daily' ? (
-                      <div className={`font-bold text-sm ${budget && spentBudget + getPlayerCost(p) > budget ? 'text-red-400' : 'text-green-400'}`}>
+                      <div
+                        className={`font-bold text-sm ${
+                          affordable ? 'text-green-400' : 'text-red-400'
+                        }`}
+                      >
                         ${getPlayerCost(p)}
                       </div>
                     ) : (
-                      <div className={`font-bold text-lg ${mode === 'memory' ? 'text-purple-400' : 'text-ti9-teal'}`}>
-                        {displayRating(p.rating)}
+                      <div
+                        className={`font-bold text-lg ${
+                          mode === 'memory' ? 'text-purple-400' : 'text-ti9-teal'
+                        }`}
+                      >
+                        {hideRatings ? '?' : p.rating}
                       </div>
                     )}
                   </button>
                 );
-              })
-            )}
+              })}
           </div>
-          
+
           <div>
             {!isRolling && !currentTeam && (
               <button
                 onClick={() => executeRoll(false)}
                 className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 rounded-lg py-3 font-bold text-lg shadow-[0_0_15px_rgba(212,175,55,0.3)] transition transform active:scale-95"
               >
-                🎲 {t.rollTeam}
+                🎲 Roll Team
               </button>
             )}
 
@@ -325,7 +395,7 @@ export default function DraftScreen({
                 disabled
                 className="w-full bg-ti9-dark/50 text-ti9-accent/50 rounded-lg py-3 text-lg font-bold border border-ti9-accent/20 cursor-wait animate-pulse"
               >
-                {t.rolling}...
+                Rolling...
               </button>
             )}
           </div>
@@ -334,18 +404,13 @@ export default function DraftScreen({
 
       <div className="bg-ti9-panel rounded-lg p-4 border border-ti9-accent/20">
         <div className="flex justify-between items-center mb-3">
-          <h2 className="font-bold text-ti9-accent">{t.yourRoster}: {filled}/5</h2>
-          
-          {(mode === 'normal' || mode === 'free') && filled > 0 && (
-            <div className="text-xs font-bold bg-ti9-dark px-2.5 py-1 rounded-md border border-ti9-accent/20 shadow-sm">
-              Avg OVR: <span className="text-ti9-teal text-sm ml-1">{averageRating}</span>
-            </div>
-          )}
+          <h2 className="font-bold text-ti9-accent">Your Roster: {filled}/5</h2>
 
-          {(mode === 'memory' || mode === 'daily') && (
+          {(!hideRatings ? filled > 0 : true) && (
             <div className="text-xs font-bold bg-ti9-dark px-2.5 py-1 rounded-md border border-ti9-accent/20 shadow-sm">
-              Avg OVR: {isComplete ? (
-                <span className="text-ti9-teal text-sm ml-1">{averageRating}</span>
+              Avg OVR:{' '}
+              {!hideRatings || isComplete ? (
+                <span className="text-ti9-teal text-sm ml-1">{avgRating}</span>
               ) : (
                 <span className="text-purple-400 text-sm ml-1">?</span>
               )}
@@ -354,36 +419,43 @@ export default function DraftScreen({
         </div>
 
         <div className="grid grid-cols-5 gap-2">
-          {[1, 2, 3, 4, 5].map(pos => {
-            const p = roster[pos as Position];
-            const canPlaceHere = selectedPlayer && !p && selectedPlayer.positions.includes(pos as Position);
-            
+          {([1, 2, 3, 4, 5] as Position[]).map((pos) => {
+            const p = roster[pos];
+            const canPlaceHere =
+              selectedPlayer && !p && selectedPlayer.positions.includes(pos);
+
             return (
-              <div 
-                key={pos} 
-                onClick={() => handleSlotClick(pos as Position)}
+              <div
+                key={pos}
+                onClick={() => handleSlotClick(pos)}
                 className={`rounded p-2 text-center text-xs transition border-2 ${
-                  p 
-                    ? 'bg-ti9-dark border-ti9-accent/30' 
+                  p
+                    ? 'bg-ti9-dark border-ti9-accent/30'
                     : canPlaceHere
-                      ? 'bg-green-900/40 border-green-500 cursor-pointer hover:bg-green-800/50'
-                      : 'bg-ti9-dark border-ti9-accent/10 border-dashed'
+                    ? 'bg-green-900/40 border-green-500 cursor-pointer hover:bg-green-800/50'
+                    : 'bg-ti9-dark border-ti9-accent/10 border-dashed'
                 }`}
               >
-                <div className="font-bold opacity-70 mb-1">{t.pos} {pos}</div>
+                <div className="font-bold opacity-70 mb-1">POS {pos}</div>
                 {p ? (
                   <>
                     <div className="truncate font-bold text-ti9-light">{p.nickname}</div>
                     {mode === 'daily' ? (
-                      <div className="text-xs text-green-400 font-bold">${getPlayerCost(p)}</div>
+                      <div className="text-xs text-green-400 font-bold">
+                        ${getPlayerCost(p)}
+                      </div>
                     ) : (
-                      <div className={`font-bold text-sm ${mode === 'memory' ? 'text-purple-400' : 'text-ti9-teal'}`}>
-                        {displayRating(p.rating)}
+                      <div
+                        className={`font-bold text-sm ${
+                          mode === 'memory' ? 'text-purple-400' : 'text-ti9-teal'
+                        }`}
+                      >
+                        {hideRatings ? '?' : p.rating}
                       </div>
                     )}
                   </>
                 ) : (
-                  <div className="text-slate-500 py-2">{canPlaceHere ? (lang === 'ru' ? 'Ставь' : 'Place') : '—'}</div>
+                  <div className="text-slate-500 py-2">{canPlaceHere ? 'Place' : '—'}</div>
                 )}
               </div>
             );
@@ -392,13 +464,18 @@ export default function DraftScreen({
       </div>
 
       <button
-        onClick={() => onFinish(simulateTournament(roster, tactic), Number(averageRating), mode === 'daily' && budget ? budget - spentBudget : 0)}
+        onClick={() =>
+          onFinish(
+            simulateTournament(roster, tactic),
+            avgRating,
+            remainingBudget ?? 0
+          )
+        }
         disabled={!isComplete}
         className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-4 font-bold text-lg transition"
       >
-        {isComplete ? t.finishDraft : `${t.fillRoster} (${filled}/5)`}
+        {isComplete ? 'Start Tournament' : `Fill the roster (${filled}/5)`}
       </button>
-
     </div>
   );
 }

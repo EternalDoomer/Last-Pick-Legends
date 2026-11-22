@@ -1,5 +1,7 @@
 export type Position = 1 | 2 | 3 | 4 | 5;
 export type Tactic = 'early' | 'mid' | 'late';
+export type GameMode = 'normal' | 'memory' | 'daily' | 'free';
+export type MatchSpeed = 'normal' | 'fast' | 'super';
 
 export interface Player {
   id: string;
@@ -13,16 +15,18 @@ export interface Player {
 
 export type Roster = Record<Position, Player | null>;
 
-export interface TeamRoll {
+export interface TeamOption {
   team: string;
   year: number;
+}
+
+export interface TeamRoll extends TeamOption {
   players: Player[];
 }
 
 export interface MapResult {
   won: boolean;
   event?: string;
-  caster?: string;
   shift?: number;
 }
 
@@ -39,7 +43,6 @@ export interface MatchResult {
 export interface TournamentResult {
   matches: MatchResult[];
   placement: string;
-  title: string;
   champion: boolean;
   tactic: Tactic;
 }

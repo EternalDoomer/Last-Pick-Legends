@@ -6,36 +6,35 @@ import Profile from './components/Profile';
 import Database from './components/Database';
 import FreeMode from './components/FreeMode';
 import DailyChallenge from './components/DailyChallenge';
-import type { TournamentResult } from './types';
-import { saveDailyResult } from './utils/storage';
-import { translations } from './utils/i18n';
+import type { TournamentResult, GameMode, MatchSpeed, TeamOption } from './types';
+import { saveDailyResult, recordRosterDrafted } from './utils/storage';
 import { auth } from './utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { getTodayTheme, getTodayTask } from './utils/dailyThemes';
 
-type Screen = 'home' | 'draft_normal' | 'draft_memory' | 'draft_daily' | 'draft_free' | 'result' | 'profile' | 'database' | 'daily_setup' | 'free_setup';
+type Screen =
+  | 'home'
+  | 'draft_normal'
+  | 'draft_memory'
+  | 'draft_daily'
+  | 'draft_free'
+  | 'result'
+  | 'profile'
+  | 'database'
+  | 'daily_setup'
+  | 'free_setup';
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
-  const [lang, setLang] = useState<'ru' | 'en'>(() => {
-    const savedLang = localStorage.getItem('lpl_lang');
-    return (savedLang === 'en' || savedLang === 'ru') ? savedLang : 'ru';
-  });
-
-  const [matchSpeed, setMatchSpeed] = useState<'normal' | 'fast' | 'super'>('normal');
+  const [matchSpeed, setMatchSpeed] = useState<MatchSpeed>('normal');
   const [result, setResult] = useState<TournamentResult | null>(null);
-  const [freePool, setFreePool] = useState<{ team: string; year: number }[] | undefined>();
-  const [resultMode, setResultMode] = useState<'normal' | 'memory' | 'daily' | 'free'>('normal');
+  const [lastMeta, setLastMeta] = useState<{ avg: number; saved: number }>({ avg: 0, saved: 0 });
+  const [freePool, setFreePool] = useState<TeamOption[] | undefined>();
+  const [resultMode, setResultMode] = useState<GameMode>('normal');
   const [authReady, setAuthReady] = useState(false);
 
-  const t = translations[lang];
-
   useEffect(() => {
-    localStorage.setItem('lpl_lang', lang);
-    document.documentElement.lang = lang;
-  }, [lang]);
-
-  useEffect(() => {
+    document.documentElement.lang = 'en';
     const unsubscribe = onAuthStateChanged(auth, () => {
       setAuthReady(true);
     });
@@ -50,95 +49,95 @@ export default function App() {
 
   const handleFinishMatch = (r: TournamentResult, avg: number, saved: number) => {
     setResult(r);
-    
+    setLastMeta({ avg, saved });
+
+    const currentMode = screen.replace('draft_', '') as GameMode;
+    if (currentMode !== 'free') {
+      recordRosterDrafted(avg);
+    }
+
     if (screen === 'draft_daily') {
       const theme = getTodayTheme();
       const task = getTodayTask(theme);
       const taskCompleted = task.check(r.champion, avg, saved);
-      
-      saveDailyResult(r.placement, taskCompleted, avg, saved);
+      saveDailyResult(r.placement, taskCompleted, avg, saved, theme.title);
     }
-    
-    const currentMode = screen.replace('draft_', '') as 'normal' | 'memory' | 'daily' | 'free';
+
     setResultMode(currentMode);
-    
     setScreen('result');
   };
 
   if (!authReady) {
     return (
       <div className="min-h-screen bg-ti9-dark text-ti9-light flex items-center justify-center font-bold text-lg animate-pulse">
-        Загрузка профиля...
+        Loading profile...
       </div>
     );
   }
 
+  const isDraftScreen =
+    screen === 'draft_normal' ||
+    screen === 'draft_memory' ||
+    screen === 'draft_daily' ||
+    screen === 'draft_free';
+
   return (
     <div className="min-h-screen bg-ti9-dark text-ti9-light font-sans max-w-lg mx-auto shadow-2xl relative">
-      
-      {screen === 'home' && (
-        <HomeScreen 
-          onNavigate={(s) => setScreen(s as Screen)} 
-          lang={lang} 
-          setLang={setLang} 
-        />
-      )}
+      {screen === 'home' && <HomeScreen onNavigate={(s) => setScreen(s as Screen)} />}
 
-      {(screen === 'draft_normal' || screen === 'draft_memory' || screen === 'draft_daily' || screen === 'draft_free') && (
+      {isDraftScreen && (
         <div className="p-4">
-          <button onClick={handleRestart} className="font-bold mb-4 text-ti9-accent hover:underline">← {t.back}</button>
-          
-          <DraftScreen 
-            mode={
-              screen === 'draft_memory' ? 'memory' : 
-              screen === 'draft_daily' ? 'daily' : 
-              screen === 'draft_free' ? 'free' : 'normal'
-            }
-            lang={lang}
+          <button
+            onClick={handleRestart}
+            className="font-bold mb-4 text-ti9-accent hover:underline"
+          >
+            ← Back
+          </button>
+
+          <DraftScreen
+            mode={screen.replace('draft_', '') as GameMode}
             speed={matchSpeed}
             setSpeed={setMatchSpeed}
             customPool={screen === 'draft_free' ? freePool : undefined}
             budget={screen === 'draft_daily' ? 1000 : undefined}
-            onFinish={handleFinishMatch} 
+            onFinish={handleFinishMatch}
           />
         </div>
       )}
 
       {screen === 'result' && result && (
         <div className="p-4">
-          <ResultScreen 
-            result={result} 
-            onRestart={handleRestart} 
+          <ResultScreen
+            result={result}
+            onRestart={handleRestart}
             speed={matchSpeed}
-            lang={lang}
             mode={resultMode}
+            avgRating={lastMeta.avg}
+            savedBudget={lastMeta.saved}
           />
         </div>
       )}
 
-      {screen === 'profile' && <Profile onBack={handleRestart} lang={lang} />}
-      
-      {screen === 'database' && <Database onBack={handleRestart} lang={lang} />}
+      {screen === 'profile' && <Profile onBack={handleRestart} />}
+
+      {screen === 'database' && <Database onBack={handleRestart} />}
 
       {screen === 'daily_setup' && (
-        <DailyChallenge 
-          onBack={handleRestart} 
-          onStart={() => setScreen('draft_daily')} 
-          lang={lang}
+        <DailyChallenge
+          onBack={handleRestart}
+          onStart={() => setScreen('draft_daily')}
         />
       )}
 
       {screen === 'free_setup' && (
-        <FreeMode 
-          onBack={handleRestart} 
-          onStart={(pool) => { 
-            setFreePool(pool); 
-            setScreen('draft_free'); 
-          }} 
-          lang={lang}
+        <FreeMode
+          onBack={handleRestart}
+          onStart={(pool) => {
+            setFreePool(pool);
+            setScreen('draft_free');
+          }}
         />
       )}
-      
     </div>
   );
 }
