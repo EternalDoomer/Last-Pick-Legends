@@ -1,4 +1,4 @@
-import type { Tactic, TournamentResult } from '../types';
+import type { TournamentResult } from '../types';
 import { getTodayDateStr } from './draft';
 import { getSeededRandom } from './rng';
 
