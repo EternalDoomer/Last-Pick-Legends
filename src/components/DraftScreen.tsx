@@ -53,7 +53,8 @@ export default function DraftScreen({
     return spentBudget + getPlayerCost(p) <= budget;
   };
 
-  const getNextTeamData = (currentRoster: Roster, excludeTeamName?: string): TeamRoll | null => {
+  // 🔥 УМНЫЙ ПОДБОР КОМАНД (учитывает бюджет и доступные слоты)
+  const getNextTeamData = (currentRoster: Roster, currentSpent: number, excludeTeamName?: string): TeamRoll | null => {
     let availableTeams = ALL_PLAYERS.map(p => ({ team: p.team, year: p.year }));
     
     if (customPool) {
@@ -67,7 +68,15 @@ export default function DraftScreen({
 
     let validTeams = availableTeams.filter(t => {
       const teamPlayers = playersOfTeam(t.team, t.year);
-      return hasValidPicks(teamPlayers, currentRoster);
+      // Проверяем, есть ли в команде ХОТЯ БЫ ОДИН игрок, который подходит по слоту И по деньгам
+      return teamPlayers.some(p => {
+        if (isAlreadyDrafted(p, currentRoster)) return false;
+        if (getAvailableSlots(p, currentRoster).length === 0) return false;
+        if (mode === 'daily' && budget) {
+          return currentSpent + getPlayerCost(p) <= budget;
+        }
+        return true;
+      });
     });
 
     if (excludeTeamName) {
@@ -94,7 +103,7 @@ export default function DraftScreen({
     if (isRolling || isComplete) return;
     if (isReroll && rerollsLeft === 0) return;
 
-    const nextTeam = getNextTeamData(roster, currentTeam?.team);
+    const nextTeam = getNextTeamData(roster, spentBudget, currentTeam?.team);
     if (!nextTeam) return;
 
     if (isReroll) {
@@ -155,7 +164,7 @@ export default function DraftScreen({
     }
 
     setSelectedPlayer(null);
-    setCurrentTeam(null);
+    setCurrentTeam(null); // После выбора игрока команда обнуляется, ждем нажатия кнопки "Ролл"
   }
 
   const displayRating = (rating: number) => {

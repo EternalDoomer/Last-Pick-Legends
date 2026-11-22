@@ -14,6 +14,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        cinzel: ['Cinzel', 'serif'],
+        vibes: ['Great Vibes', 'cursive'],
       }
     } 
   },
