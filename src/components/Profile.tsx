@@ -9,6 +9,7 @@ import {
   addFriendToProfile,
   removeFriendFromProfile,
   getFriendProfileById,
+  syncCloudProfileNow,
 } from '../utils/storage';
 import type { UserProfile, Friend } from '../utils/storage';
 import { ALL_ACHIEVEMENTS } from '../utils/achievements';
@@ -59,24 +60,6 @@ function computeTopLineup(favoritePlayers: Record<string, number>): FavoriteSlot
     }
   }
   return slots;
-}
-
-function getPlacementBadgeStyle(placement: string): string {
-  const norm = normalizePlacement(placement);
-  if (norm === 'Champion') {
-    return 'bg-ti9-accent/20 text-ti9-accent border-ti9-accent/50';
-  }
-  if (norm === 'Finalist' || norm === 'Top 3') {
-    return 'bg-ti9-teal/15 text-ti9-teal border-ti9-teal/40';
-  }
-  return 'bg-white/5 text-slate-300 border-white/10';
-}
-
-function formatShortDay(dateStr: string): string {
-  const parts = dateStr.split('-');
-  if (parts.length !== 3) return dateStr;
-  const date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 function ProfileStatsGrid({ profile, compact = false }: { profile: UserProfile; compact?: boolean }) {
@@ -209,7 +192,6 @@ export default function Profile({ onBack }: { onBack: () => void }) {
 
   const [activeTab, setActiveTab] = useState<'achievements' | 'daily' | 'friends'>('achievements');
   const [achCategory, setAchCategory] = useState<AchievementCategory>('matches');
-  const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>({});
 
   const [searchNick, setSearchNick] = useState('');
   const [searchResult, setSearchResult] = useState<Friend | null>(null);
@@ -220,15 +202,15 @@ export default function Profile({ onBack }: { onBack: () => void }) {
     const initial = getProfile();
     setProfile(initial);
     if (auth.currentUser) {
-      saveProfile(initial);
+      syncCloudProfileNow().then((synced) => setProfile(synced));
     }
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
-      const current = getProfile();
-      setProfile(current);
       if (user) {
-        saveProfile(current);
+        syncCloudProfileNow().then((synced) => setProfile(synced));
+      } else {
+        setProfile(getProfile());
       }
     });
     return () => unsubscribe();
@@ -336,15 +318,6 @@ export default function Profile({ onBack }: { onBack: () => void }) {
   const unlockedCount = profile.unlockedAchievements.length;
   const totalCount = ALL_ACHIEVEMENTS.length;
   const progressPct = Math.round((unlockedCount / totalCount) * 100);
-
-  const dailySummary = useMemo(() => {
-    const total = profile.dailyHistory.length;
-    const wins = profile.dailyHistory.filter(
-      (r) => normalizePlacement(r.placement) === 'Champion'
-    ).length;
-    const tasks = profile.dailyHistory.filter((r) => r.taskCompleted).length;
-    return { total, wins, tasks };
-  }, [profile.dailyHistory]);
 
   return (
     <div className="min-h-screen bg-ti9-dark text-ti9-light p-4 pb-20">
@@ -652,7 +625,6 @@ export default function Profile({ onBack }: { onBack: () => void }) {
             </div>
           )}
 
-          {/* DAILY LOG TAB */}
           {activeTab === 'daily' && (
             <div className="space-y-3">
               {profile.dailyHistory.length === 0 ? (
@@ -660,173 +632,53 @@ export default function Profile({ onBack }: { onBack: () => void }) {
                   No Daily Challenges played yet.
                 </div>
               ) : (
-                <>
-                  {/* COMPACT SUMMARY BAR */}
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="bg-ti9-panel px-3 py-2.5 rounded-xl border border-white/5 flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
-                        Played
-                      </span>
-                      <span className="font-mono font-black text-sm text-white">
-                        {dailySummary.total}
-                      </span>
+                Object.entries(
+                  profile.dailyHistory.reduce((acc, record) => {
+                    const date = new Date(record.date);
+                    const monthYear = date.toLocaleString('en-US', {
+                      month: 'long',
+                      year: 'numeric',
+                    });
+                    const key = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+                    if (!acc[key]) acc[key] = [];
+                    acc[key].push(record);
+                    return acc;
+                  }, {} as Record<string, typeof profile.dailyHistory>)
+                ).map(([month, records]) => (
+                  <div
+                    key={month}
+                    className="bg-ti9-panel rounded-xl overflow-hidden border border-white/5"
+                  >
+                    <div className="bg-ti9-dark/60 px-3.5 py-2.5 font-extrabold text-xs uppercase tracking-wider text-ti9-accent">
+                      {month}
                     </div>
-                    <div className="bg-ti9-panel px-3 py-2.5 rounded-xl border border-white/5 flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
-                        Aegis
-                      </span>
-                      <span className="font-mono font-black text-sm text-ti9-accent">
-                        {dailySummary.wins}
-                      </span>
-                    </div>
-                    <div className="bg-ti9-panel px-3 py-2.5 rounded-xl border border-white/5 flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
-                        Tasks
-                      </span>
-                      <span className="font-mono font-black text-sm text-ti9-teal">
-                        {dailySummary.tasks}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* COLLAPSIBLE MONTHS (NEWEST OPEN BY DEFAULT) */}
-                  {Object.entries(
-                    profile.dailyHistory.reduce((acc, record) => {
-                      const parts = record.date.split('-');
-                      const date =
-                        parts.length === 3
-                          ? new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
-                          : new Date(record.date);
-                      const monthYear = date.toLocaleString('en-US', {
-                        month: 'long',
-                        year: 'numeric',
-                      });
-                      const key = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
-                      if (!acc[key]) acc[key] = [];
-                      acc[key].push(record);
-                      return acc;
-                    }, {} as Record<string, typeof profile.dailyHistory>)
-                  )
-                    .reverse()
-                    .map(([month, records], monthIdx) => {
-                      const isExpanded =
-                        expandedMonths[month] !== undefined
-                          ? expandedMonths[month]
-                          : monthIdx === 0;
-                      const monthWins = records.filter(
-                        (r) => normalizePlacement(r.placement) === 'Champion'
-                      ).length;
-
-                      return (
-                        <div
-                          key={month}
-                          className="bg-ti9-panel rounded-2xl overflow-hidden border border-white/5"
-                        >
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setExpandedMonths((prev) => ({
-                                ...prev,
-                                [month]: !isExpanded,
-                              }))
-                            }
-                            className="w-full bg-ti9-dark/60 hover:bg-ti9-dark/80 px-3.5 py-2.5 flex items-center justify-between transition"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="font-extrabold text-[11px] uppercase tracking-widest text-ti9-accent">
-                                {month}
-                              </span>
-                              <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-400">
-                                {records.length} {records.length === 1 ? 'run' : 'runs'}
-                              </span>
-                              {monthWins > 0 && (
-                                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-ti9-accent/15 text-ti9-accent border border-ti9-accent/30">
-                                  {monthWins}W
-                                </span>
-                              )}
+                    <div className="divide-y divide-white/5">
+                      {[...records].reverse().map((record, i) => (
+                        <div key={i} className="px-3.5 py-2.5 flex justify-between items-center text-sm">
+                          <div>
+                            <div className="font-mono font-bold text-xs text-slate-300">
+                              {record.date}
                             </div>
-
+                            <div className="text-xs font-semibold text-white mt-0.5">
+                              {normalizePlacement(record.placement)}
+                            </div>
+                          </div>
+                          {record.taskCompleted ? (
                             <span
-                              className={`text-[10px] text-slate-400 transition-transform duration-200 ${
-                                isExpanded ? 'rotate-180' : 'rotate-0'
-                              }`}
+                              className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-300 border border-amber-400/30"
+                              title="Extra task completed"
                             >
-                              ▼
+                              <AchievementIcon icon="star" className="w-3.5 h-3.5" />
+                              <span>Task</span>
                             </span>
-                          </button>
-
-                          {isExpanded && (
-                            <div className="divide-y divide-white/5 border-t border-white/5">
-                              {[...records].reverse().map((record, i) => {
-                                const placement = normalizePlacement(record.placement);
-                                const isChamp = placement === 'Champion';
-                                const badgeStyle = getPlacementBadgeStyle(placement);
-                                const hasMetrics =
-                                  (record.avgRating && record.avgRating > 0) ||
-                                  (record.moneySaved !== undefined && record.moneySaved > 0);
-
-                                return (
-                                  <div
-                                    key={i}
-                                    className="px-3.5 py-2.5 flex items-center justify-between gap-2.5 hover:bg-white/[0.015] transition"
-                                  >
-                                    <div className="min-w-0 flex-1">
-                                      <div className="flex items-center gap-2">
-                                        <span className="font-mono text-[11px] font-bold text-slate-400 shrink-0">
-                                          {formatShortDay(record.date)}
-                                        </span>
-                                        <span className="font-bold text-xs text-white truncate">
-                                          {record.themeTitle || 'Daily Challenge'}
-                                        </span>
-                                      </div>
-
-                                      {hasMetrics && (
-                                        <div className="flex items-center gap-2 mt-1 text-[10px] font-mono text-slate-400">
-                                          {record.avgRating && record.avgRating > 0 && (
-                                            <span>OVR {record.avgRating}</span>
-                                          )}
-                                          {record.avgRating &&
-                                            record.avgRating > 0 &&
-                                            record.moneySaved !== undefined &&
-                                            record.moneySaved > 0 && <span>·</span>}
-                                          {record.moneySaved !== undefined &&
-                                            record.moneySaved > 0 && (
-                                              <span className="text-emerald-400/90">
-                                                ${record.moneySaved} saved
-                                              </span>
-                                            )}
-                                        </div>
-                                      )}
-                                    </div>
-
-                                    <div className="flex items-center gap-1.5 shrink-0">
-                                      {record.taskCompleted && (
-                                        <span
-                                          title="Extra task completed"
-                                          className="w-6 h-6 rounded-lg bg-amber-400/15 border border-amber-400/35 text-amber-300 inline-flex items-center justify-center"
-                                        >
-                                          <AchievementIcon icon="star" className="w-3.5 h-3.5" />
-                                        </span>
-                                      )}
-
-                                      <span
-                                        className={`text-[11px] font-extrabold px-2.5 py-1 rounded-lg border inline-flex items-center gap-1 ${badgeStyle}`}
-                                      >
-                                        {isChamp && (
-                                          <AchievementIcon icon="aegis" className="w-3 h-3" />
-                                        )}
-                                        <span>{placement}</span>
-                                      </span>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
+                          ) : (
+                            <span className="text-[11px] text-slate-500">—</span>
                           )}
                         </div>
-                      );
-                    })}
-                </>
+                      ))}
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           )}

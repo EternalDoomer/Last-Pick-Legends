@@ -186,19 +186,71 @@ export const saveProfile = async (profile: UserProfile) => {
   }
   localStorage.setItem('lpl_profile', JSON.stringify(cleanProfile));
 
-  if (auth.currentUser) {
+  const uid = auth.currentUser?.uid;
+  if (uid) {
     try {
-      await setDoc(doc(db, 'users', auth.currentUser.uid), cleanProfile, { merge: true });
+      await setDoc(doc(db, 'users', uid), cleanProfile, { merge: true });
     } catch (e) {
       console.error('Failed to sync profile with cloud:', e);
     }
   }
 };
 
+export const syncCloudProfileNow = async (): Promise<UserProfile> => {
+  const localProfile = getProfile();
+  const currentUser = auth.currentUser;
+  if (!currentUser) return localProfile;
+
+  let rawCloud: Partial<UserProfile> | null = null;
+  try {
+    const docSnap = await getDoc(doc(db, 'users', currentUser.uid));
+    if (docSnap.exists()) {
+      rawCloud = docSnap.data() as Partial<UserProfile>;
+    } else if (currentUser.email) {
+      const emailQuery = query(collection(db, 'users'), where('email', '==', currentUser.email));
+      const emailSnap = await getDocs(emailQuery);
+      if (!emailSnap.empty) {
+        rawCloud = emailSnap.docs[0].data() as Partial<UserProfile>;
+      }
+    }
+  } catch (e) {
+    console.error('Failed to fetch cloud profile:', e);
+  }
+
+  const cloudHydrated = hydrateProfile(
+    rawCloud ?? createEmptyProfile(currentUser.email || localProfile.email, '')
+  );
+  const resolved = mergeProfiles(
+    cloudHydrated,
+    localProfile,
+    currentUser.email || localProfile.email || ''
+  );
+
+  const newUnlocked = checkAchievements(resolved);
+  if (newUnlocked.length > resolved.unlockedAchievements.length) {
+    resolved.unlockedAchievements = newUnlocked;
+  }
+
+  localStorage.setItem('lpl_profile', JSON.stringify(resolved));
+  if (hasMeaningfulProgress(resolved)) {
+    try {
+      await setDoc(doc(db, 'users', currentUser.uid), resolved, { merge: true });
+    } catch (e) {
+      console.error('Failed to push merged profile to cloud:', e);
+    }
+  }
+
+  return resolved;
+};
+
 const isNicknameTaken = async (nickname: string) => {
-  const q = query(collection(db, 'users'), where('nickname', '==', nickname));
-  const snapshot = await getDocs(q);
-  return !snapshot.empty;
+  try {
+    const q = query(collection(db, 'users'), where('nickname', '==', nickname));
+    const snapshot = await getDocs(q);
+    return !snapshot.empty;
+  } catch {
+    return false;
+  }
 };
 
 export const registerUser = async (email: string, password: string, nickname: string) => {
@@ -238,16 +290,19 @@ export const loginUser = async (email: string, password: string) => {
   const userCred = await signInWithEmailAndPassword(auth, email, password);
 
   let rawCloud: Partial<UserProfile> | null = null;
-  const docSnap = await getDoc(doc(db, 'users', userCred.user.uid));
-
-  if (docSnap.exists()) {
-    rawCloud = docSnap.data() as Partial<UserProfile>;
-  } else {
-    const emailQuery = query(collection(db, 'users'), where('email', '==', email));
-    const emailSnap = await getDocs(emailQuery);
-    if (!emailSnap.empty) {
-      rawCloud = emailSnap.docs[0].data() as Partial<UserProfile>;
+  try {
+    const docSnap = await getDoc(doc(db, 'users', userCred.user.uid));
+    if (docSnap.exists()) {
+      rawCloud = docSnap.data() as Partial<UserProfile>;
+    } else {
+      const emailQuery = query(collection(db, 'users'), where('email', '==', email));
+      const emailSnap = await getDocs(emailQuery);
+      if (!emailSnap.empty) {
+        rawCloud = emailSnap.docs[0].data() as Partial<UserProfile>;
+      }
     }
+  } catch (e) {
+    console.error('Cloud read error during login:', e);
   }
 
   const cloudHydrated = hydrateProfile(rawCloud ?? createEmptyProfile(email, ''));
@@ -258,7 +313,15 @@ export const loginUser = async (email: string, password: string) => {
     resolvedProfile.unlockedAchievements = newUnlocked;
   }
 
-  await saveProfile(resolvedProfile);
+  localStorage.setItem('lpl_profile', JSON.stringify(resolvedProfile));
+  if (hasMeaningfulProgress(resolvedProfile)) {
+    try {
+      await setDoc(doc(db, 'users', userCred.user.uid), resolvedProfile, { merge: true });
+    } catch (e) {
+      console.error('Failed to sync profile after login:', e);
+    }
+  }
+
   return resolvedProfile;
 };
 
