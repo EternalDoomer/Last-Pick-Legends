@@ -1,6 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { hasPlayedDailyToday, getLeaderboard } from '../utils/storage';
-import { getTodayTheme, getTodayTask } from '../utils/dailyThemes';
+import {
+  getTodayTheme,
+  getTodayTask,
+  getThemeForDate,
+  getTaskForDate,
+  getRecentDailyDates,
+} from '../utils/dailyThemes';
 import {
   getTodayDateStr,
   getYesterdayDateStr,
@@ -12,10 +18,12 @@ export default function DailyChallenge({
   onStart,
   onBack,
 }: {
-  onStart: () => void;
+  onStart: (practiceDate?: string) => void;
   onBack: () => void;
 }) {
   const [playedToday, setPlayedToday] = useState(false);
+  const [practiceDate, setPracticeDate] = useState<string | null>(null);
+  const [pastOpen, setPastOpen] = useState(false);
   const [activeDate, setActiveDate] = useState<'today' | 'yesterday'>('today');
   const [activeTab, setActiveTab] = useState<'score' | 'power' | 'economy'>('score');
 
@@ -24,16 +32,32 @@ export default function DailyChallenge({
   >([]);
   const [loading, setLoading] = useState(true);
 
+  const pastDropdownRef = useRef<HTMLDivElement | null>(null);
+
   const today = getTodayDateStr();
   const yesterday = getYesterdayDateStr();
-  const currentDate = activeDate === 'today' ? today : yesterday;
+  const recentDates = getRecentDailyDates(14);
 
-  const theme = getTodayTheme();
-  const task = getTodayTask(theme);
+  const isPractice = practiceDate !== null;
+  const currentDate = practiceDate ?? (activeDate === 'today' ? today : yesterday);
+
+  const theme = practiceDate ? getThemeForDate(practiceDate) : getTodayTheme();
+  const task = practiceDate ? getTaskForDate(practiceDate, theme) : getTodayTask(theme);
 
   useEffect(() => {
     setPlayedToday(hasPlayedDailyToday());
   }, []);
+
+  useEffect(() => {
+    if (!pastOpen) return;
+    const handleOutside = (e: MouseEvent) => {
+      if (pastDropdownRef.current && !pastDropdownRef.current.contains(e.target as Node)) {
+        setPastOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, [pastOpen]);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,7 +82,8 @@ export default function DailyChallenge({
     return 0;
   });
 
-  const formattedDate = today.split('-').reverse().join('.');
+  const formattedDate = (practiceDate ?? today).split('-').reverse().join('.');
+  const isStartDisabled = !isPractice && playedToday;
 
   return (
     <div className="min-h-screen bg-ti9-dark text-ti9-light p-4 flex flex-col">
@@ -72,7 +97,7 @@ export default function DailyChallenge({
         <div className="relative flex items-center justify-between mb-3">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold tracking-widest uppercase bg-ti9-teal/15 text-ti9-teal border border-ti9-teal/30">
             <span className="w-1.5 h-1.5 rounded-full bg-ti9-teal animate-pulse" />
-            Daily Challenge
+            {isPractice ? 'Practice Mode' : 'Daily Challenge'}
           </span>
           <span className="text-xs font-mono font-semibold text-slate-400 bg-ti9-dark/70 px-2.5 py-0.5 rounded-md border border-white/5">
             {formattedDate}
@@ -84,7 +109,7 @@ export default function DailyChallenge({
             {theme.title}
           </h2>
           <p className="text-sm font-medium text-ti9-teal/90 mt-1.5 max-w-sm mx-auto leading-snug">
-            {theme.description}
+            {theme.description || theme.desc}
           </p>
         </div>
 
@@ -102,7 +127,7 @@ export default function DailyChallenge({
             <span className="opacity-75">Reward:</span>
             <span className="font-semibold text-amber-300 flex items-center gap-1">
               <span>⭐</span>
-              <span>Star on leaderboard</span>
+              <span>{isPractice ? 'Practice only (no star)' : 'Star on leaderboard'}</span>
             </span>
           </div>
         </div>
@@ -113,7 +138,7 @@ export default function DailyChallenge({
               Budget:
             </span>
             <span className="text-lg font-mono font-black text-emerald-400 tracking-tight">
-              $1000
+              ${theme.budget}
             </span>
           </div>
 
@@ -126,17 +151,27 @@ export default function DailyChallenge({
       <div className="flex-1 bg-ti9-panel rounded-xl border border-ti9-accent/20 overflow-hidden flex flex-col">
         <div className="flex border-b border-ti9-accent/20">
           <button
-            onClick={() => setActiveDate('today')}
+            onClick={() => {
+              setPracticeDate(null);
+              setActiveDate('today');
+            }}
             className={`flex-1 py-3 font-bold text-sm ${
-              activeDate === 'today' ? 'bg-ti9-accent/10 text-ti9-accent' : 'opacity-50'
+              !isPractice && activeDate === 'today'
+                ? 'bg-ti9-accent/10 text-ti9-accent'
+                : 'opacity-50'
             }`}
           >
             Today's Leaderboard
           </button>
           <button
-            onClick={() => setActiveDate('yesterday')}
+            onClick={() => {
+              setPracticeDate(null);
+              setActiveDate('yesterday');
+            }}
             className={`flex-1 py-3 font-bold text-sm ${
-              activeDate === 'yesterday' ? 'bg-ti9-accent/10 text-ti9-accent' : 'opacity-50'
+              !isPractice && activeDate === 'yesterday'
+                ? 'bg-ti9-accent/10 text-ti9-accent'
+                : 'opacity-50'
             }`}
           >
             Yesterday's Leaderboard
@@ -195,13 +230,100 @@ export default function DailyChallenge({
         </div>
       </div>
 
+      {/* PAST DAILY CHALLENGES (PRACTICE ONLY, NO STATS) */}
+      <div className="mt-4 bg-ti9-panel rounded-xl border border-ti9-accent/20 px-3.5 py-2.5 flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Past Challenges
+          </div>
+          <div className="text-[10px] text-ti9-teal">Practice only · No stats</div>
+        </div>
+
+        <div ref={pastDropdownRef} className="relative w-52 shrink-0">
+          <button
+            type="button"
+            onClick={() => setPastOpen((o) => !o)}
+            className={`w-full bg-ti9-dark hover:bg-[#171226] border border-ti9-accent/40 hover:border-ti9-accent px-3 py-1.5 text-xs font-extrabold text-ti9-teal flex items-center justify-between gap-2 transition cursor-pointer ${
+              pastOpen
+                ? 'rounded-t-xl rounded-b-none border-b-white/10'
+                : 'rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
+            }`}
+          >
+            <span className="flex-1 text-center truncate">
+              {practiceDate
+                ? `${practiceDate} · ${getThemeForDate(practiceDate).title}`
+                : 'Select past day'}
+            </span>
+            <svg
+              className={`w-3 h-3 text-ti9-accent shrink-0 transition-transform duration-200 ${
+                pastOpen ? 'rotate-180' : 'rotate-0'
+              }`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          {pastOpen && (
+            <div className="absolute right-0 left-0 top-full z-30 max-h-52 overflow-y-auto bg-[#151024] border border-t-0 border-ti9-accent/45 rounded-b-xl shadow-[0_12px_28px_rgba(0,0,0,0.65)]">
+              {practiceDate && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPracticeDate(null);
+                    setPastOpen(false);
+                  }}
+                  className="w-full px-3 py-2 text-xs font-bold text-center text-slate-400 hover:bg-ti9-panel hover:text-white border-b border-white/5 transition"
+                >
+                  Back to Today
+                </button>
+              )}
+
+              {recentDates.map((d) => {
+                const pastTheme = getThemeForDate(d);
+                const active = practiceDate === d;
+                return (
+                <button
+
+                key={d}
+                  type="button"
+                  onClick={() => {
+                   setPracticeDate(d);
+                   setPastOpen(false);
+                  }}
+                  className={`w-full px-3 py-2 text-xs font-bold text-left whitespace-nowrap truncate transition flex items-center justify-start ${
+                   active
+                    ? 'bg-ti9-accent/20 text-ti9-accent font-extrabold'
+                    : 'text-slate-200 hover:bg-ti9-panel hover:text-white'
+                  }`}
+                  >
+                  <span className="truncate">
+                    {d} · {pastTheme.title}
+                  </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className="mt-4">
         <button
-          onClick={onStart}
-          disabled={playedToday}
+          onClick={() => onStart(practiceDate ?? undefined)}
+          disabled={isStartDisabled}
           className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg py-4 font-bold text-lg transition shadow-[0_0_15px_rgba(212,175,55,0.4)]"
         >
-          {playedToday ? "You already completed today's challenge" : 'Start Draft'}
+          {isPractice
+            ? `Start Practice (${practiceDate})`
+            : playedToday
+            ? "You already completed today's challenge"
+            : 'Start Draft'}
         </button>
       </div>
     </div>

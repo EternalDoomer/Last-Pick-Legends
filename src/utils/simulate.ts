@@ -43,26 +43,26 @@ interface GameEvent {
 // Concise, iconic The International moments (single-line, high impact)
 const EVENTS: GameEvent[] = [
   // Positive Legendary & Tactical TI Moments
-  { text: "«The Play» — Na'Vi turns the Naga sleep", shift: 0.16, weight: 2 },
+  { text: "«The Play»", shift: 0.16, weight: 2 },
   { text: "«$6M Echo Slam» — Rosh pit wipe", shift: 0.17, weight: 2 },
-  { text: "«Million Dollar Coil» — TPs canceled", shift: 0.15, weight: 2 },
-  { text: "«Ceeeeeeeeeb!» — Axe call saves the throne", shift: 0.16, weight: 2, tactics: ['late', 'mid'] },
-  { text: "«Fountain Hook» — Chen + Pudge combo", shift: 0.15, weight: 2, tactics: ['early', 'mid'] },
-  { text: "«Collapse Horn Toss» — Carry dragged to fountain", shift: 0.14, weight: 3, tactics: ['mid', 'late'] },
-  { text: "«Ana Ember Dodge» — Untouchable in late game", shift: 0.14, weight: 3, tactics: ['late'] },
-  { text: "«Wings Unpredictable» — Outdrafted with 20 heroes", shift: 0.12, weight: 3 },
-  { text: "«Miracle Arc Warden» — Throne defended at 1 HP", shift: 0.14, weight: 2, tactics: ['late'] },
-  { text: "«17% Bash» — Spirit Breaker perma-stuns core", shift: 0.10, weight: 4, tactics: ['early', 'mid'] },
+  { text: "«Million Dollar Coil»", shift: 0.15, weight: 2 },
+  { text: "«Ceeeeeeeeeb!»", shift: 0.16, weight: 2, tactics: ['late', 'mid'] },
+  { text: "«Fountain Hook»", shift: 0.15, weight: 2, tactics: ['early', 'mid'] },
+  { text: "«Collapse Horn Toss»", shift: 0.14, weight: 3, tactics: ['mid', 'late'] },
+  { text: "«Ana Ember Dodge»", shift: 0.14, weight: 3, tactics: ['late'] },
+  { text: "«Wings Unpredictable»", shift: 0.12, weight: 3 },
+  { text: "«Miracle Arc Warden»", shift: 0.14, weight: 2, tactics: ['late'] },
+  { text: "«17% Bash»", shift: 0.10, weight: 4, tactics: ['early', 'mid'] },
 
   // Negative Iconic TI Blunders & Throws
-  { text: "«KyXy Aegis Deny» — Carry attacks own Aegis", shift: -0.16, weight: 2 },
-  { text: "«322 Throw» — Diving tier-4s with no buybacks", shift: -0.15, weight: 3 },
-  { text: "«no[o]ne Item Delete» — Tilted core destroys BKB", shift: -0.14, weight: 2, tactics: ['late'] },
-  { text: "«No TP Scroll» — Caught split-pushing without TP", shift: -0.12, weight: 3, tactics: ['late', 'mid'] },
-  { text: "«Lvl 1 Rosh Disaster» — Wiped before the horn", shift: -0.13, weight: 3, tactics: ['early'] },
-  { text: "«Rapier Dropped» — Divine Rapier lost in Rosh pit", shift: -0.15, weight: 2, tactics: ['late'] },
-  { text: "«Smoke Into Five» — Walked straight into highground", shift: -0.11, weight: 4, tactics: ['early', 'mid'] },
-  { text: "«5-Man Black Hole» — Enigma catches entire squad", shift: -0.15, weight: 2 },
+  { text: "«KyXy Aegis Deny»", shift: -0.16, weight: 2 },
+  { text: "«322 Throw»", shift: -0.15, weight: 3 },
+  { text: "«no[o]ne Item Delete»", shift: -0.14, weight: 2, tactics: ['late'] },
+  { text: "«No TP Scroll»", shift: -0.12, weight: 3, tactics: ['late', 'mid'] },
+  { text: "«Lvl 1 Rosh Disaster»", shift: -0.13, weight: 3, tactics: ['early'] },
+  { text: "«Rapier Dropped»", shift: -0.15, weight: 2, tactics: ['late'] },
+  { text: "«Smoke Into Five»", shift: -0.11, weight: 4, tactics: ['early', 'mid'] },
+  { text: "«5-Man Black Hole»", shift: -0.15, weight: 2 },
 ];
 
 function pickWeightedEvent(tactic: Tactic): GameEvent {

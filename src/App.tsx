@@ -59,7 +59,7 @@ export default function App() {
     if (screen === 'draft_daily') {
       const theme = getTodayTheme();
       const task = getTodayTask(theme);
-      const taskCompleted = task.check(r.champion, avg, saved);
+      const taskCompleted = task.check(r, avg, saved, theme.budget);
       saveDailyResult(r.placement, taskCompleted, avg, saved, theme.title);
     }
 
@@ -99,7 +99,7 @@ export default function App() {
             speed={matchSpeed}
             setSpeed={setMatchSpeed}
             customPool={screen === 'draft_free' ? freePool : undefined}
-            budget={screen === 'draft_daily' ? 1000 : undefined}
+            budget={screen === 'draft_daily' ? getTodayTheme().budget : undefined}
             onFinish={handleFinishMatch}
           />
         </div>
