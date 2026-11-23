@@ -39,6 +39,28 @@ interface DraftScreenProps {
   dailyDate?: string;
 }
 
+function DiceIcon({ className = 'w-[1.15em] h-[1.15em] inline-block align-[-0.2em]' }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.1"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3.5" />
+      <circle cx="8.5" cy="8.5" r="1.25" fill="currentColor" stroke="none" />
+      <circle cx="15.5" cy="8.5" r="1.25" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.25" fill="currentColor" stroke="none" />
+      <circle cx="8.5" cy="15.5" r="1.25" fill="currentColor" stroke="none" />
+      <circle cx="15.5" cy="15.5" r="1.25" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export default function DraftScreen({
   mode,
   speed,
@@ -88,11 +110,13 @@ export default function DraftScreen({
 
   const matchesTargetPlayer = (p: Player): boolean => {
     if (!targetPlayerKey) return false;
+    const cleanId = p.id.toLowerCase();
+    const cleanNick = p.nickname.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cleanTarget = targetPlayerKey.replace(/[^a-z0-9]/g, '');
     return (
-      p.id.toLowerCase() === targetPlayerKey ||
-      p.id.toLowerCase().startsWith(`${targetPlayerKey}_`) ||
-      p.nickname.toLowerCase().replace(/[^a-z0-9]/g, '') ===
-        targetPlayerKey.replace(/[^a-z0-9]/g, '')
+      cleanId === targetPlayerKey ||
+      cleanId.startsWith(`${targetPlayerKey}_`) ||
+      cleanNick === cleanTarget
     );
   };
 
@@ -111,6 +135,7 @@ export default function DraftScreen({
     excludeTeam?: TeamOption
   ): TeamRoll | null => {
     const modePool = getModePool();
+    if (modePool.length === 0) return null;
 
     let validTeams = modePool.filter((t) =>
       playersOfTeam(t.team, t.year).some((p) =>
@@ -118,14 +143,24 @@ export default function DraftScreen({
       )
     );
 
+    if (validTeams.length === 0) {
+      validTeams = modePool.filter((t) =>
+        playersOfTeam(t.team, t.year).some((p) => canPickPlayer(p, currentRoster))
+      );
+    }
+
+    if (validTeams.length === 0) {
+      validTeams = modePool.filter((t) => playersOfTeam(t.team, t.year).length > 0);
+    }
+
+    if (validTeams.length === 0) return null;
+
     if (excludeTeam && validTeams.length > 1) {
       const filtered = validTeams.filter(
         (t) => !(t.team === excludeTeam.team && t.year === excludeTeam.year)
       );
       if (filtered.length > 0) validTeams = filtered;
     }
-
-    if (validTeams.length === 0) return null;
 
     if (mode === 'daily' && targetPlayerKey) {
       const alreadyPicked = Object.values(currentRoster).some(
@@ -155,12 +190,15 @@ export default function DraftScreen({
     }
 
     const pick = validTeams[Math.floor(randomVal * validTeams.length)];
-    return { ...pick, players: playersOfTeam(pick.team, pick.year) };
+    const teamPlayers = playersOfTeam(pick.team, pick.year);
+    if (teamPlayers.length === 0) return null;
+
+    return { ...pick, players: teamPlayers };
   };
 
   const executeRoll = (isReroll: boolean) => {
     if (isRolling || isComplete) return;
-    if (isReroll && rerollsLeft === 0) return;
+    if (isReroll && rerollsLeft <= 0) return;
 
     const nextAttempt = rollCount + 1;
     const exclude = currentTeam ? { team: currentTeam.team, year: currentTeam.year } : undefined;
@@ -169,13 +207,14 @@ export default function DraftScreen({
     if (!nextTeam) return;
 
     setRollCount(nextAttempt);
-    if (isReroll) setRerollsLeft((n) => n - 1);
+    if (isReroll) setRerollsLeft((n) => Math.max(0, n - 1));
 
     pendingTeamRef.current = nextTeam;
     setIsRolling(true);
     setCurrentTeam(null);
 
-    const poolNames = Array.from(new Set(getModePool().map((t) => t.team)));
+    const modePool = getModePool();
+    const poolNames = Array.from(new Set(modePool.map((t) => t.team)));
     const possibleNames = poolNames.length > 0 ? poolNames : ALL_TEAMS.map((t) => t.team);
 
     let ticks = 0;
@@ -303,6 +342,7 @@ export default function DraftScreen({
         {(['early', 'mid', 'late'] as Tactic[]).map((item) => (
           <button
             key={item}
+            type="button"
             onClick={() => setTactic(item)}
             className={`flex-1 py-2 rounded-lg text-xs font-extrabold tracking-wider transition ${
               tactic === item
@@ -336,7 +376,10 @@ export default function DraftScreen({
                 </span>
               )}
             </span>
-            <span className="text-sm opacity-70">🎲 Rerolls: {rerollsLeft}</span>
+            <span className="text-sm opacity-70 inline-flex items-center gap-1">
+              <DiceIcon className="w-4 h-4 text-ti9-accent" />
+              <span>Rerolls: {rerollsLeft}</span>
+            </span>
           </h3>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-3 min-h-[90px]">
@@ -370,6 +413,7 @@ export default function DraftScreen({
                 return (
                   <button
                     key={p.id}
+                    type="button"
                     onClick={() => handlePlayerClick(p)}
                     disabled={disabled}
                     className={`rounded p-3 text-left text-sm transition border-2 relative h-full ${
@@ -413,25 +457,30 @@ export default function DraftScreen({
           <div>
             {!isRolling && !currentTeam && (
               <button
+                type="button"
                 onClick={() => executeRoll(false)}
                 className="w-full bg-ti9-accent text-ti9-dark hover:bg-amber-400 rounded-lg py-3 font-bold text-lg shadow-[0_0_15px_rgba(212,175,55,0.3)] transition transform active:scale-95"
               >
-                🎲 Roll Team
+                <DiceIcon className="w-[1.15em] h-[1.15em] inline-block align-[-0.2em] mr-1.5 text-ti9-dark" />
+                <span>Roll Team</span>
               </button>
             )}
 
             {!isRolling && currentTeam && (
               <button
+                type="button"
                 onClick={() => executeRoll(true)}
                 disabled={rerollsLeft === 0}
-                className="w-full bg-ti9-dark hover:bg-ti9-panel disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-3 text-lg font-bold border border-ti9-accent/30 transition transform active:scale-95 shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+                className="w-full bg-ti9-dark text-ti9-light hover:bg-ti9-panel disabled:opacity-30 disabled:cursor-not-allowed rounded-lg py-3 text-lg font-bold border border-ti9-accent/30 transition transform active:scale-95 shadow-[0_0_15px_rgba(212,175,55,0.1)]"
               >
-                🎲 Reroll ({rerollsLeft})
+                <DiceIcon className="w-[1.15em] h-[1.15em] inline-block align-[-0.2em] mr-1.5 text-ti9-accent" />
+                <span>Reroll ({rerollsLeft})</span>
               </button>
             )}
 
             {isRolling && (
               <button
+                type="button"
                 disabled
                 className="w-full bg-ti9-dark/50 text-ti9-accent/50 rounded-lg py-3 text-lg font-bold border border-ti9-accent/20 cursor-wait animate-pulse"
               >
@@ -504,6 +553,7 @@ export default function DraftScreen({
       </div>
 
       <button
+        type="button"
         onClick={() =>
           onFinish(
             simulateTournament(roster, tactic),

@@ -24,26 +24,82 @@ export interface DailyTask {
   ) => boolean;
 }
 
-const CIS_TEAMS = ['Natus Vincere', 'Team Spirit', 'Virtus.pro', 'BetBoom Team', '9Pandas', 'Empire', 'Vega Squadron', 'Winstrike', 'Gambit'];
-const CN_TEAMS = ['PSG.LGD', 'LGD Gaming', 'Wings Gaming', 'Newbee', 'Vici Gaming', 'Invictus Gaming', 'EHOME', 'CDEC Gaming', 'Team Aster', 'Xtreme Gaming', 'Azure Ray'];
-const WEU_TEAMS = ['OG', 'Team Liquid', 'Team Secret', 'Alliance', 'Tundra Esports', 'Gaimin Gladiators', 'Team Falcons', 'Nigma Galaxy', 'Entity'];
-const NA_SA_TEAMS = ['Evil Geniuses', 'Digital Chaos', 'beastcoast', 'Thunder Awaken', 'Quincy Crew', 'TSM', 'Shopify Rebellion', 'nouns'];
-const SEA_TEAMS = ['Fnatic', 'TNC Predator', 'Mineski', 'Talon Esports', 'T1', 'MVP Phoenix', 'BOOM Esports'];
+const CIS_TEAMS = [
+  'Natus Vincere',
+  'NaVi',
+  'Spirit',
+  'Virtus',
+  'VP',
+  'BetBoom',
+  '9Pandas',
+  'Empire',
+  'Vega',
+  'Winstrike',
+  'Gambit',
+];
+
+const CN_TEAMS = [
+  'LGD',
+  'Wings',
+  'Newbee',
+  'Vici',
+  'Invictus',
+  'iG',
+  'EHOME',
+  'CDEC',
+  'Aster',
+  'Xtreme',
+  'Azure Ray',
+];
+
+const WEU_TEAMS = [
+  'OG',
+  'Liquid',
+  'Secret',
+  'Alliance',
+  'Tundra',
+  'Gaimin',
+  'Falcons',
+  'Nigma',
+  'Entity',
+];
+
+const NA_SA_TEAMS = [
+  'Evil Geniuses',
+  'EG',
+  'Digital Chaos',
+  'beastcoast',
+  'Thunder',
+  'Quincy',
+  'TSM',
+  'Shopify',
+  'nouns',
+];
+
+const SEA_TEAMS = [
+  'Fnatic',
+  'TNC',
+  'Mineski',
+  'Talon',
+  'T1',
+  'MVP',
+  'BOOM',
+];
 
 const TI_WINNERS: Record<number, string[]> = {
-  2011: ['Natus Vincere'],
-  2012: ['Invictus Gaming'],
+  2011: ['Natus Vincere', 'NaVi'],
+  2012: ['Invictus', 'iG'],
   2013: ['Alliance'],
   2014: ['Newbee'],
-  2015: ['Evil Geniuses'],
-  2016: ['Wings Gaming'],
-  2017: ['Team Liquid'],
+  2015: ['Evil Geniuses', 'EG'],
+  2016: ['Wings'],
+  2017: ['Liquid'],
   2018: ['OG'],
   2019: ['OG'],
-  2021: ['Team Spirit'],
-  2022: ['Tundra Esports'],
-  2023: ['Team Spirit'],
-  2024: ['Team Liquid'],
+  2021: ['Spirit'],
+  2022: ['Tundra'],
+  2023: ['Spirit'],
+  2024: ['Liquid'],
 };
 
 const hasKeyword = (team: string, list: string[]) =>
@@ -51,11 +107,18 @@ const hasKeyword = (team: string, list: string[]) =>
 
 const hasPlayerInRoster = (roster: Roster | undefined, playerId: string): boolean => {
   if (!roster) return false;
-  return Object.values(roster).some((p) => p?.id === playerId);
+  const key = playerId.toLowerCase();
+  return Object.values(roster).some(
+    (p) =>
+      p !== null &&
+      (p.id.toLowerCase() === key ||
+        p.id.toLowerCase().startsWith(`${key}_`) ||
+        p.nickname.toLowerCase().replace(/[^a-z0-9]/g, '') === key.replace(/[^a-z0-9]/g, ''))
+  );
 };
 
 export const DAILY_THEMES: DailyTheme[] = [
-  // Standard $1000 themes (majority)
+  // Standard $1000 themes (34 of 40)
   { id: 'classic_1000', title: 'The International Standard', desc: 'All rosters available. Classic $1000 salary cap.', budget: 1000, filter: () => true },
   { id: 'early_eras', title: 'Old School Legends', desc: 'Only rosters from TI1 to TI3 (2011–2013).', budget: 1000, filter: (_, y) => y >= 2011 && y <= 2013 },
   { id: 'golden_era', title: 'Golden Era', desc: 'Rosters from TI4 to TI6 (2014–2016).', budget: 1000, filter: (_, y) => y >= 2014 && y <= 2016 },
@@ -76,17 +139,17 @@ export const DAILY_THEMES: DailyTheme[] = [
   { id: 'east_alliance', title: 'Eastern Alliance', desc: 'China + SEA rosters combined.', budget: 1000, filter: (t) => hasKeyword(t, [...CN_TEAMS, ...SEA_TEAMS]) },
   { id: 'eurasia', title: 'Eurasian Clash', desc: 'CIS + China organizations only.', budget: 1000, filter: (t) => hasKeyword(t, [...CIS_TEAMS, ...CN_TEAMS]) },
 
-  { id: 'el_clasico', title: 'El Clasico', desc: 'Natus Vincere vs Alliance across all editions.', budget: 1000, filter: (t) => hasKeyword(t, ['Natus Vincere', 'Alliance']) },
-  { id: 'ti8_ti9_finals', title: 'True Sight Rivalry', desc: 'OG vs Team Liquid / PSG.LGD rosters.', budget: 1000, filter: (t) => hasKeyword(t, ['OG', 'Team Liquid', 'LGD']) },
-  { id: 'spirit_vp', title: 'CIS Kings', desc: 'Team Spirit & Virtus.pro rosters only.', budget: 1000, filter: (t) => hasKeyword(t, ['Team Spirit', 'Virtus.pro']) },
-  { id: 'secret_liquid', title: 'European Royalty', desc: 'Team Secret & Team Liquid rosters.', budget: 1000, filter: (t) => hasKeyword(t, ['Team Secret', 'Team Liquid']) },
-  { id: 'eg_og', title: 'Fly & n0tail Legacy', desc: 'Evil Geniuses & OG rosters across history.', budget: 1000, filter: (t) => hasKeyword(t, ['Evil Geniuses', 'OG']) },
-  { id: 'lgd_ig_vg', title: 'Chinese Big Three', desc: 'LGD, Invictus Gaming & Vici Gaming.', budget: 1000, filter: (t) => hasKeyword(t, ['LGD', 'Invictus Gaming', 'Vici Gaming']) },
+  { id: 'el_clasico', title: 'El Clasico', desc: 'Natus Vincere vs Alliance across all editions.', budget: 1000, filter: (t) => hasKeyword(t, ['Natus Vincere', 'NaVi', 'Alliance']) },
+  { id: 'ti8_ti9_finals', title: 'True Sight Rivalry', desc: 'OG vs Team Liquid / PSG.LGD rosters.', budget: 1000, filter: (t) => hasKeyword(t, ['OG', 'Liquid', 'LGD']) },
+  { id: 'spirit_vp', title: 'CIS Kings', desc: 'Team Spirit & Virtus.pro rosters only.', budget: 1000, filter: (t) => hasKeyword(t, ['Spirit', 'Virtus', 'VP']) },
+  { id: 'secret_liquid', title: 'European Royalty', desc: 'Team Secret & Team Liquid rosters.', budget: 1000, filter: (t) => hasKeyword(t, ['Secret', 'Liquid']) },
+  { id: 'eg_og', title: 'Fly & n0tail Legacy', desc: 'Evil Geniuses & OG rosters across history.', budget: 1000, filter: (t) => hasKeyword(t, ['Evil Geniuses', 'EG', 'OG']) },
+  { id: 'lgd_ig_vg', title: 'Chinese Big Three', desc: 'LGD, Invictus Gaming & Vici Gaming.', budget: 1000, filter: (t) => hasKeyword(t, ['LGD', 'Invictus', 'iG', 'Vici']) },
   { id: 'tundra_gg_falcons', title: 'New Era Superteams', desc: 'Tundra, Gaimin Gladiators & Falcons.', budget: 1000, filter: (t) => hasKeyword(t, ['Tundra', 'Gaimin', 'Falcons']) },
-  { id: 'wings_newbee', title: 'CN Champions', desc: 'Wings Gaming, Newbee & Invictus Gaming.', budget: 1000, filter: (t) => hasKeyword(t, ['Wings', 'Newbee', 'Invictus Gaming']) },
-  { id: 'navi_spirit', title: 'Two Eras of Aegis', desc: 'Natus Vincere & Team Spirit rosters.', budget: 1000, filter: (t) => hasKeyword(t, ['Natus Vincere', 'Team Spirit']) },
-  { id: 'underdog_orgs', title: 'Dark Horses', desc: 'Exclude OG, Liquid, Secret, LGD, Spirit & EG.', budget: 1000, filter: (t) => !hasKeyword(t, ['OG', 'Team Liquid', 'Team Secret', 'LGD', 'Team Spirit', 'Evil Geniuses']) },
-  { id: 'vp_navi_empire', title: 'Old CIS School', desc: 'NaVi, Virtus.pro & Team Empire.', budget: 1000, filter: (t) => hasKeyword(t, ['Natus Vincere', 'Virtus.pro', 'Empire']) },
+  { id: 'wings_newbee', title: 'CN Champions', desc: 'Wings Gaming, Newbee & Invictus Gaming.', budget: 1000, filter: (t) => hasKeyword(t, ['Wings', 'Newbee', 'Invictus', 'iG']) },
+  { id: 'navi_spirit', title: 'Two Eras of Aegis', desc: 'Natus Vincere & Team Spirit rosters.', budget: 1000, filter: (t) => hasKeyword(t, ['Natus Vincere', 'NaVi', 'Spirit']) },
+  { id: 'underdog_orgs', title: 'Dark Horses', desc: 'Exclude OG, Liquid, Secret, LGD, Spirit & EG.', budget: 1000, filter: (t) => !hasKeyword(t, ['OG', 'Liquid', 'Secret', 'LGD', 'Spirit', 'Evil Geniuses', 'EG']) },
+  { id: 'vp_navi_empire', title: 'Old CIS School', desc: 'NaVi, Virtus.pro & Team Empire.', budget: 1000, filter: (t) => hasKeyword(t, ['Natus Vincere', 'NaVi', 'Virtus', 'VP', 'Empire']) },
   { id: 'fnatic_tnc', title: 'SEA Titans', desc: 'Fnatic, TNC Predator & Talon Esports.', budget: 1000, filter: (t) => hasKeyword(t, ['Fnatic', 'TNC', 'Talon']) },
   { id: 'china_west_finals', title: 'Grand Final Classics', desc: 'Rosters from TI1–TI13 with standard $1000 cap.', budget: 1000, filter: (_, y) => y >= 2011 && y <= 2024 },
   { id: 'ti6_ti10_mix', title: 'Six & Ten', desc: 'Rosters from TI6 and TI10.', budget: 1000, filter: (_, y) => y === 2016 || y === 2021 },
