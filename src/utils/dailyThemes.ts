@@ -160,7 +160,7 @@ export const DAILY_THEMES: DailyTheme[] = [
   { id: 'budget_800', title: 'Tight Salary Cap', desc: 'Full pool with a strict $800 budget limit.', budget: 800, filter: () => true },
   { id: 'budget_850', title: 'Value Drafter', desc: '$850 cap across all TI rosters.', budget: 850, filter: () => true },
   { id: 'budget_1200', title: 'Luxury Roster', desc: 'Expanded $1200 budget to build a superteam.', budget: 1200, filter: () => true },
-  { id: 'budget_cis_800', title: 'CIS Budget Run', desc: 'CIS teams with a tight $800 cap.', budget: 800, filter: (t) => hasKeyword(t, CIS_TEAMS) },
+  { id: 'budget_cis_800', title: 'CIS Budget Run', desc: 'CIS teams with a tight $850 cap.', budget: 850, filter: (t) => hasKeyword(t, CIS_TEAMS) },
   { id: 'budget_weu_1200', title: 'WEU Galacticos', desc: 'WEU rosters with an expanded $1200 cap.', budget: 1200, filter: (t) => hasKeyword(t, WEU_TEAMS) },
   { id: 'budget_modern_1200', title: 'Modern All-Stars', desc: 'TI9–TI13 rosters with a $1200 budget.', budget: 1200, filter: (_, y) => y >= 2019 },
 ];

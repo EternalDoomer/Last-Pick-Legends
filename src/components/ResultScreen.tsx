@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import type { TournamentResult, GameMode, MatchSpeed } from '../types';
 import { trackMatch } from '../utils/storage';
+import { ALL_ACHIEVEMENTS } from '../utils/achievements';
 import { normalizePlacement } from '../utils/draft';
 import TacticLabel from './TacticBadge';
+import AchievementToast, { type UnlockedAchievementToastItem } from './AchievementToast';
 
 const LEGACY_ROUND_MAP: Record<string, string> = {
   'Верхняя сетка: Четвертьфинал': 'Upper Bracket: Quarterfinal',
@@ -33,10 +35,29 @@ export default function ResultScreen({
   const [mapCount, setMapCount] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [expandedMatches, setExpandedMatches] = useState<Set<number>>(new Set());
+  const [toastQueue, setToastQueue] = useState<UnlockedAchievementToastItem[]>([]);
+
+  const handleDismissToast = useCallback(() => {
+    setToastQueue((prev) => prev.slice(1));
+  }, []);
 
   useEffect(() => {
     if (isFinished && mode !== 'free') {
-      trackMatch(result, mode, avgRating, savedBudget);
+      const newlyUnlockedIds = trackMatch(result, mode, avgRating, savedBudget);
+      if (newlyUnlockedIds.length > 0) {
+        const items: UnlockedAchievementToastItem[] = newlyUnlockedIds
+          .map((id) => ALL_ACHIEVEMENTS.find((a) => a.id === id))
+          .filter((a): a is NonNullable<typeof a> => Boolean(a))
+          .map((a) => ({
+            id: a.id,
+            title: a.title,
+            icon: a.icon,
+          }));
+
+        if (items.length > 0) {
+          setToastQueue((prev) => [...prev, ...items]);
+        }
+      }
     }
   }, [isFinished, result, mode, avgRating, savedBudget]);
 
@@ -321,6 +342,11 @@ export default function ResultScreen({
           {isFinished ? 'Play Again' : 'Tournament in progress...'}
         </button>
       </div>
+
+      <AchievementToast
+        achievement={toastQueue[0] ?? null}
+        onDismiss={handleDismissToast}
+      />
     </div>
   );
 }

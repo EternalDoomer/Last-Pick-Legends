@@ -349,7 +349,8 @@ export const trackMatch = (
   mode: GameMode,
   avgRating = 0,
   savedBudget = 0
-) => {
+): string[] => {
+  const prevUnlocked = new Set(getProfile().unlockedAchievements);
   const profile = getProfile();
   profile.matchesPlayed += 1;
 
@@ -387,6 +388,8 @@ export const trackMatch = (
   }
 
   saveProfile(profile);
+  const updatedUnlocked = getProfile().unlockedAchievements;
+  return updatedUnlocked.filter((id) => !prevUnlocked.has(id));
 };
 
 export const hasPlayedDailyToday = (): boolean => {

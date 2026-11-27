@@ -39,7 +39,11 @@ interface DraftScreenProps {
   dailyDate?: string;
 }
 
-function DiceIcon({ className = 'w-[1.15em] h-[1.15em] inline-block align-[-0.2em]' }: { className?: string }) {
+function DiceIcon({
+  className = 'w-[1.15em] h-[1.15em] inline-block align-[-0.2em]',
+}: {
+  className?: string;
+}) {
   return (
     <svg
       className={className}
@@ -76,6 +80,7 @@ export default function DraftScreen({
   const [currentTeam, setCurrentTeam] = useState<TeamRoll | null>(null);
   const [rerollsLeft, setRerollsLeft] = useState(INITIAL_REROLLS);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+  const [selectedRosterPos, setSelectedRosterPos] = useState<Position | null>(null);
   const [spentBudget, setSpentBudget] = useState(0);
   const [rollCount, setRollCount] = useState(0);
   const [tactic, setTactic] = useState<Tactic>('mid');
@@ -210,6 +215,8 @@ export default function DraftScreen({
     if (isReroll) setRerollsLeft((n) => Math.max(0, n - 1));
 
     pendingTeamRef.current = nextTeam;
+    setSelectedPlayer(null);
+    setSelectedRosterPos(null);
     setIsRolling(true);
     setCurrentTeam(null);
 
@@ -236,24 +243,74 @@ export default function DraftScreen({
       alert('Not enough budget for this player!');
       return;
     }
+    setSelectedRosterPos(null);
     setSelectedPlayer(selectedPlayer?.id === p.id ? null : p);
   };
 
+  const canMoveOrSwapRosterPlayer = (fromPos: Position, toPos: Position): boolean => {
+    if (fromPos === toPos) return false;
+    const movingPlayer = roster[fromPos];
+    if (!movingPlayer || !movingPlayer.positions.includes(toPos)) return false;
+
+    const targetPlayer = roster[toPos];
+    if (!targetPlayer) return true;
+
+    return targetPlayer.positions.includes(fromPos);
+  };
+
   const handleSlotClick = (pos: Position) => {
-    if (roster[pos] !== null || !selectedPlayer) return;
-    if (!selectedPlayer.positions.includes(pos)) {
-      alert(`${selectedPlayer.nickname} cannot play position ${pos}.`);
+    // 1. Placing a newly drafted player from the rolled team into an empty valid slot
+    if (selectedPlayer) {
+      if (roster[pos] !== null || !selectedPlayer.positions.includes(pos)) {
+        return;
+      }
+
+      setRoster(selectPlayer(selectedPlayer, roster, pos));
+
+      if (mode !== 'free' && !dailyDate) trackDraft(selectedPlayer.id);
+      if (mode === 'daily') setSpentBudget((prev) => prev + getPlayerCost(selectedPlayer));
+
+      setSelectedPlayer(null);
+      setSelectedRosterPos(null);
+      setCurrentTeam(null);
       return;
     }
 
-    setRoster(selectPlayer(selectedPlayer, roster, pos));
+    // 2. Moving or swapping an already drafted player between roster slots
+    if (selectedRosterPos !== null) {
+      if (selectedRosterPos === pos) {
+        setSelectedRosterPos(null);
+        return;
+      }
 
-    if (mode !== 'free' && !dailyDate) trackDraft(selectedPlayer.id);
-    if (mode === 'daily') setSpentBudget((prev) => prev + getPlayerCost(selectedPlayer));
+      if (canMoveOrSwapRosterPlayer(selectedRosterPos, pos)) {
+        const movingPlayer = roster[selectedRosterPos];
+        const targetPlayer = roster[pos];
+        setRoster({
+          ...roster,
+          [selectedRosterPos]: targetPlayer,
+          [pos]: movingPlayer,
+        });
+        setSelectedRosterPos(null);
+        return;
+      }
 
-    setSelectedPlayer(null);
-    setCurrentTeam(null);
+      // If clicked another drafted player that cannot swap, switch selection to them
+      if (roster[pos] !== null) {
+        setSelectedRosterPos(pos);
+      } else {
+        setSelectedRosterPos(null);
+      }
+      return;
+    }
+
+    // 3. Selecting an already drafted player from the roster to move/swap
+    if (roster[pos] !== null) {
+      setSelectedRosterPos(pos);
+    }
   };
+
+  const activeRosterPlayer = selectedRosterPos !== null ? roster[selectedRosterPos] : null;
 
   return (
     <div className="space-y-4 pb-10">
@@ -358,7 +415,9 @@ export default function DraftScreen({
       <div className="text-center text-sm opacity-70 h-5">
         {selectedPlayer
           ? `Selected ${selectedPlayer.nickname}. Click on an empty slot (POS).`
-          : 'Click on a player to select them.'}
+          : activeRosterPlayer
+          ? `Selected ${activeRosterPlayer.nickname}. Click a highlighted slot to move or swap.`
+          : 'Click on a player to select them, or click a roster slot to move.'}
       </div>
 
       {!isComplete && (
@@ -510,18 +569,23 @@ export default function DraftScreen({
         <div className="grid grid-cols-5 gap-2">
           {([1, 2, 3, 4, 5] as Position[]).map((pos) => {
             const p = roster[pos];
-            const canPlaceHere =
-              selectedPlayer && !p && selectedPlayer.positions.includes(pos);
+            const canPlaceDraftedHere =
+              Boolean(selectedPlayer) && !p && selectedPlayer!.positions.includes(pos);
+            const isSelectedRosterSlot = selectedRosterPos === pos;
+            const canMoveOrSwapHere =
+              selectedRosterPos !== null && canMoveOrSwapRosterPlayer(selectedRosterPos, pos);
 
             return (
               <div
                 key={pos}
                 onClick={() => handleSlotClick(pos)}
                 className={`rounded p-2 text-center text-xs transition border-2 ${
-                  p
-                    ? 'bg-ti9-dark border-ti9-accent/30'
-                    : canPlaceHere
+                  isSelectedRosterSlot
+                    ? 'bg-ti9-accent/20 border-ti9-accent ring-2 ring-ti9-accent cursor-pointer'
+                    : canPlaceDraftedHere || canMoveOrSwapHere
                     ? 'bg-green-900/40 border-green-500 cursor-pointer hover:bg-green-800/50'
+                    : p
+                    ? 'bg-ti9-dark border-ti9-accent/30 cursor-pointer hover:border-ti9-accent/60'
                     : 'bg-ti9-dark border-ti9-accent/10 border-dashed'
                 }`}
               >
@@ -542,9 +606,14 @@ export default function DraftScreen({
                         {hideRatings ? '?' : p.rating}
                       </div>
                     )}
+                    {canMoveOrSwapHere && (
+                      <div className="text-[10px] font-bold text-green-400 mt-0.5">Swap</div>
+                    )}
                   </>
                 ) : (
-                  <div className="text-slate-500 py-2">{canPlaceHere ? 'Place' : '—'}</div>
+                  <div className="text-slate-500 py-2">
+                    {canPlaceDraftedHere ? 'Place' : canMoveOrSwapHere ? 'Move' : '—'}
+                  </div>
                 )}
               </div>
             );
