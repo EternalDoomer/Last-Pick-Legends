@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import AchievementIcon from './AchievementIcon';
+import type { Achievement } from '../utils/achievements';
 
 export interface UnlockedAchievementToastItem {
   id: string;
   title: string;
-  icon?: string;
+  icon?: Achievement['icon'];
 }
 
 export default function AchievementToast({
@@ -30,7 +31,7 @@ export default function AchievementToast({
     <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
       <div className="w-full max-w-sm bg-gradient-to-r from-[#1b1430]/95 via-ti9-panel/95 to-[#151024]/95 border border-ti9-accent/70 rounded-xl px-3.5 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.65),0_0_16px_rgba(212,175,55,0.2)] flex items-center gap-3 backdrop-blur-md transition-all duration-300">
         <div className="w-9 h-9 rounded-lg bg-ti9-accent/15 border border-ti9-accent/45 text-ti9-accent flex items-center justify-center shrink-0">
-          <AchievementIcon icon={achievement.icon || 'star'} className="w-5 h-5" />
+          <AchievementIcon icon={achievement.icon ?? 'trophy'} className="w-5 h-5" />
         </div>
 
         <div className="min-w-0 flex-1">
